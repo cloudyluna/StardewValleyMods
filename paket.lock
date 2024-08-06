@@ -1,0 +1,3 @@
+NUGET
+  remote: https://www.nuget.org/api/v2
+    FSharp.Core (8.0.301)

@@ -3,6 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{944FBB5F-AF2B-4FDF-AAB7-F937A4FB6D40}"
+	ProjectSection(SolutionItems) = preProject
+		paket.dependencies = paket.dependencies
+	EndProjectSection
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CloudyCore", "CloudyCore\CloudyCore.fsproj", "{52B1751C-2F4B-408F-98A7-F8BEA31C8559}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +17,11 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{52B1751C-2F4B-408F-98A7-F8BEA31C8559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B1751C-2F4B-408F-98A7-F8BEA31C8559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B1751C-2F4B-408F-98A7-F8BEA31C8559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B1751C-2F4B-408F-98A7-F8BEA31C8559}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

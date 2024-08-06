@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <GamePath>$(STARDEW_VALLEY)</GamePath>
+    <EnableModZip>false</EnableModZip>
+    <!-- We enable this because FSharp.Core.dll doesn't come by default with SDV! -->
+    <BundleExtraAssemblies>ThirdParty</BundleExtraAssemblies>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="CloudyCore.fs" />
+  </ItemGroup>
+  <Import Project="..\.paket\Paket.Restore.targets" />
+</Project>
