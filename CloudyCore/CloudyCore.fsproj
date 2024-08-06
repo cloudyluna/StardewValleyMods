@@ -4,7 +4,9 @@
     <TargetFramework>net6.0</TargetFramework>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <GamePath>$(STARDEW_VALLEY)</GamePath>
+    <EnableGameDebugging>false</EnableGameDebugging>
     <EnableModZip>false</EnableModZip>
+    <EnableModDeploy>false</EnableModDeploy>
     <!-- We enable this because FSharp.Core.dll doesn't come by default with SDV! -->
     <BundleExtraAssemblies>ThirdParty</BundleExtraAssemblies>
   </PropertyGroup>
