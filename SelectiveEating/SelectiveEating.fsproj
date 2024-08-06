@@ -3,19 +3,18 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <GamePath>$(STARDEW_VALLEY)</GamePath>
-    
-    <EnableGameDebugging>false</EnableGameDebugging>
-    <EnableModDeploy>false</EnableModDeploy>
     <EnableModZip>false</EnableModZip>
-    
     <!-- We enable this because FSharp.Core.dll doesn't come by default with SDV! -->
     <BundleExtraAssemblies>ThirdParty</BundleExtraAssemblies>
-
     <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="IGenericConfigMenuApi.fs" />
-    <Compile Include="CloudyCore.fs" />
+    <Compile Include="src/Config.fs" />
+    <Compile Include="src/FoodPriorityPicker.fs" />
+    <Compile Include="src/Mod.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CloudyCore\CloudyCore.fsproj" />
   </ItemGroup>
   <Import Project="..\.paket\Paket.Restore.targets" />
 </Project>

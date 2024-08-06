@@ -1,0 +1,10 @@
+{
+  "IsSelectiveEatingModEnabled": true,
+  "SelectiveEatingShortcutButtonInput": "L",
+  "MinimumHealthToStartAutoEat": 60,
+  "MinimumStaminaToStartAutoEat": 20,
+  "ThresholdCheckPerSecond": 2,
+  "ForbiddenFoods": "",
+  "PrioritizedFoods": "",
+  "StayInLastDirectionToggle": true
+}

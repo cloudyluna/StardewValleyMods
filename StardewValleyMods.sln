@@ -10,6 +10,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".paket", ".paket", "{944FBB
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CloudyCore", "CloudyCore\CloudyCore.fsproj", "{52B1751C-2F4B-408F-98A7-F8BEA31C8559}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SelectiveEating", "SelectiveEating\SelectiveEating.fsproj", "{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,5 +25,9 @@ Global
 		{52B1751C-2F4B-408F-98A7-F8BEA31C8559}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52B1751C-2F4B-408F-98A7-F8BEA31C8559}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52B1751C-2F4B-408F-98A7-F8BEA31C8559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

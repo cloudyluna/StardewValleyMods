@@ -1,0 +1,12 @@
+{
+  "Name": "Selective Eating",
+  "Author": "Cloudyluna",
+  "Version": "0.1.0",
+  "Description": "Automatically consumes food to revitalize your player character.",
+  "UniqueID": "Cloudyluna.SelectiveEating",
+  "EntryDll": "SelectiveEating.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": [
+    "Nexus:26831"
+  ]
+}

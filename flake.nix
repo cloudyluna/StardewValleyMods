@@ -22,6 +22,10 @@
             ilspycmd # decompile SDV because there are so many things that
                      # aren't simply present in public documentation.
             avalonia-ilspy
+            zip
+            unzip
+            gnumake
+            pandoc
           ];
 
           LD_LIBRARY_PATH = "${lib.makeLibraryPath buildInputs}";

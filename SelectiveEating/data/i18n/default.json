@@ -1,0 +1,23 @@
+{
+    "menu.basics.title": "Basic options",
+    "menu.basics.enable-mod": "Enable mod?",
+    "menu.basics.minimum-health": "Minimum health (in %)",
+    "menu.basics.minimum-health.tooltip": "At what percentage when player should start eating automatically? To disable this, set to 0%",
+    "menu.basics.minimum-stamina": "Minimum stamina (in %)",
+    "menu.basics.minimum-stamina.tooltip": "At what percentage when player should start eating automatically? To disable this, set to 0%",
+    "menu.advanced.title": "Advanced options",
+    "menu.advanced.title.tooltip": "If you don't know what these does, it's recommended to leave them be. :3",
+    "menu.advanced.enable-mod-keybind": "Enable mod? (keybind)",
+    "menu.advanced.enable-mod-keybind.tooltip": "Bind a key button to toggle the mod on or off while playing.",
+    "menu.advanced.check-seconds-threshold": "Condition checking interval",
+    "menu.advanced.check-seconds-threshold.tooltip": "How often do you want to let the mod checking for your player condition in seconds? This also can affect performance if you're playing on slow device. If that's the case, set to higher number.",
+    "menu.advanced.forbidden-food": "Forbidden food",
+    "menu.advanced.forbidden-food.tooltip": "A list of food names that you don't want to eat. Use comma (,) to separate each name.",
+    "menu.advanced.forbidden-food.usage-example": "Example: Pizza,Leek,Banana",
+    "menu.advanced.forbidden-food.subsection": "ATTENTION! Remember this will cancel out the same names found in prioritized food below as well.",
+    "menu.advanced.prioritized-food": "Prioritized food",
+    "menu.advanced.prioritized-food.tooltip": "A list of food names that you wanna prioritize for eating. Use comma (,) to separate each name.",
+    "menu.advanced.prioritized-food.usage-example": "Example: Pizza,Leek,Banana",
+    "menu.advanced.stay-in-last-direction": "Stay in last direction?",
+    "menu.advanced.stay-in-last-direction.tooltip": "Should player turn to the same direction they were facing before eating?"
+}

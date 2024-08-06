@@ -1,0 +1,64 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\usepackage{graphicx}
+
+\title{SelectiveEating}
+\author{Cloudyluna}
+\date{\today}
+
+\begin{document}
+	
+	\section{SelectiveEating by Cloudyluna}
+	
+	A simple quality of life mod to make eating easier and automatic with configurable settings.
+	
+	\subsubsection{Features}
+	
+	\begin{itemize}
+		\item Automatically eats food based on health or stamina percentage deprivation.
+		\item Forbid certain food from being eaten.
+		\item Prioritize and make a list of food as the most important ones to be consumed first.
+		\item An option (default) to stay in the same facing direction even after eating.
+		\item Increase or decrease eating time interval for roleplaying/challenge or performance reasons.
+		\item Options can be configured through \href{https://www.nexusmods.com/stardewvalley/mods/5098}{Generic Config Menu mod} or \texttt{config.json} file within the mod directory.
+	\end{itemize}
+	
+	
+	\subsection{Building}
+	
+	\begin{quote}
+		Attention: Make sure you already have set up \$\textit{GAME\_PATH} pointing to your Stardew Valley game folder first.
+	\end{quote}
+
+	If you cloned this project from the Github and have \texttt{nix} installed, run \texttt{nix develop} to load the development environment. Then run \texttt{make} or \texttt{dotnet build} to build the project.
+	
+	\begin{verbatim}
+		# Example to build SelectiveEating for release
+		git clone https://github.com/cloudyluna/StardewValleyMods
+		cd SelectiveEating
+		make release
+	\end{verbatim}
+	
+	\subsection{URL link to the repository}
+	\href{https://github.com/cloudyluna/StardewValleyMods/tree/main/SelectiveEating}{Github repository}
+	
+	\subsection{Thanks to}
+	\begin{itemize}
+		\item \href{https://github.com/Pathoschild/SMAPI}{SMAPI dev and contributors} for making Stardew Valley modding accessible.
+		
+		\item \href{https://www.nexusmods.com/stardewvalley/mods/5098}{Generic Config Menu dev and contributors} for making mod configuration through GUI, simple and easy.
+	\end{itemize}
+	
+	\subsection{License}
+	
+	\begin{itemize}
+		\item This project is licensed under the AGPL-3.0-or-later. See the \texttt{LICENSE} file for details.
+		
+		\item  The bundled FSharp.Core is licensed under the MIT license. See \texttt{sublicenses/FSharp.MIT} file for details.
+	\end{itemize}
+	
+	
+\end{document}
