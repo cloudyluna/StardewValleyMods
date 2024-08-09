@@ -15,11 +15,6 @@ type VitalsPriority =
   | Stamina of VitalStatus
   | DoingOK
 
-type FoodPriority =
-  | Prioritized
-  | CheapestPrice
-  | Vitals of VitalsPriority
-
 module VitalsSelector =
   let ofPercentage current max =
     int <| (float current / float max) * 100.0
@@ -53,10 +48,12 @@ module VitalsSelector =
       DoingOK
 
 
+  let private closestNeededToReplenish recoveredAmount amountToRefill maxStat =
+    abs (ofPercentage (recoveredAmount ()) maxStat - amountToRefill)
+
   let getMostFittingHealthRevitalizingFood
-    (edibles : FoodItem seq)
     (vitalStat : VitalStatus)
-    applyPriority
+    (edibles : FoodItem array)
     : FoodItem
     =
 
@@ -65,18 +62,16 @@ module VitalsSelector =
     let amountToRefill = maxHealth - health
 
     edibles
-    |> applyPriority
-    |> Seq.minBy (fun item ->
-      abs (
-        ofPercentage (item.Food.healthRecoveredOnConsumption ()) maxHealth
-        - amountToRefill
-      )
+    |> Array.minBy (fun item ->
+      closestNeededToReplenish
+        item.Food.healthRecoveredOnConsumption
+        amountToRefill
+        maxHealth
     )
 
   let getMostFittingStaminaRevitalizingFood
-    (edibles : FoodItem seq)
     (vital : VitalStatus)
-    applyPriority
+    (edibles : FoodItem array)
     : FoodItem
     =
     let stamina = fromPercentage vital.Current
@@ -84,22 +79,21 @@ module VitalsSelector =
     let amountToRefill = maxStamina - stamina
 
     edibles
-    |> applyPriority
-    |> Seq.minBy (fun item ->
-      abs (
-        ofPercentage (item.Food.staminaRecoveredOnConsumption ()) maxStamina
-        - amountToRefill
-      )
+    |> Array.minBy (fun item ->
+      closestNeededToReplenish
+        item.Food.staminaRecoveredOnConsumption
+        amountToRefill
+        maxStamina
     )
 
 
 // TODO: Set which priority is this. Also, should we use this?
 module CheapestPriceSelector =
-  let getCheapestFood (edibles : FoodItem seq) (player : Farmer) : FoodItem =
-    let f (food : FoodItem) =
-      food.Food.sellToStorePrice player.UniqueMultiplayerID
+  let getCheapestFood (edibles : FoodItem array) (player : Farmer) : FoodItem =
+    let f (item : FoodItem) =
+      item.Food.sellToStorePrice player.UniqueMultiplayerID
 
-    edibles |> Seq.minBy f
+    edibles |> Array.minBy f
 
 module Edibles =
   open CloudyCore.Prelude
@@ -109,66 +103,56 @@ module Edibles =
     (forbiddenFood : string array)
     : bool
     =
-    not (Seq.exists (fun name -> food.Name = name) forbiddenFood)
+    not (Array.exists (fun name -> food.Name = name) forbiddenFood)
     // We don't care about food that gives negative health/stamina or nothing at all.
     && food.Edibility > 0
-
-
-  let private makeFoodItem
-    (food : Food)
-    (prioritizedFood : string array)
-    : FoodItem
-    =
-    let isAPriority =
-      prioritizedFood |> Seq.exists (fun name -> food.Name = name)
-
-    {
-      Food = food
-      IsPriority = isAPriority
-    }
 
 
   let makeEdibles
     (playerInventory : Inventories.Inventory)
     (forbiddenFood : string array)
-    (prioritizedFood : string array)
-    : FoodItem seq
+    : FoodItem array
     =
     seq {
-      for item in playerInventory do
+      let firstInventoryRowSize = 12
+
+      for i, item in Seq.indexed playerInventory do
         let object = Option.ofObj item |> Option.bind TryCast.toObject
+        let isAPriority = i <= firstInventoryRowSize - 1
 
         match object with
         | Some unprocessedFood ->
           if isNotForbidden unprocessedFood forbiddenFood then
-            yield! seq { makeFoodItem unprocessedFood prioritizedFood }
+            yield!
+              seq {
+                {
+                  Food = unprocessedFood
+                  IsPriority = isAPriority
+                }
+              }
         | None -> yield! Seq.empty
     }
+    |> Seq.toArray
 
 module InventoryFood =
   let tryGetFoodItem (config : ModConfig) (player : Farmer) : FoodItem option =
-    let withPriority (food : FoodItem seq) =
-      if food |> Seq.exists (fun f -> f.IsPriority) then
-        food |> Seq.filter (fun f -> f.IsPriority = true)
-      else
-        food
-
-
-    // TODO: Bring out of priority picker module and strengthen the list
-    // parsing in case of bad user input.
-    let forbiddens = config.ForbiddenFoods.Split (',')
-    let prioritizeds = config.PrioritizedFoods.Split (',')
-
-    let playerInventory = player.Items
 
     let makeEdibles =
-      lazy Edibles.makeEdibles playerInventory forbiddens prioritizeds
+      lazy
+        Edibles.makeEdibles
+          player.Items
+          (parsedForbiddenFood config.ForbiddenFoods)
 
-    let getFoodItem pickFromEdibles edibles vitalStat =
-      if Seq.isEmpty edibles then
+    let withPriorities (originFood : FoodItem array) =
+      let priorities = originFood |> Array.filter (fun f -> f.IsPriority)
+      if Array.isEmpty priorities then originFood else priorities
+
+    let getFoodItem pickVitalFoodFromEdibles vitalStat edibles =
+      if Array.isEmpty edibles then
         None
       else
-        Some <| pickFromEdibles edibles vitalStat withPriority
+        withPriorities edibles |> pickVitalFoodFromEdibles vitalStat |> Some
+
 
     match VitalsSelector.getVitalsPriority config player with
     | DoingOK -> None
@@ -176,13 +160,13 @@ module InventoryFood =
 
       getFoodItem
         VitalsSelector.getMostFittingHealthRevitalizingFood
-        (makeEdibles.Force ())
         vitalStat
+        (makeEdibles.Force ())
 
 
     | Stamina vitalStat ->
 
       getFoodItem
         VitalsSelector.getMostFittingStaminaRevitalizingFood
-        (makeEdibles.Force ())
         vitalStat
+        (makeEdibles.Force ())

@@ -17,8 +17,13 @@ module Config =
     member val ShouldPickCheapestFoodEnabled = false with get, set
     member val ThresholdCheckPerSecond = 2u with get, set
     member val ForbiddenFoods = "" with get, set
-    member val PrioritizedFoods = "" with get, set
     member val StayInLastDirectionToggle = true with get, set
+
+
+  // TODO: Fill in logic.
+  let parsedForbiddenFood (str : string) =
+    let splitted = str.Split (',')
+    splitted
 
 
   type private Slider =
@@ -119,16 +124,6 @@ module Config =
             null
           )
 
-          menu.AddBoolOption (
-            this.manifest,
-            (fun _ -> config.ShouldPickCheapestFoodEnabled),
-            (fun b -> this.config.Value.ShouldPickCheapestFoodEnabled <- b),
-            (fun _ -> i18n "menu.basics.enable-mod"),
-            null,
-            null
-          )
-
-
           menu.AddSectionTitle (
             this.manifest,
             (fun _ -> i18n "menu.advanced.title"),
@@ -180,22 +175,6 @@ module Config =
           menu.AddParagraph (
             this.manifest,
             (fun _ -> i18n "menu.advanced.forbidden-food.subsection")
-          )
-
-          menu.AddTextOption (
-            this.manifest,
-            (fun _ -> config.PrioritizedFoods),
-            (fun v -> this.config.Value.PrioritizedFoods <- v),
-            (fun _ -> i18n "menu.advanced.prioritized-food"),
-            (fun _ -> i18n "menu.advanced.prioritized-food.tooltip"),
-            null,
-            null,
-            null
-          )
-
-          menu.AddParagraph (
-            this.manifest,
-            (fun _ -> i18n "menu.advanced.prioritized-food.usage-example")
           )
 
           menu.AddBoolOption (
