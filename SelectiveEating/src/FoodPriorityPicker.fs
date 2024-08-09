@@ -153,8 +153,12 @@ module InventoryFood =
       else
         food
 
+
+    // TODO: Bring out of priority picker module and strengthen the list
+    // parsing in case of bad user input.
     let forbiddens = config.ForbiddenFoods.Split (',')
     let prioritizeds = config.PrioritizedFoods.Split (',')
+
     let playerInventory = player.Items
 
     let makeEdibles =
