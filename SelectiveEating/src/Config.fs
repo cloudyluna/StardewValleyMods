@@ -14,6 +14,7 @@ module Config =
     member val SelectiveEatingShortcutButtonInput = SButton.L with get, set
     member val MinimumHealthToStartAutoEat = 60 with get, set
     member val MinimumStaminaToStartAutoEat = 20 with get, set
+    member val ShouldPickCheapestFoodEnabled = false with get, set
     member val ThresholdCheckPerSecond = 2u with get, set
     member val ForbiddenFoods = "" with get, set
     member val PrioritizedFoods = "" with get, set
@@ -117,6 +118,16 @@ module Config =
             null,
             null
           )
+
+          menu.AddBoolOption (
+            this.manifest,
+            (fun _ -> config.ShouldPickCheapestFoodEnabled),
+            (fun b -> this.config.Value.ShouldPickCheapestFoodEnabled <- b),
+            (fun _ -> i18n "menu.basics.enable-mod"),
+            null,
+            null
+          )
+
 
           menu.AddSectionTitle (
             this.manifest,
