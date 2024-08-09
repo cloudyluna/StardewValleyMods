@@ -1,6 +1,6 @@
 DOTNET = dotnet
 RELEASE_DIR = ./bin/Release/net6.0/
-FOLDER_NAME = SelectiveEating-0.1.0
+FOLDER_NAME = SelectiveEating
 DIST_DIR = ./bin
 FOLDER_DIST_DIR = $(DIST_DIR)/$(FOLDER_NAME)
 
@@ -28,7 +28,6 @@ release:
 	rm -rf bin/ obj/
 	$(DOTNET) clean
 	$(DOTNET) build --configuration Release
-	cp -r ./data/config.json $(RELEASE_DIR)/
 	cp -r ./manifest.json $(RELEASE_DIR)/
 	cp -r ./sublicenses/ $(RELEASE_DIR)/
 	mkdir -p $(FOLDER_DIST_DIR)/
@@ -43,6 +42,8 @@ release:
 
 	cp -f ../LICENSE ./bin/Release/net6.0/
 	cp -f ../LICENSE ./bin/Debug/net6.0/
+
+	rm -f $(RELEASE_DIR)/SelectiveEating.deps.json
 	
 	
 	cp -r $(RELEASE_DIR)/* $(FOLDER_DIST_DIR)/

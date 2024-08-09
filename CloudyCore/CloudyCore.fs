@@ -51,3 +51,13 @@ module Functors =
   let tap (f : 'T -> unit) x =
     f x
     x
+
+
+module Math =
+  type Percentage = | Percentage of int
+
+  let ofPercentage current max =
+    int <| (float current / float max) * 100.0
+
+  let makePercentage current max = Percentage <| ofPercentage current max
+  let fromPercentage (Percentage percentage) = percentage

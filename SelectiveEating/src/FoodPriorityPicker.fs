@@ -2,11 +2,10 @@ namespace SelectiveEating
 
 open StardewValley
 open SelectiveEating.Config
+open CloudyCore.Prelude.Math
 
 type Food = Object
 type FoodItem = { Food : Food ; IsPriority : bool }
-
-type Percentage = | Percentage of int
 
 type VitalStatus = { Current : Percentage ; Max : int }
 
@@ -16,13 +15,6 @@ type VitalsPriority =
   | DoingOK
 
 module VitalsSelector =
-  let ofPercentage current max =
-    int <| (float current / float max) * 100.0
-
-  let private makePercentage current max =
-    Percentage <| ofPercentage current max
-
-  let private fromPercentage (Percentage percentage) = percentage
 
   /// Health will always be the biggest priority for vitals.
   let getVitalsPriority
@@ -87,9 +79,8 @@ module VitalsSelector =
     )
 
 
-// TODO: Set which priority is this. Also, should we use this?
 module CheapestPriceSelector =
-  let getCheapestFood (edibles : FoodItem array) (player : Farmer) : FoodItem =
+  let getCheapestFood (player : Farmer) (edibles : FoodItem array) : FoodItem =
     let f (item : FoodItem) =
       item.Food.sellToStorePrice player.UniqueMultiplayerID
 
@@ -114,11 +105,11 @@ module Edibles =
     : FoodItem array
     =
     seq {
-      let firstInventoryRowSize = 12
+      let currentActiveInventoryRowSize = 12
 
       for i, item in Seq.indexed playerInventory do
         let object = Option.ofObj item |> Option.bind TryCast.toObject
-        let isAPriority = i <= firstInventoryRowSize - 1
+        let isAPriority = i <= currentActiveInventoryRowSize - 1
 
         match object with
         | Some unprocessedFood ->
@@ -143,7 +134,7 @@ module InventoryFood =
           player.Items
           (parsedForbiddenFood config.ForbiddenFoods)
 
-    let withPriorities (originFood : FoodItem array) =
+    let getFoodWithHighestPriority (originFood : FoodItem array) =
       let priorities = originFood |> Array.filter (fun f -> f.IsPriority)
       if Array.isEmpty priorities then originFood else priorities
 
@@ -151,7 +142,18 @@ module InventoryFood =
       if Array.isEmpty edibles then
         None
       else
-        withPriorities edibles |> pickVitalFoodFromEdibles vitalStat |> Some
+
+        let getFoodWithNextLevelEatingPriority food =
+          if config.PriorityStrategySelection = "health_or_stamina" then
+            pickVitalFoodFromEdibles vitalStat food
+          elif config.PriorityStrategySelection = "cheapest" then
+            CheapestPriceSelector.getCheapestFood player food
+          else // Off. Just start eating from the active inventory row, left to right.
+            Array.head food
+
+        getFoodWithHighestPriority edibles
+        |> getFoodWithNextLevelEatingPriority
+        |> Some
 
 
     match VitalsSelector.getVitalsPriority config player with

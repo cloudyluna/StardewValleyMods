@@ -108,3 +108,10 @@ type IGenericConfigMenuApi =
     Func<string> *
     string ->
       unit
+
+
+  /// <summary>Register a method to notify when any option registered by this mod is edited through the config UI.</summary>
+  /// <param name="mod">The mod's manifest.</param>
+  /// <param name="onChange">The method to call with the option's unique field ID and new value.</param>
+  /// <remarks>Options use a randomized ID by default; you'll likely want to specify the <c>fieldId</c> argument when adding options if you use this.</remarks>
+  abstract member OnFieldChanged : IManifest * Action<string, obj> -> unit

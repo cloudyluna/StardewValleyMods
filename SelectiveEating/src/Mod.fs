@@ -4,7 +4,7 @@ open StardewValley
 open StardewModdingAPI
 open CloudyCore.Prelude
 open CloudyCore.IGenericConfigMenuApi
-open VitalsSelector
+open CloudyCore.Prelude.Math
 open SelectiveEating.Config
 
 type internal Mod() =

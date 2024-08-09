@@ -14,8 +14,8 @@ module Config =
     member val SelectiveEatingShortcutButtonInput = SButton.L with get, set
     member val MinimumHealthToStartAutoEat = 60 with get, set
     member val MinimumStaminaToStartAutoEat = 20 with get, set
-    member val ShouldPickCheapestFoodEnabled = false with get, set
-    member val ThresholdCheckPerSecond = 2u with get, set
+    member val PriorityStrategySelection = "health_or_stamina" with get, set
+    member val ThresholdCheckPerSecond = 1u with get, set
     member val ForbiddenFoods = "" with get, set
     member val StayInLastDirectionToggle = true with get, set
 
@@ -124,6 +124,35 @@ module Config =
             null
           )
 
+          menu.AddTextOption (
+            this.manifest,
+            (fun _ -> config.PriorityStrategySelection),
+            (fun v -> this.config.Value.PriorityStrategySelection <- v),
+            (fun _ -> i18n "menu.basics.priority-strategy"),
+            (fun _ -> i18n "menu.basics.priority-strategy.tooltip"),
+            [| "health_or_stamina" ; "Cheapest" ; "Off" |],
+            (fun unformatted ->
+              if unformatted = "health_or_stamina" then
+                "Health or Stamina"
+              elif unformatted = "Cheapest" then
+                "Cheapest food"
+              else
+                unformatted
+            ),
+            null
+          )
+
+          menu.AddSectionTitle (
+            this.manifest,
+            (fun _ -> i18n "menu.basics.priority.subsection.title"),
+            null
+          )
+
+          menu.AddParagraph (
+            this.manifest,
+            (fun _ -> i18n "menu.basics.priority.subsection")
+          )
+
           menu.AddSectionTitle (
             this.manifest,
             (fun _ -> i18n "menu.advanced.title"),
@@ -170,11 +199,6 @@ module Config =
           menu.AddParagraph (
             this.manifest,
             (fun _ -> i18n "menu.advanced.forbidden-food.usage-example")
-          )
-
-          menu.AddParagraph (
-            this.manifest,
-            (fun _ -> i18n "menu.advanced.forbidden-food.subsection")
           )
 
           menu.AddBoolOption (

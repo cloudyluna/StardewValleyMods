@@ -5,19 +5,20 @@ configurable settings.
 
 ### Features
 
-- Automatically eats food based on health or stamina percentage
-  deprivation.
+- Automatically eats food when you lost some health or energy. You can
+  configure this eating priority strategy in the configure menu to
+  either prioritizing replenishing the most health or energy as much as
+  possible, the lowest priced food to save money or simply turn this
+  extra strategy off.
 
-- Forbid certain food from being eaten.
+- Forbid certain food from being eaten. Configurable.
 
-- Prioritize and make a list of food as the most important ones to be
-  consumed first.
+- Prioritize the food in your inventory’s active row for eating.
 
-- An option (default) to stay in the same facing direction even after
-  eating.
+- An option to stay in the same facing direction even after eating.
 
-- Increase or decrease eating time interval for roleplaying/challenge or
-  performance reasons.
+- Increase or decrease eating time interval for role playing/challenge
+  or performance reasons.
 
 - Options can be configured through [Generic Config Menu
   mod](https://www.nexusmods.com/stardewvalley/mods/5098) or
