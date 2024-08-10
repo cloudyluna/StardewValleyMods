@@ -64,7 +64,7 @@ type internal Mod() =
           || stamina <= config.MinimumStaminaToStartAutoEat
 
 
-        if Context.CanPlayerMove && isTimeToProcess && arePlayerVitalsLow then
+        if isTimeToProcess && Context.CanPlayerMove && arePlayerVitalsLow then
           let lastPlayerDirection = player.FacingDirection
 
           InventoryFood.tryGetFoodItem config player

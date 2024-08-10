@@ -119,7 +119,9 @@ module Edibles =
 
       for i, item in Seq.indexed playerInventory do
         let object = Option.ofObj item |> Option.bind TryCast.toObject
-        let isAPriority = i <= currentActiveInventoryRowSize - 1
+
+        let isPartOfCurrentActiveInventoryRow =
+          i <= currentActiveInventoryRowSize - 1
 
         match object with
         | Some unprocessedFood ->
@@ -128,7 +130,7 @@ module Edibles =
               seq {
                 {
                   Food = unprocessedFood
-                  IsPriority = isAPriority
+                  IsPriority = isPartOfCurrentActiveInventoryRow
                 }
               }
         | None -> yield! Seq.empty

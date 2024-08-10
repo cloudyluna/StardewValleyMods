@@ -21,17 +21,9 @@ module Config =
     member val StayInLastDirectionToggle = true with get, set
 
 
-  // TODO: Could be refined further, but this will do for now.
   let parsedForbiddenFood (str : string) =
-    let removeWhitespaces (input : string) : string =
-      input.Replace(" ", "").Replace ("\t", "")
-
-    let parse (input : string) =
-      input.Split (',', StringSplitOptions.RemoveEmptyEntries)
-      |> Array.map removeWhitespaces
-      |> Array.filter (fun x -> not <| String.IsNullOrEmpty x)
-
-    parse str
+    str.Trim().Split (',', StringSplitOptions.RemoveEmptyEntries)
+    |> Array.map _.Trim()
 
 
   type private Slider =
