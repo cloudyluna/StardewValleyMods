@@ -7,6 +7,7 @@ open CloudyCore.IGenericConfigMenuApi
 #nowarn "3391"
 
 module Config =
+  open System
 
   [<AllowNullLiteral>]
   type ModConfig() =
@@ -20,10 +21,17 @@ module Config =
     member val StayInLastDirectionToggle = true with get, set
 
 
-  // TODO: Fill in logic.
+  // TODO: Could be refined further, but this will do for now.
   let parsedForbiddenFood (str : string) =
-    let splitted = str.Split (',')
-    splitted
+    let removeWhitespaces (input : string) : string =
+      input.Replace(" ", "").Replace ("\t", "")
+
+    let parse (input : string) =
+      input.Split (',', StringSplitOptions.RemoveEmptyEntries)
+      |> Array.map removeWhitespaces
+      |> Array.filter (fun x -> not <| String.IsNullOrEmpty x)
+
+    parse str
 
 
   type private Slider =
