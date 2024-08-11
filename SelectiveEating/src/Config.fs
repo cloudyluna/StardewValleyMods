@@ -24,7 +24,7 @@ module Config =
 
   let parsedForbiddenFood (str : string) =
     str.Trim().Split (',', StringSplitOptions.RemoveEmptyEntries)
-    |> Array.map _.Trim()
+    |> Array.map (fun i -> i.Trim())
 
 
   type private Slider =
