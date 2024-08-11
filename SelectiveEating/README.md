@@ -7,9 +7,12 @@ configurable settings.
 
 - Automatically eats food when you lost some health or energy. You can
   configure this eating priority strategy in the configure menu to
-  either prioritizing replenishing the most health or energy as much as
-  possible, the lowest priced food to save money or simply turn this
-  extra strategy off.
+  either prioritizing on replenishing the most health or energy as much
+  as possible, the lowest priced food to save money or simply turn this
+  extra strategy off at any time.
+
+- Entirely skip eating animation (and the world pauses that comes with
+  it) for you to eat food on the go, automatically. Configurable.
 
 - Forbid certain food from being eaten. Configurable.
 
