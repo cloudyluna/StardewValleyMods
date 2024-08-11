@@ -16,9 +16,10 @@ module Config =
     member val MinimumHealthToStartAutoEat = 80 with get, set
     member val MinimumStaminaToStartAutoEat = 80 with get, set
     member val PriorityStrategySelection = "health_or_stamina" with get, set
+    member val IsSkipEatingAnimationEnabled = false with get, set
     member val ThresholdCheckPerSecond = 1u with get, set
     member val ForbiddenFoods = "" with get, set
-    member val StayInLastDirectionToggle = true with get, set
+    member val IsStayInLastDirectionEnabled = true with get, set
 
 
   let parsedForbiddenFood (str : string) =
@@ -153,6 +154,15 @@ module Config =
             (fun _ -> i18n "menu.basics.priority.subsection")
           )
 
+          menu.AddBoolOption (
+            this.manifest,
+            (fun _ -> config.IsSkipEatingAnimationEnabled),
+            (fun b -> this.config.Value.IsSkipEatingAnimationEnabled <- b),
+            (fun _ -> i18n "menu.basics.enable-skip-eating-animation"),
+            (fun _ -> i18n "menu.basics.enable-skip-eating-animation.tooltip"),
+            null
+          )
+
           menu.AddSectionTitle (
             this.manifest,
             (fun _ -> i18n "menu.advanced.title"),
@@ -203,8 +213,8 @@ module Config =
 
           menu.AddBoolOption (
             this.manifest,
-            (fun _ -> config.StayInLastDirectionToggle),
-            (fun b -> this.config.Value.StayInLastDirectionToggle <- b),
+            (fun _ -> config.IsStayInLastDirectionEnabled),
+            (fun b -> this.config.Value.IsStayInLastDirectionEnabled <- b),
             (fun _ -> i18n "menu.advanced.stay-in-last-direction"),
             (fun _ -> i18n "menu.advanced.stay-in-last-direction.tooltip"),
             null

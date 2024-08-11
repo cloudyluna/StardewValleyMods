@@ -57,27 +57,71 @@ type internal Mod() =
           event.IsMultipleOf (config.ThresholdCheckPerSecond * 60u)
 
         let health = ofPercentage player.health player.maxHealth
+
         let stamina = ofPercentage (int player.stamina) player.MaxStamina
 
         let arePlayerVitalsLow =
           health <= config.MinimumHealthToStartAutoEat
           || stamina <= config.MinimumStaminaToStartAutoEat
 
-
-        if isTimeToProcess && Context.CanPlayerMove && arePlayerVitalsLow then
-          let lastPlayerDirection = player.FacingDirection
-
-          InventoryFood.tryGetFoodItem config player
-          |> Option.iter (fun item ->
-            this.EatFood (player, item.Food)
-            player.FacingDirection <- lastPlayerDirection
-          )
+        if isTimeToProcess && arePlayerVitalsLow then
+          this.TryEatFood (Context.CanPlayerMove, config, player)
     )
 
-  member private this.EatFood (player : Farmer, food : Food) =
+  member private this.TryEatFood
+    (canPlayerMove : bool, config : ModConfig, player : Farmer)
+    =
+    InventoryFood.tryGetFoodItem config player
+    |> Option.iter (fun item ->
+      let lastPlayerDirection = player.FacingDirection
 
-    player.eatObject (food, false)
-    food.Stack <- food.Stack - 1
+      this.EatFood (
+        canPlayerMove,
+        lastPlayerDirection,
+        config,
+        player,
+        item.Food
+      )
+    )
 
-    if food.Stack = 0 then
-      player.removeItemFromInventory food
+  member private this.EatFood
+    (
+      canPlayerMove : bool,
+      lastPlayerDirectionBeforeEating : int,
+      config : ModConfig,
+      player : Farmer,
+      food : Food
+    )
+    =
+    let decreaseFood () =
+
+      food.Stack <- food.Stack - 1
+
+      if food.Stack = 0 then
+        player.removeItemFromInventory food
+
+    let canEatWithAnimation =
+      not config.IsSkipEatingAnimationEnabled && canPlayerMove
+
+    if config.IsSkipEatingAnimationEnabled then
+      this.EatWithoutAnimation (player, food)
+      decreaseFood ()
+    elif canEatWithAnimation then
+      player.eatObject (food, false)
+
+      if config.IsStayInLastDirectionEnabled then
+        player.FacingDirection <- lastPlayerDirectionBeforeEating
+
+      decreaseFood ()
+
+  member private this.EatWithoutAnimation (player : Farmer, food : Food) =
+    player.health <-
+      min
+        player.maxHealth
+        (player.health + food.healthRecoveredOnConsumption ())
+
+    player.stamina <-
+      float32
+      <| min
+        player.MaxStamina
+        (int player.stamina + food.staminaRecoveredOnConsumption ())

@@ -9,6 +9,8 @@
     "menu.basics.priority-strategy.tooltip": "Health and stamina will pick a food that will replenish your health and stamina the most. Cheapest will pick the lowest priced one. Off will pick from the most top left to the right bottom of your inventory.",
     "menu.basics.priority.subsection.title": "Further explanation for eating priority",
     "menu.basics.priority.subsection": "Health and stamina: For example, if you lost 60% of health, it will try to replenish those 60% back by making you eat a food with the closest amount of health.\n\nCheapest food: Got food that aren't worth selling but could still be useful for a small bits of energy or health? Pick this.\n\nOff: Your character will eat the food from left to right of your active inventory row. If no food is present in your active row, it will go to the next below and so on.",
+    "menu.basics.enable-skip-eating-animation": "Skip eating animation",
+    "menu.basics.enable-skip-eating-animation.tooltip": "Eats food on demand. No world pauses and don't wait for long eating animation.",
     "menu.advanced.title": "Advanced options",
     "menu.advanced.title.tooltip": "If you don't know what these does, it's recommended to leave them be. :3",
     "menu.advanced.enable-mod-keybind": "Enable mod? (keybind)",
