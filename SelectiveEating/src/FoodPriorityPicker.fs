@@ -96,10 +96,10 @@ module Edibles =
     =
     not (
       Array.exists
-        (fun name ->
+        (fun qid ->
           System.String.Equals (
-            food.Name,
-            name,
+            food.QualifiedItemId,
+            qid,
             System.StringComparison.OrdinalIgnoreCase
           )
         )

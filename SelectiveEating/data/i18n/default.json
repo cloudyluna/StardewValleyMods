@@ -18,8 +18,8 @@
     "menu.advanced.check-seconds-threshold": "Condition checking interval",
     "menu.advanced.check-seconds-threshold.tooltip": "How often do you want to let the mod check for your player condition in seconds? This also can affect performance if you're playing on slow device. If that's the case, set to higher number.",
     "menu.advanced.forbidden-food": "Forbidden food",
-    "menu.advanced.forbidden-food.tooltip": "A list of food names that you don't want to eat. Use comma (,) to separate each name.",
-    "menu.advanced.forbidden-food.usage-example": "Example: leek,largemouth bass,pizza",
+    "menu.advanced.forbidden-food.tooltip": "A list of food's qualified item IDs that you don't want to eat. Use comma (,) to separate each name. Case-insensitive",
+    "menu.advanced.forbidden-food.usage-example": "Example: 863,903,773",
     "menu.advanced.stay-in-last-direction": "Stay facing last direction?",
     "menu.advanced.stay-in-last-direction.tooltip": "Should player turn back to the same direction they were facing before eating?"
 }
