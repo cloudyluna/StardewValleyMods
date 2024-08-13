@@ -12,8 +12,6 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CloudyCore", "CloudyCore\Cl
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SelectiveEating", "SelectiveEating\SelectiveEating.fsproj", "{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "ContentPatcherDataGenerator", "ContentPatcherDataGenerator\ContentPatcherDataGenerator.fsproj", "{7EF3CEE8-A92E-4C59-920A-0C348DC7AD13}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,9 +29,5 @@ Global
 		{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7EF3CEE8-A92E-4C59-920A-0C348DC7AD13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7EF3CEE8-A92E-4C59-920A-0C348DC7AD13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7EF3CEE8-A92E-4C59-920A-0C348DC7AD13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7EF3CEE8-A92E-4C59-920A-0C348DC7AD13}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
