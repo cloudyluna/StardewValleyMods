@@ -5,8 +5,11 @@ open SelectiveEating.Config
 open CloudyCore.Prelude.Math
 
 type Food = Object
+
+[<Struct>]
 type FoodItem = { Food : Food ; IsPriority : bool }
 
+[<Struct>]
 type VitalStatus = { Current : Percentage ; Max : int }
 
 type VitalsPriority =
@@ -16,6 +19,14 @@ type VitalsPriority =
 
 module VitalsSelector =
 
+  /// Make percentage of current player's health.
+  let makePlayerHealth (player : Farmer) =
+    ofPercentage player.health player.maxHealth
+
+  /// Make percentage of current player's stamina.
+  let makePlayerStamina (player : Farmer) =
+    ofPercentage (int player.stamina) player.MaxStamina
+
   /// Health will always be the biggest priority for vitals.
   let getVitalsPriority
     (config : ModConfig)
@@ -23,18 +34,15 @@ module VitalsSelector =
     : VitalsPriority
     =
 
-    let health = ofPercentage player.health player.maxHealth
-    let stamina = ofPercentage (int player.stamina) player.MaxStamina
-
     let makeVitalStatus current max =
       {
         Current = makePercentage current max
         Max = max
       }
 
-    if health <= config.MinimumHealthToStartAutoEat then
+    if makePlayerHealth player <= config.MinimumHealthToStartAutoEat then
       Health <| makeVitalStatus player.health player.maxHealth
-    elif stamina <= config.MinimumStaminaToStartAutoEat then
+    elif makePlayerStamina player <= config.MinimumStaminaToStartAutoEat then
       Stamina <| makeVitalStatus (int player.stamina) player.maxHealth
     else
       DoingOK
@@ -112,16 +120,16 @@ module Edibles =
   let makeEdibles
     (playerInventory : Inventories.Inventory)
     (forbiddenFood : string array)
-    : FoodItem array
+    : FoodItem seq
     =
     seq {
       let currentActiveInventoryRowSize = 12
 
       for i, item in Seq.indexed playerInventory do
-        let object = Option.ofObj item |> Option.bind TryCast.toObject
-
         let isPartOfCurrentActiveInventoryRow =
           i <= currentActiveInventoryRowSize - 1
+
+        let object = Option.ofObj item |> Option.bind TryCast.toObject
 
         match object with
         | Some unprocessedFood ->
@@ -135,7 +143,6 @@ module Edibles =
               }
         | None -> yield! Seq.empty
     }
-    |> Seq.toArray
 
 module InventoryFood =
   let tryGetFoodItem (config : ModConfig) (player : Farmer) : FoodItem option =
@@ -146,7 +153,7 @@ module InventoryFood =
         (parsedForbiddenFood config.ForbiddenFoods)
 
     let getFoodWithHighestPriority (originFood : FoodItem array) =
-      let priorities = originFood |> Array.filter (fun f -> f.IsPriority)
+      let priorities = originFood |> Array.filter _.IsPriority
       if Array.isEmpty priorities then originFood else priorities
 
     let getFoodItem pickVitalFoodFromEdibles vitalStat edibles =
@@ -155,9 +162,9 @@ module InventoryFood =
       else
 
         let getFoodWithNextLevelEatingPriority food =
-          if config.PriorityStrategySelection = "health_or_stamina" then
+          if config.PriorityStrategySelection = HealthOrStamina.ToString () then
             pickVitalFoodFromEdibles vitalStat food
-          elif config.PriorityStrategySelection = "cheapest" then
+          elif config.PriorityStrategySelection = CheapestFood.ToString () then
             CheapestPriceSelector.getCheapestFood player food
           else // Off. Just start eating from the active inventory row, left to right.
             Array.head food
@@ -174,7 +181,7 @@ module InventoryFood =
       getFoodItem
         VitalsSelector.getMostFittingHealthRevitalizingFood
         vitalStat
-        (makeEdibles ())
+        (makeEdibles () |> Seq.toArray)
 
 
     | Stamina vitalStat ->
@@ -182,4 +189,4 @@ module InventoryFood =
       getFoodItem
         VitalsSelector.getMostFittingStaminaRevitalizingFood
         vitalStat
-        (makeEdibles ())
+        (makeEdibles () |> Seq.toArray)

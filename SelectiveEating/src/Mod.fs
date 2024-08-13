@@ -4,8 +4,8 @@ open StardewValley
 open StardewModdingAPI
 open CloudyCore.Prelude
 open CloudyCore.IGenericConfigMenuApi
-open CloudyCore.Prelude.Math
 open SelectiveEating.Config
+open VitalsSelector
 
 type internal Mod() =
   inherit StardewModdingAPI.Mod()
@@ -45,7 +45,16 @@ type internal Mod() =
       then
         this.Config.Value.IsSelectiveEatingModEnabled <-
           not this.Config.Value.IsSelectiveEatingModEnabled
+
+        this.ShowKeybindModToggleHUDMessage
+          this.Config.Value.IsSelectiveEatingModEnabled
     )
+
+  member private this.ShowKeybindModToggleHUDMessage (isToggled : bool) =
+    let modStatus = if isToggled then "enabled" else "disabled"
+    let hudMessage = HUDMessage $"Selective Eating mod has been {modStatus}"
+    hudMessage.noIcon <- true
+    Game1.addHUDMessage hudMessage
 
   member private this.OnUpdateTicked (event : Events.UpdateTickedEventArgs) =
     this.Config
@@ -53,66 +62,62 @@ type internal Mod() =
       if Context.IsWorldReady && config.IsSelectiveEatingModEnabled then
         let player = Game1.player
 
+        let threshold = config.ThresholdCheckPerSecond
+
         let isTimeToProcess =
-          event.IsMultipleOf (config.ThresholdCheckPerSecond * 60u)
-
-        let health = ofPercentage player.health player.maxHealth
-
-        let stamina = ofPercentage (int player.stamina) player.MaxStamina
+          event.IsMultipleOf (if threshold > 0u then threshold * 60u else 20u)
 
         let arePlayerVitalsLow =
-          health <= config.MinimumHealthToStartAutoEat
-          || stamina <= config.MinimumStaminaToStartAutoEat
+          makePlayerHealth player <= config.MinimumHealthToStartAutoEat
+          || makePlayerStamina player <= config.MinimumStaminaToStartAutoEat
 
         if isTimeToProcess && arePlayerVitalsLow then
-          this.TryEatFood (Context.CanPlayerMove, config, player)
+          this.TryEatFood (config, player)
     )
 
-  member private this.TryEatFood
-    (canPlayerMove : bool, config : ModConfig, player : Farmer)
-    =
+  member private this.TryEatFood (config : ModConfig, player : Farmer) =
     InventoryFood.tryGetFoodItem config player
     |> Option.iter (fun item ->
       let lastPlayerDirection = player.FacingDirection
 
-      this.EatFood (
-        canPlayerMove,
-        lastPlayerDirection,
-        config,
-        player,
-        item.Food
-      )
+      this.EatFood (lastPlayerDirection, config, player, item.Food)
     )
 
   member private this.EatFood
     (
-      canPlayerMove : bool,
       lastPlayerDirectionBeforeEating : int,
       config : ModConfig,
       player : Farmer,
       food : Food
     )
     =
-    let decreaseFood () =
-
-      food.Stack <- food.Stack - 1
-
-      if food.Stack = 0 then
-        player.removeItemFromInventory food
-
-    let canEatWithAnimation =
-      not config.IsSkipEatingAnimationEnabled && canPlayerMove
+    let shouldEatWithAnimation =
+      not config.IsSkipEatingAnimationEnabled && Context.CanPlayerMove
 
     if config.IsSkipEatingAnimationEnabled then
       this.EatWithoutAnimation (player, food)
-      decreaseFood ()
-    elif canEatWithAnimation then
-      player.eatObject (food, false)
+    elif shouldEatWithAnimation then
+      this.EatWithAnimation (
+        lastPlayerDirectionBeforeEating,
+        config,
+        player,
+        food
+      )
 
-      if config.IsStayInLastDirectionEnabled then
-        player.FacingDirection <- lastPlayerDirectionBeforeEating
+  member private this.EatWithAnimation
+    (
+      lastPlayerDirectionBeforeEating : int,
+      config : ModConfig,
+      player : Farmer,
+      food : Food
+    )
+    =
+    player.eatObject (food, false)
 
-      decreaseFood ()
+    if config.IsStayInLastDirectionEnabled then
+      player.FacingDirection <- lastPlayerDirectionBeforeEating
+
+    this.DecreaseFood (player, food)
 
   member private this.EatWithoutAnimation (player : Farmer, food : Food) =
     player.health <-
@@ -125,3 +130,11 @@ type internal Mod() =
       <| min
         player.MaxStamina
         (int player.stamina + food.staminaRecoveredOnConsumption ())
+
+    this.DecreaseFood (player, food)
+
+  member private this.DecreaseFood (player : Farmer, food : Food) =
+    food.Stack <- food.Stack - 1
+
+    if food.Stack = 0 then
+      player.removeItemFromInventory food

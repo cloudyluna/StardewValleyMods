@@ -1,4 +1,4 @@
-DOTNET = dotnet6
+DOTNET = dotnet
 RELEASE_DIR = ./bin/Release/net6.0/
 FOLDER_NAME = SelectiveEating
 DIST_DIR = ./bin

@@ -17,14 +17,14 @@ module Config =
     member val MinimumStaminaToStartAutoEat = 80 with get, set
     member val PriorityStrategySelection = "health_or_stamina" with get, set
     member val IsSkipEatingAnimationEnabled = false with get, set
-    member val ThresholdCheckPerSecond = 1u with get, set
+    member val ThresholdCheckPerSecond = 0u with get, set
     member val ForbiddenFoods = "" with get, set
     member val IsStayInLastDirectionEnabled = true with get, set
 
 
   let parsedForbiddenFood (str : string) =
     str.Trim().Split (',', StringSplitOptions.RemoveEmptyEntries)
-    |> Array.map (fun i -> i.Trim())
+    |> Array.map (fun i -> i.Trim ())
 
 
   type private Slider =
@@ -33,6 +33,19 @@ module Config =
       Max : int
       Interval : int
     }
+
+  type FoodPriorityStrategy =
+    | HealthOrStamina
+    | CheapestFood
+    | Off
+    | Invalid of string
+
+  let priorityStrategyFromString s =
+    match s with
+    | "HealthOrStamina" -> HealthOrStamina
+    | "CheapestFood" -> CheapestFood
+    | "Off" -> Off
+    | _other -> Invalid _other
 
   type GenericConfigMennu
     (
@@ -131,14 +144,17 @@ module Config =
             (fun v -> this.config.Value.PriorityStrategySelection <- v),
             (fun _ -> i18n "menu.basics.priority-strategy"),
             (fun _ -> i18n "menu.basics.priority-strategy.tooltip"),
-            [| "health_or_stamina" ; "Cheapest" ; "Off" |],
+            [|
+              FoodPriorityStrategy.HealthOrStamina.ToString ()
+              FoodPriorityStrategy.CheapestFood.ToString ()
+              FoodPriorityStrategy.Off.ToString ()
+            |],
             (fun unformatted ->
-              if unformatted = "health_or_stamina" then
-                "Health or Stamina"
-              elif unformatted = "Cheapest" then
-                "Cheapest food"
-              else
-                unformatted
+              match priorityStrategyFromString unformatted with
+              | HealthOrStamina -> "Health or Stamina"
+              | CheapestFood -> "Cheapest Food"
+              | Off -> "Off"
+              | Invalid _other -> $"error: invalid key -> {_other}"
             ),
             null
           )
@@ -180,7 +196,7 @@ module Config =
             ""
           )
 
-          let checkSecondsOpt : Slider = { Min = 1 ; Max = 60 ; Interval = 1 }
+          let checkSecondsOpt : Slider = { Min = 0 ; Max = 60 ; Interval = 1 }
 
           menu.AddNumberOption (
             this.manifest,

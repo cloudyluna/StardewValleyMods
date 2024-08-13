@@ -1,4 +1,4 @@
-DOTNET = dotnet6
+DOTNET = dotnet
 PANDOC = pandoc
 DOCS = ./docs
 PFLAGS = $(PANDOC) -t commonmark $(DOCS)
