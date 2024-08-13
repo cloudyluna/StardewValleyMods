@@ -140,11 +140,10 @@ module Edibles =
 module InventoryFood =
   let tryGetFoodItem (config : ModConfig) (player : Farmer) : FoodItem option =
 
-    let makeEdibles =
-      lazy
-        Edibles.makeEdibles
-          player.Items
-          (parsedForbiddenFood config.ForbiddenFoods)
+    let makeEdibles () =
+      Edibles.makeEdibles
+        player.Items
+        (parsedForbiddenFood config.ForbiddenFoods)
 
     let getFoodWithHighestPriority (originFood : FoodItem array) =
       let priorities = originFood |> Array.filter (fun f -> f.IsPriority)
@@ -175,7 +174,7 @@ module InventoryFood =
       getFoodItem
         VitalsSelector.getMostFittingHealthRevitalizingFood
         vitalStat
-        (makeEdibles.Force ())
+        (makeEdibles ())
 
 
     | Stamina vitalStat ->
@@ -183,4 +182,4 @@ module InventoryFood =
       getFoodItem
         VitalsSelector.getMostFittingStaminaRevitalizingFood
         vitalStat
-        (makeEdibles.Force ())
+        (makeEdibles ())
