@@ -102,18 +102,10 @@ module Edibles =
     (forbiddenFood : string array)
     : bool
     =
-    not (
-      Array.exists
-        (fun qid ->
-          System.String.Equals (
-            food.QualifiedItemId,
-            qid,
-            System.StringComparison.OrdinalIgnoreCase
-          )
-        )
-        forbiddenFood
-    )
-    // We don't care about food that gives negative health/stamina or nothing at all.
+    not (Array.exists (fun id -> food.ItemId = id) forbiddenFood)
+
+    // We don't care about food that gives negative health/stamina or nothing
+    // positive of value at all.
     && food.Edibility > 0
 
 

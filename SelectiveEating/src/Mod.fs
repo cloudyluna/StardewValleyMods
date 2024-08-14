@@ -50,9 +50,16 @@ type internal Mod() =
           this.Config.Value.IsSelectiveEatingModEnabled
     )
 
-  member private this.ShowKeybindModToggleHUDMessage (isToggled : bool) =
-    let modStatus = if isToggled then "enabled" else "disabled"
-    let hudMessage = HUDMessage $"Selective Eating mod has been {modStatus}"
+  member private this.ShowKeybindModToggleHUDMessage (isEnabled : bool) =
+    let modStatus = if isEnabled then "enabled" else "disabled"
+
+    let message =
+      this.Helper.Translation.Get (
+        "keybind-toggle-hud-message",
+        {| modIsEnabled = modStatus |}
+      )
+
+    let hudMessage = HUDMessage message
     hudMessage.noIcon <- true
     Game1.addHUDMessage hudMessage
 
