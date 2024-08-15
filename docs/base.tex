@@ -1,39 +1,90 @@
-\documentclass[a4paper,12pt]{article}
 \usepackage[utf8]{inputenc}
 \usepackage{geometry}
 \geometry{margin=1in}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{xstring}
 
-\title{StardewValleyMods}
-\author{Cloudyluna}
-\date{\today}
+% 1 is title. 2 is longer description. %
+\newcommand{\subprojecttitle}[2]{
+	\section{#1 by Cloudyluna}
+	#2
+	
+}
 
-\begin{document}
+% 1 is list of \items %
+\newcommand{\subprojectfeatures}[1]{
+	\subsection{Features}
+	\begin{itemize}
+		#1
+	\end{itemize}
+}
+
+\newcommand{\removeSpaces}[1]{%
+	\StrReplaceAll{#1}{ }{}[\Result]%
+	\Result%
+}
+
+% 1: Project name.
+% 2:
+\newcommand{\subprojectInstallInstructions}[1]{
+	\subsection{For users}
+	\subsubsection{Installing #1}
 	
-	\section{StardewValleyMods by Cloudyluna}
-	
-	My personal collection of Stardew Valley mods that I wrote (and ongoing) for fun. Nothing serious here.
-	
-	
-	\subsection{Building}
-	
-	If you have \texttt{nix} installed, run \texttt{nix develop} to load the development environment.
-	In a nutshell, \texttt{cd} into any \textit{subproject} and run \texttt{make} to build the project.
+	\begin{enumerate}
+		\item This mod requires SMAPI, so please, install that first.
+		\item Unzip the files into the \texttt{Stardew Valley/Mods/#1} game folder.
+		\item Make sure the \texttt{#1.dll} and \texttt{manifest.json} files are inside \texttt{#1} folder, not in \texttt{Mods} folder.
+		\item Launch the game through SMAPI launcher.
+	\end{enumerate}
+}
+
+% 1: Project name.
+% 2: Extra building instructions.
+%
+\newcommand{\subprojectBuildInstructions}[1]{
+	\subsection{For developers}
+	\subsubsection{Building #1}
 	
 	\begin{quote}
 		Attention: Make sure you already have set up \$\textit{GAME\_PATH} pointing to your Stardew Valley game folder first.
 	\end{quote}
 	
-	\begin{verbatim}
-		# Example to build SelectiveEating
-		cd SelectiveEating
-		make
-	\end{verbatim}
-	
+	If you cloned this project from the Github and have \texttt{nix} installed, run \texttt{nix develop} to load the development environment. Then run \texttt{make} or \texttt{dotnet build} to build the project.
+}
+
+\newcommand{\subprojectrepos}[1]{
+	\subsection{Source code}
+	\begin{itemize}
+		\item \href{https://github.com/cloudyluna/StardewValleyMods/tree/main/#1}{Github}
+	\end{itemize}
+}
+% takes the nexusmod id page %
+\newcommand{\subprojectmodpages}[1]{
+	\subsection{Mod page}
+	\begin{itemize}
+		\item \href{https://www.nexusmods.com/stardewvalley/mods/#1}{Nexusmod}
+	\end{itemize}
+}
+
+\newcommand{\thanksto}{
+	\subsection{Thanks to}
+	\begin{itemize}
+		\item \href{https://github.com/Pathoschild/SMAPI}{SMAPI dev and contributors} for making Stardew Valley modding accessible.
+		
+		\item \href{https://www.nexusmods.com/stardewvalley/mods/5098}{Generic Config Menu dev and contributors} for making mod configuration through GUI, simple and easy.
+	\end{itemize}
+}
+
+\newcommand{\licensenotice}{
 	\subsection{License}
-	
 	This project is licensed under the AGPL-3.0-or-later License - see the \texttt{LICENSE} file for details.
+}
+
+\newcommand{\subprojectlicensenotice}{
+	\licensenotice
 	
-	
-\end{document}
+	\begin{itemize}
+		\item  The bundled FSharp.Core is licensed under the MIT license. See \texttt{sublicenses/FSharp.MIT} file for details.
+	\end{itemize}
+}

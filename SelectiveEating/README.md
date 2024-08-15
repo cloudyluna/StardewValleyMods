@@ -1,9 +1,9 @@
-# SelectiveEating by Cloudyluna
+# Selective Eating by Cloudyluna
 
-A simple quality of life mod to make eating easier and automatic with
-configurable settings.
+A simple quality of life mod to make eating easier and automatically
+with configurable settings.
 
-### Features
+## Features
 
 - Automatically eats food when you lost some health or energy. You can
   configure this eating priority strategy in the configure menu to
@@ -27,24 +27,42 @@ configurable settings.
   mod](https://www.nexusmods.com/stardewvalley/mods/5098) or
   `config.json` file within the mod directory.
 
-## Building
+## For users
 
-> Attention: Make sure you already have set up $*GAME_PATH* pointing to
+### Installing SelectiveEating
+
+1.  This mod requires SMAPI, so please, install that first.
+
+2.  Unzip the files into the `Stardew Valley/Mods/SelectiveEating` game
+    folder.
+
+3.  Make sure the `SelectiveEating.dll` and `manifest.json` files are
+    inside `SelectiveEating` folder, not in `Mods` folder.
+
+4.  Launch the game through SMAPI launcher.
+
+## For developers
+
+### Building SelectiveEating
+
+> Attention: Make sure you already have set up \$*GAME_PATH* pointing to
 > your Stardew Valley game folder first.
 
 If you cloned this project from the Github and have `nix` installed, run
 `nix develop` to load the development environment. Then run `make` or
 `dotnet build` to build the project.
 
-            # Example to build SelectiveEating for release
             git clone https://github.com/cloudyluna/StardewValleyMods
             cd SelectiveEating
             make release
 
-## URL link to the repository
+## Mod page
 
-[Github
-repository](https://github.com/cloudyluna/StardewValleyMods/tree/main/SelectiveEating)
+- [Nexusmod](https://www.nexusmods.com/stardewvalley/mods/26831)
+
+## Source code
+
+- [Github](https://github.com/cloudyluna/StardewValleyMods/tree/main/SelectiveEating)
 
 ## Thanks to
 
@@ -57,8 +75,8 @@ repository](https://github.com/cloudyluna/StardewValleyMods/tree/main/SelectiveE
 
 ## License
 
-- This project is licensed under the AGPL-3.0-or-later. See the
-  `LICENSE` file for details.
+This project is licensed under the AGPL-3.0-or-later License - see the
+`LICENSE` file for details.
 
 - The bundled FSharp.Core is licensed under the MIT license. See
   `sublicenses/FSharp.MIT` file for details.
