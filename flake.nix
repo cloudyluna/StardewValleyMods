@@ -29,6 +29,8 @@
 
             emacs
 
+            git
+
             # art
             krita
             tiled
