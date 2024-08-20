@@ -23,9 +23,9 @@ with configurable settings.
 - Increase or decrease eating time interval for role playing/challenge
   or performance reasons.
 
-- Options can be configured through [Generic Config Menu
-  mod](https://www.nexusmods.com/stardewvalley/mods/5098) or
-  `config.json` file within the mod directory.
+- Options can be configured through [Generic Config
+  Menu](https://www.nexusmods.com/stardewvalley/mods/5098) or
+  `config.json` file within `SelectiveEating` mod directory.
 
 ## For users
 

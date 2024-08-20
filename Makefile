@@ -1,21 +1,15 @@
 DOTNET = dotnet
 PANDOC = pandoc
-DOCS = ./docs
-PFLAGS = cd $(DOCS) && $(PANDOC) -t gfm
+DOCS_DIR = docs
+PFLAGS = cd $(DOCS_DIR) && $(PANDOC) -t gfm
 TARGET = " "
 
 all: build
 
 build:
-	$(DOTNET) build
+	make -C SelectiveEating
 
-build-project:
-	$(DOTNET) build $(TARGET)
-
-run-project:
-	$(DOTNET) run --project $(TARGET)
-
-documentation: $(DOCS)
+documentation: $(DOCS_DIR)
 	$(PFLAGS) Main.tex -o ../README.md
 	$(PFLAGS) SelectiveEating.tex -o \
 	   ../SelectiveEating/README.md
