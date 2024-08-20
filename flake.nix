@@ -26,15 +26,7 @@
             unzip
             gnumake
             pandoc
-
-            emacs
-
             git
-
-            # art
-            gimp
-            krita
-            tiled
             
           ];
 
