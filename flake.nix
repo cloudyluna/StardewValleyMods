@@ -32,6 +32,7 @@
             git
 
             # art
+            gimp
             krita
             tiled
             
