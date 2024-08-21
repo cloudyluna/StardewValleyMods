@@ -7,7 +7,6 @@ all: build
 
 build:
 	make -C SelectiveEating
-	make -C AlternativeBooks
 
 documentation: $(DOCS_DIR)
 	$(PFLAGS) Main.tex -o ../README.md
