@@ -17,7 +17,7 @@ module Config =
     member val MinimumStaminaToStartAutoEat = 80 with get, set
     member val PriorityStrategySelection = "health_or_stamina" with get, set
     member val IsSkipEatingAnimationEnabled = false with get, set
-    member val ThresholdCheckPerSecond = 0u with get, set
+    member val ThresholdCheckPerSecond = 1u with get, set
     member val ForbiddenFoods = "" with get, set
     member val IsStayInLastDirectionEnabled = true with get, set
 
@@ -25,14 +25,6 @@ module Config =
   let parsedForbiddenFood (str : string) =
     str.Trim().Split (',', StringSplitOptions.RemoveEmptyEntries)
     |> Array.map (fun i -> i.Trim ())
-
-
-  type private Slider =
-    {
-      Min : int
-      Max : int
-      Interval : int
-    }
 
   type FoodPriorityStrategy =
     | HealthOrStamina
@@ -82,10 +74,10 @@ module Config =
       |> Option.ofObj
       |> Option.iter (fun menu ->
         menu.Register (
-          this.manifest,
-          (fun _ -> this.config <- Some (ModConfig ())),
-          (fun _ -> this.helper.WriteConfig this.config.Value),
-          false
+          manifest = this.manifest,
+          reset = (fun _ -> this.config <- Some (ModConfig ())),
+          save = (fun _ -> this.helper.WriteConfig this.config.Value),
+          titleScreenOnly = false
         )
 
         this.config
@@ -94,146 +86,161 @@ module Config =
           let i18n = this.helper.Translation.Get
 
           menu.AddSectionTitle (
-            this.manifest,
-            (fun _ -> i18n "menu.basics.title"),
-            null
+            manifest = this.manifest,
+            text = (fun _ -> i18n "menu.basics.title"),
+            tooltip = null
           )
 
           menu.AddBoolOption (
-            this.manifest,
-            (fun _ -> config.IsSelectiveEatingModEnabled),
-            (fun b -> this.config.Value.IsSelectiveEatingModEnabled <- b),
-            (fun _ -> i18n "menu.basics.enable-mod"),
-            null,
-            null
+            manifest = this.manifest,
+            getValue = (fun _ -> config.IsSelectiveEatingModEnabled),
+            setValue =
+              (fun b -> this.config.Value.IsSelectiveEatingModEnabled <- b),
+            name = (fun _ -> i18n "menu.basics.enable-mod"),
+            tooltip = null,
+            fieldId = null
           )
 
-          let healthOpt : Slider = { Min = 0 ; Max = 80 ; Interval = 10 }
-
           menu.AddNumberOption (
-            this.manifest,
-            (fun _ -> int config.MinimumHealthToStartAutoEat),
-            (fun v -> this.config.Value.MinimumHealthToStartAutoEat <- v),
-            (fun _ -> i18n "menu.basics.minimum-health"),
-            (fun _ -> i18n "menu.basics.minimum-health.tooltip"),
-            healthOpt.Min,
-            healthOpt.Max,
-            healthOpt.Interval,
-            null,
-            null
+            manifest = this.manifest,
+            getValue = (fun _ -> int config.MinimumHealthToStartAutoEat),
+            setValue =
+              (fun v -> this.config.Value.MinimumHealthToStartAutoEat <- v),
+            name = (fun _ -> i18n "menu.basics.minimum-health"),
+            tooltip = (fun _ -> i18n "menu.basics.minimum-health.tooltip"),
+            min = 0,
+            max = 80,
+            interval = 10,
+            formatValue = null,
+            fieldId = null
           )
 
-          let staminaOpt : Slider = { Min = 0 ; Max = 80 ; Interval = 10 }
-
           menu.AddNumberOption (
-            this.manifest,
-            (fun _ -> int config.MinimumStaminaToStartAutoEat),
-            (fun v -> this.config.Value.MinimumStaminaToStartAutoEat <- int v),
-            (fun _ -> i18n "menu.basics.minimum-stamina"),
-            (fun _ -> i18n "menu.basics.minimum-stamina.tooltip"),
-            staminaOpt.Min,
-            staminaOpt.Max,
-            staminaOpt.Interval,
-            null,
-            null
+            manifest = this.manifest,
+            getValue = (fun _ -> int config.MinimumStaminaToStartAutoEat),
+            setValue =
+              (fun v ->
+                this.config.Value.MinimumStaminaToStartAutoEat <- int v
+              ),
+            name = (fun _ -> i18n "menu.basics.minimum-stamina"),
+            tooltip = (fun _ -> i18n "menu.basics.minimum-stamina.tooltip"),
+            min = 0,
+            max = 80,
+            interval = 10,
+            formatValue = null,
+            fieldId = null
           )
 
           menu.AddTextOption (
-            this.manifest,
-            (fun _ -> config.PriorityStrategySelection),
-            (fun v -> this.config.Value.PriorityStrategySelection <- v),
-            (fun _ -> i18n "menu.basics.priority-strategy"),
-            (fun _ -> i18n "menu.basics.priority-strategy.tooltip"),
-            [|
-              FoodPriorityStrategy.HealthOrStamina.ToString ()
-              FoodPriorityStrategy.CheapestFood.ToString ()
-              FoodPriorityStrategy.Off.ToString ()
-            |],
-            (fun unformatted ->
-              match priorityStrategyFromString unformatted with
-              | HealthOrStamina -> "Health or Stamina"
-              | CheapestFood -> "Cheapest Food"
-              | Off -> "Off"
-              | Invalid _other -> $"error: invalid key -> {_other}"
-            ),
-            null
+            manifest = this.manifest,
+            getValue = (fun _ -> config.PriorityStrategySelection),
+            setValue =
+              (fun v -> this.config.Value.PriorityStrategySelection <- v),
+            name = (fun _ -> i18n "menu.basics.priority-strategy"),
+            tooltip = (fun _ -> i18n "menu.basics.priority-strategy.tooltip"),
+            allowedValues =
+              [|
+                FoodPriorityStrategy.HealthOrStamina.ToString ()
+                FoodPriorityStrategy.CheapestFood.ToString ()
+                FoodPriorityStrategy.Off.ToString ()
+              |],
+            formatAllowedValue =
+              (fun unformatted ->
+                match priorityStrategyFromString unformatted with
+                | HealthOrStamina -> "Health or Stamina"
+                | CheapestFood -> "Cheapest Food"
+                | Off -> "Off"
+                | Invalid _other ->
+                  failwith
+                    $"Invalid key: {_other}. Key can only be either: HealthOrStamina, CheapestFood or Off"
+              ),
+            fieldId = null
           )
 
           menu.AddSectionTitle (
-            this.manifest,
-            (fun _ -> i18n "menu.basics.priority.subsection.title"),
-            null
+            manifest = this.manifest,
+            text = (fun _ -> i18n "menu.basics.priority.subsection.title"),
+            tooltip = null
           )
 
           menu.AddParagraph (
-            this.manifest,
-            (fun _ -> i18n "menu.basics.priority.subsection")
+            manifest = this.manifest,
+            text = (fun _ -> i18n "menu.basics.priority.subsection")
           )
 
           menu.AddBoolOption (
-            this.manifest,
-            (fun _ -> config.IsSkipEatingAnimationEnabled),
-            (fun b -> this.config.Value.IsSkipEatingAnimationEnabled <- b),
-            (fun _ -> i18n "menu.basics.enable-skip-eating-animation"),
-            (fun _ -> i18n "menu.basics.enable-skip-eating-animation.tooltip"),
-            null
+            manifest = this.manifest,
+            getValue = (fun _ -> config.IsSkipEatingAnimationEnabled),
+            setValue =
+              (fun b -> this.config.Value.IsSkipEatingAnimationEnabled <- b),
+            name = (fun _ -> i18n "menu.basics.enable-skip-eating-animation"),
+            tooltip =
+              (fun _ ->
+                i18n "menu.basics.enable-skip-eating-animation.tooltip"
+              ),
+            fieldId = null
           )
 
           menu.AddSectionTitle (
-            this.manifest,
-            (fun _ -> i18n "menu.advanced.title"),
-            (fun _ -> i18n "menu.advanced.title.tooltip")
+            manifest = this.manifest,
+            text = (fun _ -> i18n "menu.advanced.title"),
+            tooltip = (fun _ -> i18n "menu.advanced.title.tooltip")
           )
 
           menu.AddKeybind (
-            this.manifest,
-            (fun _ -> config.SelectiveEatingShortcutButtonInput),
-            (fun b ->
-              this.config.Value.SelectiveEatingShortcutButtonInput <- b
-            ),
-            (fun () -> i18n "menu.advanced.enable-mod-keybind"),
-            (fun () -> i18n "menu.advanced.enable-mod-keybind.tooltip"),
-            ""
+            manifest = this.manifest,
+            getValue = (fun _ -> config.SelectiveEatingShortcutButtonInput),
+            setValue =
+              (fun b ->
+                this.config.Value.SelectiveEatingShortcutButtonInput <- b
+              ),
+            name = (fun () -> i18n "menu.advanced.enable-mod-keybind"),
+            tooltip =
+              (fun () -> i18n "menu.advanced.enable-mod-keybind.tooltip"),
+            fieldId = null
           )
 
-          let checkSecondsOpt : Slider = { Min = 0 ; Max = 60 ; Interval = 1 }
-
           menu.AddNumberOption (
-            this.manifest,
-            (fun _ -> int config.ThresholdCheckPerSecond),
-            (fun v -> this.config.Value.ThresholdCheckPerSecond <- uint v),
-            (fun _ -> i18n "menu.advanced.check-seconds-threshold"),
-            (fun _ -> i18n "menu.advanced.check-seconds-threshold.tooltip"),
-            checkSecondsOpt.Min,
-            checkSecondsOpt.Max,
-            checkSecondsOpt.Interval,
-            null,
-            null
+            manifest = this.manifest,
+            getValue = (fun _ -> int config.ThresholdCheckPerSecond),
+            setValue =
+              (fun v -> this.config.Value.ThresholdCheckPerSecond <- uint v),
+            name = (fun _ -> i18n "menu.advanced.check-seconds-threshold"),
+            tooltip =
+              (fun _ -> i18n "menu.advanced.check-seconds-threshold.tooltip"),
+            min = 0,
+            max = 60,
+            interval = 1,
+            formatValue = null,
+            fieldId = null
           )
 
           menu.AddTextOption (
-            this.manifest,
-            (fun _ -> config.ForbiddenFoods),
-            (fun v -> this.config.Value.ForbiddenFoods <- v),
-            (fun _ -> i18n "menu.advanced.forbidden-food"),
-            (fun _ -> i18n "menu.advanced.forbidden-food.tooltip"),
-            null,
-            null,
-            null
+            manifest = this.manifest,
+            getValue = (fun _ -> config.ForbiddenFoods),
+            setValue = (fun v -> this.config.Value.ForbiddenFoods <- v),
+            name = (fun _ -> i18n "menu.advanced.forbidden-food"),
+            tooltip = (fun _ -> i18n "menu.advanced.forbidden-food.tooltip"),
+            allowedValues = null,
+            formatAllowedValue = null,
+            fieldId = null
           )
 
           menu.AddParagraph (
-            this.manifest,
-            (fun _ -> i18n "menu.advanced.forbidden-food.usage-example")
+            manifest = this.manifest,
+            text =
+              (fun _ -> i18n "menu.advanced.forbidden-food.usage-example")
           )
 
           menu.AddBoolOption (
-            this.manifest,
-            (fun _ -> config.IsStayInLastDirectionEnabled),
-            (fun b -> this.config.Value.IsStayInLastDirectionEnabled <- b),
-            (fun _ -> i18n "menu.advanced.stay-in-last-direction"),
-            (fun _ -> i18n "menu.advanced.stay-in-last-direction.tooltip"),
-            null
+            manifest = this.manifest,
+            getValue = (fun _ -> config.IsStayInLastDirectionEnabled),
+            setValue =
+              (fun b -> this.config.Value.IsStayInLastDirectionEnabled <- b),
+            name = (fun _ -> i18n "menu.advanced.stay-in-last-direction"),
+            tooltip =
+              (fun _ -> i18n "menu.advanced.stay-in-last-direction.tooltip"),
+            fieldId = null
           )
         )
       )
