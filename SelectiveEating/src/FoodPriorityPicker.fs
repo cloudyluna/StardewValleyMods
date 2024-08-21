@@ -51,7 +51,7 @@ module VitalsSelector =
   let private closestNeededToReplenish recoveredAmount amountToRefill maxStat =
     abs (ofPercentage (recoveredAmount ()) maxStat - amountToRefill)
 
-  let getMostFittingHealthRevitalizingFood
+  let getMostHealthReplenishing
     (vitalStat : VitalStatus)
     (edibles : FoodItem array)
     : FoodItem
@@ -69,7 +69,7 @@ module VitalsSelector =
         maxHealth
     )
 
-  let getMostFittingStaminaRevitalizingFood
+  let getMostStaminaReplenishing
     (vital : VitalStatus)
     (edibles : FoodItem array)
     : FoodItem
@@ -87,8 +87,8 @@ module VitalsSelector =
     )
 
 
-module CheapestPriceSelector =
-  let getCheapestFood (player : Farmer) (edibles : FoodItem array) : FoodItem =
+module CheapestSelector =
+  let get (player : Farmer) (edibles : FoodItem array) : FoodItem =
     let f (item : FoodItem) =
       item.Food.sellToStorePrice player.UniqueMultiplayerID
 
@@ -143,42 +143,38 @@ module InventoryFood =
       Edibles.makeEdibles
         player.Items
         (parsedForbiddenFood config.ForbiddenFoods)
+      |> Seq.toArray
 
-    let getFoodWithHighestPriority (originFood : FoodItem array) =
+    let getOfHighestPriority (originFood : FoodItem array) =
       let priorities = originFood |> Array.filter _.IsPriority
       if Array.isEmpty priorities then originFood else priorities
 
-    let getFoodItem pickVitalFoodFromEdibles vitalStat edibles =
+    let getFoodItem pickMostVitalFromEdibles vitalStat edibles =
       if Array.isEmpty edibles then
         None
       else
 
-        let getFoodWithNextLevelEatingPriority food =
+        let getOfSelectedEatingPriority food =
           if config.PriorityStrategySelection = HealthOrStamina.ToString () then
-            pickVitalFoodFromEdibles vitalStat food
+            pickMostVitalFromEdibles vitalStat food
           elif config.PriorityStrategySelection = CheapestFood.ToString () then
-            CheapestPriceSelector.getCheapestFood player food
+            CheapestSelector.get player food
           else // Off. Just start eating from the active inventory row, left to right.
             Array.head food
 
-        getFoodWithHighestPriority edibles
-        |> getFoodWithNextLevelEatingPriority
-        |> Some
+        edibles |> getOfHighestPriority |> getOfSelectedEatingPriority |> Some
 
 
     match VitalsSelector.getVitalsPriority config player with
     | DoingOK -> None
     | Health vitalStat ->
-
       getFoodItem
-        VitalsSelector.getMostFittingHealthRevitalizingFood
+        VitalsSelector.getMostHealthReplenishing
         vitalStat
-        (makeEdibles () |> Seq.toArray)
-
+        (makeEdibles ())
 
     | Stamina vitalStat ->
-
       getFoodItem
-        VitalsSelector.getMostFittingStaminaRevitalizingFood
+        VitalsSelector.getMostStaminaReplenishing
         vitalStat
-        (makeEdibles () |> Seq.toArray)
+        (makeEdibles ())
