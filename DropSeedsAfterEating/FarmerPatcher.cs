@@ -1,5 +1,6 @@
 namespace DropSeedsAfterEating;
 
+using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.GameData.Crops;
@@ -11,6 +12,18 @@ enum FoodQuality
     Silver,
     Gold,
     Iridium,
+}
+
+// These names are taken from UIInfoSuite2 so we can match them accordingly
+// as it's a quite popular mod.
+enum LuckLevel
+{
+    FeelingLucky,
+    LuckyButNotTooLucky,
+    NeutralGood,
+    NeutralBad,
+    NotFeelingLuckyAtAll,
+    MaybeStayHome,
 }
 
 internal class FarmerPatcher
@@ -92,11 +105,30 @@ internal class FarmerPatcher
         out int howManyToDrop
     )
     {
-        double minDailyLuck = -0.12;
-        double maxDailyLuck = 0.12;
         howManyToDrop = defaultHowManyToDrop;
         return false;
 
+    }
+
+    private static LuckLevel luckValueToLuckLevel(double luckValue)
+    {
+        switch (luckValue)
+        {
+            case var v when v > 0.07:
+                return LuckLevel.FeelingLucky;
+            case var v when v > 0.02 && v <= 0.07:
+                return LuckLevel.LuckyButNotTooLucky;
+            case var v when v >= -0.02 && v <= 0.02 && v != 0:
+                return LuckLevel.NeutralGood;
+            case var v when v == 0:
+                return LuckLevel.NeutralBad;
+            case var v when v >= -0.07 && v < -0.02:
+                return LuckLevel.NotFeelingLuckyAtAll;
+            case var v when v < -0.07:
+                return LuckLevel.MaybeStayHome;
+            case var _:
+                return LuckLevel.NeutralBad;
+        }
     }
 
     private static int ofPercentage(int current, int max)
