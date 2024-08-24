@@ -1,0 +1,10 @@
+{
+  "Name": "Identical Indoor Glow Ring Radius",
+  "Author": "Cloudyluna",
+  "Version": "0.1.0",
+  "Description": "Simple minor patch to make indoor glow ring radius identical to outdooor's one",
+  "UniqueID": "Cloudyluna.IdenticalIndoorGlowRingRadius",
+  "EntryDll": "IdenticalGlowRingRadius.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": []
+}
