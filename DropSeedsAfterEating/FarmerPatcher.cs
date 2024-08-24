@@ -2,6 +2,7 @@ namespace DropSeedsAfterEating;
 
 using StardewModdingAPI;
 using StardewValley;
+using StardewValley.GameData.Crops;
 
 internal class FarmerPatcher
 {
@@ -25,20 +26,20 @@ internal class FarmerPatcher
         if (Monitor != null && o != null)
         {
             var food = (Item)o;
-
-            if (food.Category == Object.FruitsCategory
-                || food.Category == Object.GreensCategory
-                || food.Category == Object.VegetableCategory
-                )
+            var ediblePlants = food.Category == Object.GreensCategory || food.Category == Object.VegetableCategory;
+            if (ediblePlants)
             {
-                if (food.Name.Equals("Banana"))
+                foreach (KeyValuePair<string, CropData> cropDatum in Game1.cropData)
                 {
-                    var seed = ItemRegistry.ResolveMetadata("(O)69")?.CreateItem();
-                    if (seed != null)
+                    if (ItemRegistry.HasItemId(food, cropDatum.Value.HarvestItemId))
                     {
-                        Monitor.Log($"Dropping seeds for: {food.Name}");
+                        var seedId = cropDatum.Key;
+                        var seed = ItemRegistry.Create(seedId);
 
+                        Monitor.Log($"Dropping a seed of {seed.Name} for: {food.Name}");
                         Game1.player.addItemToInventory(seed);
+
+                        break;
                     }
                 }
             }
