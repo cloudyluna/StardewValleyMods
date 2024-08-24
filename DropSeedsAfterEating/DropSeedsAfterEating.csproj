@@ -6,6 +6,7 @@
     <Nullable>enable</Nullable>
 
     <GamePath>$(STARDEW_VALLEY)</GamePath>
+    <EnableHarmony>true</EnableHarmony>
     <EnableModZip>false</EnableModZip>
     <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
   </PropertyGroup>
