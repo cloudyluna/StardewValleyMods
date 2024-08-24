@@ -3,6 +3,7 @@ namespace DropSeedsAfterEating;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.GameData.Crops;
+using StardewValley.Menus;
 
 enum FoodQuality
 {
@@ -15,8 +16,6 @@ enum FoodQuality
 internal class FarmerPatcher
 {
     private const int defaultHowManyToDrop = 1;
-
-    private const FoodQuality defaultFoodQualityToDrop = FoodQuality.Normal;
 
     private static IMonitor? Monitor;
 
@@ -38,7 +37,8 @@ internal class FarmerPatcher
                 // list of fruit->seed manually if we want to
                 // proceed through.
                 var isAConsumablePlant =
-                    food.Category == Object.GreensCategory
+                    food.Category == Object.FruitsCategory
+                    || food.Category == Object.GreensCategory
                     || food.Category == Object.VegetableCategory;
 
                 // TODO: Add config key.
@@ -47,13 +47,12 @@ internal class FarmerPatcher
                     (FoodQuality)food.Quality,
                     Game1.player.DailyLuck,
                     minChance,
-                    out int howManyToDrop,
-                    out FoodQuality qualityToDrop
+                    out int howManyToDrop
                 );
 
-                if (isAConsumablePlant && canDropSeeds)
+                if (isAConsumablePlant) // && canDropSeeds
                 {
-                    tryDroppingSeedsFrom(food, howManyToDrop, qualityToDrop);
+                    tryDroppingSeedsFrom(food, howManyToDrop);
                 };
             }
         }
@@ -63,18 +62,24 @@ internal class FarmerPatcher
         }
     }
 
-    private static void tryDroppingSeedsFrom(Item food, int howManyToDrop, FoodQuality qualityToDrop)
+    private static void tryDroppingSeedsFrom(Item food, int howManyToDrop)
     {
         foreach (KeyValuePair<string, CropData> datum in Game1.cropData)
         {
             if (ItemRegistry.HasItemId(food, datum.Value.HarvestItemId))
             {
                 var seedId = datum.Key;
-                var seed = ItemRegistry.Create(seedId, amount: howManyToDrop, quality: (int)qualityToDrop);
+                var seed = ItemRegistry.Create(seedId, amount: howManyToDrop);
 
                 Monitor?.Log($"Dropping a seed of {seed.Name} for: {food.Name}");
 
-                Game1.player.addItemToInventory(seed);
+
+                Item? seedThatDidntGetAdded = Game1.player.addItemToInventory(seed);
+                if (seedThatDidntGetAdded != null)
+                {
+                    Game1.player.dropItem(seedThatDidntGetAdded);
+                };
+
                 break;
             }
         }
@@ -84,12 +89,12 @@ internal class FarmerPatcher
         FoodQuality foodQuality,
         double todaysLuck,
         int minChance,
-        out int howManyToDrop,
-        out FoodQuality qualityToDrop
+        out int howManyToDrop
     )
     {
+        double minDailyLuck = -0.12;
+        double maxDailyLuck = 0.12;
         howManyToDrop = defaultHowManyToDrop;
-        qualityToDrop = defaultFoodQualityToDrop;
         return false;
 
     }
