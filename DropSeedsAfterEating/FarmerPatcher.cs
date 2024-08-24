@@ -3,6 +3,7 @@ namespace DropSeedsAfterEating;
 using StardewModdingAPI;
 using StardewModdingAPI.Events;
 using StardewValley;
+using StardewValley.Extensions;
 using StardewValley.GameData.Crops;
 using StardewValley.Menus;
 
@@ -52,14 +53,17 @@ internal class FarmerPatcher
                 var isAConsumablePlant =
                     food.Category == Object.FruitsCategory // These are not (big, like an apple) tree fruits!
                     || food.Category == Object.GreensCategory
-                    || food.Category == Object.VegetableCategory;
+                    || food.Category == Object.VegetableCategory
+                    || food.Category == Object.flowersCategory;
 
                 // TODO: Add config key.
-                int minChance = 2;
+                double dailyLuckWeight = 1.0;
+                double chanceModifier = 1.0;
                 var canDropSeeds = CanDropSeedsIfLucky(
                     (FoodQuality)food.Quality,
                     Game1.player.DailyLuck,
-                    minChance,
+                    dailyLuckWeight,
+                    chanceModifier,
                     out int howManyToDrop
                 );
 
@@ -101,40 +105,35 @@ internal class FarmerPatcher
     private static bool CanDropSeedsIfLucky(
         FoodQuality foodQuality,
         double todaysLuck,
-        int minChance,
+        double dailyLuckWeight,
+        double chanceModifier,
         out int howManyToDrop
     )
     {
-        howManyToDrop = defaultHowManyToDrop;
-        const double maxLuck = 0.12;
-        var luckPercentage = OfPercentage(todaysLuck, maxLuck);
+        howManyToDrop = GetHowManyToDrop(foodQuality, todaysLuck);
+        double num = 1.0 * Game1.player.team.AverageDailyLuck() * dailyLuckWeight;
+        double val = 50.0 * chanceModifier * num;
+        var chance = Game1.random.NextBool(num + val);
+        Monitor?.Log($"LUCK: ${val}");
+        Monitor?.Log($"LUCKY?: ${chance}");
+        return chance;
+    }
 
-
-        Monitor?.Log($"Luck percentage: {luckPercentage}");
-        Monitor?.Log($"Level: {LuckValueToLuckLevel(todaysLuck)}");
-
-        switch (LuckValueToLuckLevel(todaysLuck))
+    private static int GetHowManyToDrop(FoodQuality foodQuality, double luckValue)
+    {
+        var defaultChanceWeight = 0.025;
+        double amountDropChance = foodQuality switch
         {
-            case LuckLevel.MaybeStayHome:
-                return false;
-            case LuckLevel.NotFeelingLuckyAtAll:
-                howManyToDrop = 1;
-                return luckPercentage > 80;
-            case LuckLevel.NeutralBad:
-                howManyToDrop = 2;
-                return luckPercentage >= 50;
-            case LuckLevel.NeutralGood:
-                howManyToDrop = 3;
-                return luckPercentage >= 40;
-            case LuckLevel.LuckyButNotTooLucky:
-                howManyToDrop = 4;
-                return luckPercentage >= 25;
-            case LuckLevel.FeelingLucky:
-                howManyToDrop = 5;
-                return luckPercentage >= 10;
+            FoodQuality.Normal => luckValue * defaultChanceWeight,
+            FoodQuality.Silver => luckValue * (defaultChanceWeight * 2),
+            FoodQuality.Gold => luckValue * (defaultChanceWeight * 3),
+            FoodQuality.Iridium => luckValue * (defaultChanceWeight * 3),
+            _ => defaultChanceWeight,
+        };
 
-        }
-        return false;
+        var dropAmount = Game1.random.Next((int)amountDropChance);
+        return (dropAmount < 1) ? 1 : dropAmount;
+
     }
 
     private static LuckLevel LuckValueToLuckLevel(double luckValue)
