@@ -37,7 +37,7 @@ internal class FarmerPatcher
                 // list of fruit->seed manually if we want to
                 // proceed through.
                 var isAConsumablePlant =
-                    food.Category == Object.FruitsCategory
+                    food.Category == Object.FruitsCategory // These are not (big, like an apple) tree fruits!
                     || food.Category == Object.GreensCategory
                     || food.Category == Object.VegetableCategory;
 
