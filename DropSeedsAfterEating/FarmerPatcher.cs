@@ -1,10 +1,8 @@
 namespace DropSeedsAfterEating;
 
-using Microsoft.Xna.Framework;
 using StardewModdingAPI;
 using StardewValley;
 using StardewValley.GameData.Crops;
-using StardewValley.Menus;
 
 enum FoodQuality
 {
@@ -37,7 +35,7 @@ internal class FarmerPatcher
         Monitor = monitor;
     }
 
-    internal static void eatObject_Postfix(Farmer __instance, Object o, bool overrideFullness)
+    internal static void EatObject_Postfix(Farmer __instance, Object o, bool overrideFullness)
     {
         try
         {
@@ -56,7 +54,7 @@ internal class FarmerPatcher
 
                 // TODO: Add config key.
                 int minChance = 2;
-                var canDropSeeds = canDropSeedsIfLucky(
+                var canDropSeeds = CanDropSeedsIfLucky(
                     (FoodQuality)food.Quality,
                     Game1.player.DailyLuck,
                     minChance,
@@ -65,17 +63,17 @@ internal class FarmerPatcher
 
                 if (isAConsumablePlant) // && canDropSeeds
                 {
-                    tryDroppingSeedsFrom(food, howManyToDrop);
+                    TryDroppingSeedsFrom(food, howManyToDrop);
                 };
             }
         }
         catch (Exception ex)
         {
-            Monitor?.Log($"Failed in patched code of: {nameof(eatObject_Postfix)}:\n{ex}", LogLevel.Error);
+            Monitor?.Log($"Failed in patched code of: {nameof(EatObject_Postfix)}:\n{ex}", LogLevel.Error);
         }
     }
 
-    private static void tryDroppingSeedsFrom(Item food, int howManyToDrop)
+    private static void TryDroppingSeedsFrom(Item food, int howManyToDrop)
     {
         foreach (KeyValuePair<string, CropData> datum in Game1.cropData)
         {
@@ -98,7 +96,7 @@ internal class FarmerPatcher
         }
     }
 
-    private static bool canDropSeedsIfLucky(
+    private static bool CanDropSeedsIfLucky(
         FoodQuality foodQuality,
         double todaysLuck,
         int minChance,
@@ -110,7 +108,7 @@ internal class FarmerPatcher
 
     }
 
-    private static LuckLevel luckValueToLuckLevel(double luckValue)
+    private static LuckLevel LuckValueToLuckLevel(double luckValue)
     {
         return luckValue switch
         {
@@ -124,7 +122,7 @@ internal class FarmerPatcher
         };
     }
 
-    private static int ofPercentage(int current, int max)
+    private static int OfPercentage(int current, int max)
     {
         return 0;
     }

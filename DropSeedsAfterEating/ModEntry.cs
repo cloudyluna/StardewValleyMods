@@ -16,7 +16,7 @@ internal class ModEntry : Mod
 
         harmony.Patch(
             original: AccessTools.Method(typeof(Farmer), nameof(Farmer.eatObject)),
-            postfix: new HarmonyMethod(typeof(FarmerPatcher), nameof(FarmerPatcher.eatObject_Postfix))
+            postfix: new HarmonyMethod(typeof(FarmerPatcher), nameof(FarmerPatcher.EatObject_Postfix))
         );
 
     }
