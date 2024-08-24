@@ -1,8 +1,10 @@
 namespace DropSeedsAfterEating;
 
 using StardewModdingAPI;
+using StardewModdingAPI.Events;
 using StardewValley;
 using StardewValley.GameData.Crops;
+using StardewValley.Menus;
 
 enum FoodQuality
 {
@@ -61,7 +63,7 @@ internal class FarmerPatcher
                     out int howManyToDrop
                 );
 
-                if (isAConsumablePlant) // && canDropSeeds
+                if (isAConsumablePlant && canDropSeeds)
                 {
                     TryDroppingSeedsFrom(food, howManyToDrop);
                 };
@@ -104,8 +106,35 @@ internal class FarmerPatcher
     )
     {
         howManyToDrop = defaultHowManyToDrop;
-        return false;
+        const double maxLuck = 0.12;
+        var luckPercentage = OfPercentage(todaysLuck, maxLuck);
 
+
+        Monitor?.Log($"Luck percentage: {luckPercentage}");
+        Monitor?.Log($"Level: {LuckValueToLuckLevel(todaysLuck)}");
+
+        switch (LuckValueToLuckLevel(todaysLuck))
+        {
+            case LuckLevel.MaybeStayHome:
+                return false;
+            case LuckLevel.NotFeelingLuckyAtAll:
+                howManyToDrop = 1;
+                return luckPercentage > 80;
+            case LuckLevel.NeutralBad:
+                howManyToDrop = 2;
+                return luckPercentage >= 50;
+            case LuckLevel.NeutralGood:
+                howManyToDrop = 3;
+                return luckPercentage >= 40;
+            case LuckLevel.LuckyButNotTooLucky:
+                howManyToDrop = 4;
+                return luckPercentage >= 25;
+            case LuckLevel.FeelingLucky:
+                howManyToDrop = 5;
+                return luckPercentage >= 10;
+
+        }
+        return false;
     }
 
     private static LuckLevel LuckValueToLuckLevel(double luckValue)
@@ -122,8 +151,8 @@ internal class FarmerPatcher
         };
     }
 
-    private static int OfPercentage(int current, int max)
+    private static int OfPercentage(double current, double max)
     {
-        return 0;
+        return (int)(current / max * 100.0);
     }
 }
