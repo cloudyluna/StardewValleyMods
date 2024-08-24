@@ -9,10 +9,11 @@ internal class ModEntry : Mod
     {
         var harmony = new Harmony(this.ModManifest.UniqueID);
 
-        harmony.Patch(
-            original: AccessTools.Method(typeof(StardewValley.Objects.Ring), nameof(StardewValley.Objects.Ring.onEquip)),
-            prefix: new HarmonyMethod(typeof(RingPatcher), nameof(RingPatcher.OnEquip_Prefix))
-        );
+        RingPatcher.Initialize(this.Monitor);
 
+        harmony.Patch(
+            original: AccessTools.Method(typeof(StardewValley.Objects.Ring), nameof(StardewValley.Objects.Ring.update)),
+            prefix: new HarmonyMethod(typeof(RingPatcher), nameof(RingPatcher.Update_Prefix))
+        );
     }
 }

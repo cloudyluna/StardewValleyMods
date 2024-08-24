@@ -7,7 +7,7 @@ all: build
 
 build:
 	make -C SelectiveEating
-    make -C IdenticalIndoorGlowRingRadius
+	make -C IdenticalIndoorGlowRingRadius
 
 documentation: $(DOCS_DIR)
 	$(PFLAGS) Main.tex -o ../README.md
