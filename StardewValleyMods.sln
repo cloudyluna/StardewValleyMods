@@ -12,6 +12,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "CloudyCore", "CloudyCore\Cl
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SelectiveEating", "SelectiveEating\SelectiveEating.fsproj", "{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropSeedsAfterEating", "DropSeedsAfterEating\DropSeedsAfterEating.csproj", "{D0FEE916-244B-4711-84E0-AA0ED4D80E2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,5 +31,9 @@ Global
 		{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3E9CC953-DEA9-4704-B1AF-FB428D2C8917}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0FEE916-244B-4711-84E0-AA0ED4D80E2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0FEE916-244B-4711-84E0-AA0ED4D80E2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0FEE916-244B-4711-84E0-AA0ED4D80E2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0FEE916-244B-4711-84E0-AA0ED4D80E2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

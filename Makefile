@@ -7,6 +7,7 @@ all: build
 
 build:
 	make -C SelectiveEating
+	make -C DropSeedsAfterEating
 
 documentation: $(DOCS_DIR)
 	$(PFLAGS) Main.tex -o ../README.md
