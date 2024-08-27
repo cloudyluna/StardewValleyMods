@@ -16,6 +16,14 @@ indoors.
   `config.json` file within `MaintainGlowRingsIndoorsRadius` mod
   directory.
 
+## Requirements
+
+- [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400)
+
+- [Generic Mod Config
+  Menu](https://www.nexusmods.com/stardewvalley/mods/5098) - *Optional*
+  but *highly recommended*.
+
 ## For users
 
 ### Installing MaintainGlowRingsIndoorsRadius

@@ -27,6 +27,14 @@ with configurable settings.
   Menu](https://www.nexusmods.com/stardewvalley/mods/5098) or
   `config.json` file within `SelectiveEating` mod directory.
 
+## Requirements
+
+- [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400)
+
+- [Generic Mod Config
+  Menu](https://www.nexusmods.com/stardewvalley/mods/5098) - *Optional*
+  but *highly recommended*.
+
 ## For users
 
 ### Installing SelectiveEating
