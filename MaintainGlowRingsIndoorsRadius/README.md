@@ -11,18 +11,9 @@ indoors.
 - Make glow rings emits the same outdoor’s light radius, even when
   indoors.
 
-- Options can be configured through [Generic Config
-  Menu](https://www.nexusmods.com/stardewvalley/mods/5098) or
-  `config.json` file within `MaintainGlowRingsIndoorsRadius` mod
-  directory.
-
 ## Requirements
 
 - [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400)
-
-- [Generic Mod Config
-  Menu](https://www.nexusmods.com/stardewvalley/mods/5098) - *Optional*
-  but *highly recommended*.
 
 ## For users
 

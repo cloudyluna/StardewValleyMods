@@ -6,17 +6,11 @@ RELEASE_DIR = $(DIST_DIR)/Release/$(DOTNET_VERSION)
 FOLDER_NAME = MaintainGlowRingsIndoorsRadius
 FOLDER_DIST_DIR = $(DIST_DIR)/$(FOLDER_NAME)
 
-all: translation
+all:
 	$(DOTNET) build
 
-translation:
-	mkdir -p $(RELEASE_DIR)
-	mkdir -p $(DEBUG_DIR)
-	cp -r data/i18n $(RELEASE_DIR)
-	cp -r data/i18n $(DEBUG_DIR)
-
 # quick
-q:  translation
+q:
 	$(DOTNET) build --no-restore
 
 documentation:
@@ -31,8 +25,6 @@ release:
 
 	mkdir -p $(RELEASE_DIR)
 	mkdir -p $(DEBUG_DIR)
-	cp -r data/i18n $(RELEASE_DIR)
-	cp -r data/i18n $(DEBUG_DIR)
 
 	cp -f README.md $(RELEASE_DIR)
 	cp -f README.md $(DEBUG_DIR)
