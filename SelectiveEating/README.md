@@ -1,4 +1,4 @@
-# Selective Eating by Cloudyluna
+# Selective Eating
 
 A simple quality of life mod to make eating easier and automatically
 with configurable settings.
@@ -26,6 +26,14 @@ with configurable settings.
 - Options can be configured through [Generic Config
   Menu](https://www.nexusmods.com/stardewvalley/mods/5098) or
   `config.json` file within `SelectiveEating` mod directory.
+
+## Requirements
+
+- [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400)
+
+- [Generic Mod Config
+  Menu](https://www.nexusmods.com/stardewvalley/mods/5098) - *Optional*
+  but *highly recommended*.
 
 ## For users
 
@@ -74,6 +82,8 @@ If you cloned this project from the Github and have `nix` installed, run
   making mod configuration through GUI, simple and easy.
 
 ## License
+
+> Copyright (c) 2024 Cloudyluna
 
 This project is licensed under the AGPL-3.0-or-later License - see the
 `LICENSE` file for details.

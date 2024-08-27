@@ -25,8 +25,3 @@ build the project.
 - [Generic Config Menu dev and
   contributors](https://www.nexusmods.com/stardewvalley/mods/5098) for
   making mod configuration through GUI, simple and easy.
-
-## License
-
-This project is licensed under the AGPL-3.0-or-later License - see the
-`LICENSE` file for details.
