@@ -47,7 +47,7 @@ If you cloned this project from the Github and have `nix` installed, run
 
 ## Mod page
 
-- [Nexusmod](https://www.nexusmods.com/stardewvalley/mods/TBD)
+- [Nexusmod](https://www.nexusmods.com/stardewvalley/mods/27331)
 
 ## Source code
 
