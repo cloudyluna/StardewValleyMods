@@ -6,5 +6,7 @@
   "UniqueID": "Cloudyluna.MaintainGlowRingsIndoorsRadius",
   "EntryDll": "MaintainGlowRingsIndoorsRadius.dll",
   "MinimumApiVersion": "4.0.0",
-  "UpdateKeys": []
+  "UpdateKeys": [
+    "Nexus:1303"
+  ]
 }
