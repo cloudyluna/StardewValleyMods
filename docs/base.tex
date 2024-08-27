@@ -7,7 +7,7 @@
 
 % 1 is title. 2 is longer description. %
 \newcommand{\subprojecttitle}[2]{
-	\section{#1 by Cloudyluna}
+	\section{#1}
 	#2
 	
 }
@@ -71,13 +71,23 @@
 	\end{itemize}
 }
 
-\newcommand{\licensenotice}{
+
+\newcommand{\myCopyright}{
+	\begin{quote}
+		Copyright (c) 2024 Cloudyluna
+	\end{quote}
+}
+
+\newcommand{\licenseNotice}{
 	\subsection{License}
+	
+	\myCopyright
+	
 	This project is licensed under the AGPL-3.0-or-later License - see the \texttt{LICENSE} file for details.
 }
 
 \newcommand{\subprojectlicensenotice}{
-	\licensenotice
+	\licenseNotice
 	
 	\begin{itemize}
 		\item  The bundled FSharp.Core is licensed under the MIT license. See \texttt{sublicenses/FSharp.MIT} file for details.
