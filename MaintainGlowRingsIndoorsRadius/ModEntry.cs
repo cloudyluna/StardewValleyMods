@@ -1,4 +1,4 @@
-﻿namespace IdenticalIndoorGlowRingRadius;
+﻿namespace MaintainGlowRingsIndoorsRadius;
 
 using StardewModdingAPI;
 using HarmonyLib;

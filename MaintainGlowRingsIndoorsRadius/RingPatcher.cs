@@ -1,11 +1,9 @@
-namespace IdenticalIndoorGlowRingRadius;
+namespace MaintainGlowRingsIndoorsRadius;
 
 using Microsoft.Xna.Framework;
 using StardewValley;
 using StardewValley.Objects;
-using HarmonyLib;
 using StardewModdingAPI;
-using StardewValley.Locations;
 
 internal class RingPatcher
 {
