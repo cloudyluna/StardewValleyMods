@@ -1,0 +1,54 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+
+
+\def\subprojectname{Drop Seeds After Eating}
+\def\subProjectNormalizedName{DropSeedsAfterEating}
+
+\title{\subprojectname}
+\author{Cloudyluna}
+\date{\today}
+
+\input{base}
+
+\begin{document}
+	\subprojecttitle{\subprojectname}{
+		A small chance to drop seeds after eating fruits, vegetables or flowers.
+		
+		\begin{quote}
+			Limitation: Doesn't work for fruits that gives saplings and any edibles that drop mixed seeds.
+		\end{quote}
+	}
+	
+	\subprojectfeatures{
+		\item A small chance to drop seeds after eating fruits, vegetables or flowers.
+	}
+	
+	\subsection{Requirements}
+	\begin{itemize}
+		\item \href{https://www.nexusmods.com/stardewvalley/mods/2400}{SMAPI}
+	\end{itemize}
+	
+	\subprojectInstallInstructions{\subProjectNormalizedName}
+	\subprojectBuildInstructions{\subProjectNormalizedName}
+	
+	\begin{verbatim}
+		git clone https://github.com/cloudyluna/StardewValleyMods
+		cd DropSeedsAfterEating
+		make release
+	\end{verbatim}
+	
+	
+	\subprojectmodpages{27353}
+	
+	\subprojectrepos{\subProjectNormalizedName}
+	
+	\thanksto
+	
+	\licenseNotice
+	
+	
+\end{document}

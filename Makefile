@@ -17,3 +17,5 @@ documentation: $(DOCS_DIR)
 	   ../SelectiveEating/$(OUT)
 	$(PFLAGS) MaintainGlowRingsIndoorsRadius.tex -o \
 	   ../MaintainGlowRingsIndoorsRadius/$(OUT)
+	$(PFLAGS) DropSeedsAfterEating.tex -o \
+	   ../DropSeedsAfterEating/$(OUT)

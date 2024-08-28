@@ -11,7 +11,7 @@ internal class ModEntry : Mod
     public override void Entry(IModHelper helper)
     {
         var harmony = new Harmony(this.ModManifest.UniqueID);
-        FarmerPatcher.Initialize(this.Monitor, Game1.random);
+        FarmerPatcher.Initialize(this.Monitor);
 
         harmony.Patch(
             original: AccessTools.Method(typeof(Farmer), nameof(Farmer.eatObject)),

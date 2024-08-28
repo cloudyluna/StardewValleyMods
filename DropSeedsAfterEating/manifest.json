@@ -2,9 +2,11 @@
   "Name": "Drop Seeds After Eating",
   "Author": "Cloudyluna",
   "Version": "0.1.0",
-  "Description": "Chance to drop seeds after eating plant based food.",
+  "Description": "A small chance to drop seeds after eating fruits, vegetables or flowers.",
   "UniqueID": "Cloudyluna.DropSeedsAfterEating",
   "EntryDll": "DropSeedsAfterEating.dll",
   "MinimumApiVersion": "4.0.0",
-  "UpdateKeys": []
+  "UpdateKeys": [
+    "Nexus:27353"
+  ]
 }
