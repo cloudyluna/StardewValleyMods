@@ -5,6 +5,7 @@ DEBUG_DIR = $(DIST_DIR)/Debug/$(DOTNET_VERSION)
 RELEASE_DIR = $(DIST_DIR)/Release/$(DOTNET_VERSION)
 FOLDER_NAME = MaintainGlowRingsIndoorsRadius
 FOLDER_DIST_DIR = $(DIST_DIR)/$(FOLDER_NAME)
+TRANSLATION_DIR = data/i18n
 
 all:
 	$(DOTNET) build

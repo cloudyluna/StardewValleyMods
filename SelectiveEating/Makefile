@@ -5,15 +5,19 @@ DEBUG_DIR = $(DIST_DIR)/Debug/$(DOTNET_VERSION)
 RELEASE_DIR = $(DIST_DIR)/Release/$(DOTNET_VERSION)
 FOLDER_NAME = SelectiveEating
 FOLDER_DIST_DIR = $(DIST_DIR)/$(FOLDER_NAME)
+TRANSLATION_DIR = data/i18n
 
-all: translation 
+all: translation
+	dotnet tool restore
 	$(DOTNET) build
 
 translation:
 	mkdir -p $(RELEASE_DIR)
 	mkdir -p $(DEBUG_DIR)
-	cp -r data/i18n $(RELEASE_DIR)
-	cp -r data/i18n $(DEBUG_DIR)
+	mkdir -p $(TRANSLATION_DIR)
+
+	cp -r $(TRANSLATION_DIR) $(RELEASE_DIR)
+	cp -r $(TRANSLATION_DIR) $(DEBUG_DIR)
 
 # quick
 q:  translation
@@ -29,11 +33,12 @@ release:
 	cp -r ./manifest.json $(RELEASE_DIR)
 	cp -r ./sublicenses/ $(RELEASE_DIR)
 	mkdir -p $(FOLDER_DIST_DIR)/
-	
+
 	mkdir -p $(RELEASE_DIR)
 	mkdir -p $(DEBUG_DIR)
-	cp -r data/i18n $(RELEASE_DIR)
-	cp -r data/i18n $(DEBUG_DIR)
+
+	cp -r $(TRANSLATION_DIR) $(RELEASE_DIR)
+	cp -r $(TRANSLATION_DIR) $(DEBUG_DIR)
 
 	cp -f README.md $(RELEASE_DIR)
 	cp -f README.md $(DEBUG_DIR)
@@ -42,8 +47,7 @@ release:
 	cp -f ../LICENSE $(DEBUG_DIR)
 
 	rm -f $(RELEASE_DIR)/$(FOLDER_NAME).deps.json
-	
-	
+
 	cp -r $(RELEASE_DIR)/* $(FOLDER_DIST_DIR)/
 	cd $(DIST_DIR) && zip -9 -r $(FOLDER_NAME).zip $(FOLDER_NAME)
 
