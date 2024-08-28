@@ -15,7 +15,7 @@ internal class ModEntry : Mod
 
         harmony.Patch(
             original: AccessTools.Method(typeof(CrabPot), nameof(CrabPot.DayUpdate)),
-            postfix: new HarmonyMethod(typeof(CrabPotPatcher), nameof(CrabPotPatcher.DayUpdate_Postfix))
+            prefix: new HarmonyMethod(typeof(CrabPotPatcher), nameof(CrabPotPatcher.DayUpdate_Prefix))
         );
 
     }

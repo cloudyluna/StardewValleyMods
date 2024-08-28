@@ -33,7 +33,7 @@ release:
 	mkdir -p $(FOLDER_DIST_DIR)/
 	mkdir -p $(RELEASE_DIR)
 	mkdir -p $(DEBUG_DIR)
-	mkdir -o data/i18n
+	mkdir -p $(TRANSLATION_DIR)
 
 	cp -r $(TRANSLATION_DIR) $(RELEASE_DIR)
 	cp -r $(TRANSLATION_DIR) $(DEBUG_DIR)

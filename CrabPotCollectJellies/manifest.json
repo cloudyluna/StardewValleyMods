@@ -7,5 +7,6 @@
   "EntryDll": "CrabPotCollectJellies.dll",
   "MinimumApiVersion": "4.0.0",
   "UpdateKeys": [
+    "Nexus:27358"
   ]
 }
