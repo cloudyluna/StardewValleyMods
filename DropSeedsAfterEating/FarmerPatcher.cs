@@ -31,11 +31,14 @@ internal class FarmerPatcher
 {
     private const int defaultHowManyToDrop = 1;
 
+    private static Random? PersistentRandom;
+
     private static IMonitor? Monitor;
 
-    internal static void Initialize(IMonitor monitor)
+    internal static void Initialize(IMonitor monitor, Random randomSeed)
     {
         Monitor = monitor;
+        PersistentRandom = randomSeed;
     }
 
     internal static void EatObject_Postfix(Farmer __instance, Object o, bool overrideFullness)
@@ -75,7 +78,10 @@ internal class FarmerPatcher
         }
         catch (Exception ex)
         {
-            Monitor?.Log($"Failed in patched code of: {nameof(EatObject_Postfix)}:\n{ex}", LogLevel.Error);
+            Monitor?.Log(
+                $"Failed in patched code of: {nameof(EatObject_Postfix)}:\n{ex}",
+                LogLevel.Error
+            );
         }
     }
 
@@ -131,8 +137,14 @@ internal class FarmerPatcher
             _ => defaultChanceWeight,
         };
 
-        var dropAmount = Game1.random.Next((int)amountDropChance);
-        return (dropAmount < 1) ? 1 : dropAmount;
+
+        if (PersistentRandom != null)
+        {
+            var dropAmount = PersistentRandom.Next((int)amountDropChance);
+            return (dropAmount < 1) ? defaultHowManyToDrop : dropAmount;
+        }
+
+        return defaultHowManyToDrop;
 
     }
 
