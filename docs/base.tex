@@ -5,11 +5,13 @@
 \usepackage{graphicx}
 \usepackage{xstring}
 
+\author{Cloudyluna}
+\makeatletter
+
 % 1 is title. 2 is longer description. %
 \newcommand{\subprojecttitle}[2]{
 	\section{#1}
 	#2
-	
 }
 
 % 1 is list of \items %
@@ -25,7 +27,7 @@
 	\begin{itemize}
 		\item \href{https://www.nexusmods.com/stardewvalley/mods/2400}{SMAPI}
 		\item \href{https://www.nexusmods.com/stardewvalley/mods/5098}{Generic Mod Config Menu} - \textit{Optional} but \emph{highly recommended}.
-		#1
+		      #1
 	\end{itemize}
 }
 
@@ -34,7 +36,7 @@
 \newcommand{\subprojectInstallInstructions}[1]{
 	\subsection{For users}
 	\subsubsection{Installing #1}
-	
+
 	\begin{enumerate}
 		\item This mod requires SMAPI, so please, install that first.
 		\item Unzip the files into the \texttt{Stardew Valley/Mods/#1} game folder.
@@ -49,11 +51,11 @@
 \newcommand{\subprojectBuildInstructions}[1]{
 	\subsection{For developers}
 	\subsubsection{Building #1}
-	
+
 	\begin{quote}
 		Attention: Make sure you already have set up \$\textit{GAME\_PATH} pointing to your Stardew Valley game folder first.
 	\end{quote}
-	
+
 	If you cloned this project from the Github and have \texttt{nix} installed, run \texttt{nix develop} to load the development environment. Then run \texttt{make} or \texttt{dotnet build} to build the project.
 }
 
@@ -75,7 +77,7 @@
 	\subsection{Thanks to}
 	\begin{itemize}
 		\item \href{https://github.com/Pathoschild/SMAPI}{SMAPI dev and contributors} for making Stardew Valley modding accessible.
-		
+
 		\item \href{https://www.nexusmods.com/stardewvalley/mods/5098}{Generic Config Menu dev and contributors} for making mod configuration through GUI, simple and easy.
 	\end{itemize}
 }
@@ -89,16 +91,18 @@
 
 \newcommand{\licenseNotice}{
 	\subsection{License}
-	
+
 	\myCopyright
-	
-	This project is licensed under the AGPL-3.0-or-later License - see the \texttt{LICENSE} file for details.
+
+	This project is licensed under the AGPL-3.0-or-later license -
+	see the \texttt{LICENSE} file for details.
 }
 
-\newcommand{\subprojectlicensenotice}{
+\newcommand{\subProjectLicenseNotice}{
 	\licenseNotice
-	
+
 	\begin{itemize}
-		\item  The bundled FSharp.Core is licensed under the MIT license. See \texttt{sublicenses/FSharp.MIT} file for details.
+		\item  The bundled FSharp.Core is licensed under the MIT license.
+		      See \texttt{sublicenses/FSharp.MIT} file for details.
 	\end{itemize}
 }

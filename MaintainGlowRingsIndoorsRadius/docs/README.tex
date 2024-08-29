@@ -1,0 +1,54 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+
+
+\def\subprojectname{Maintain Glow Rings Indoors Radius}
+\def\subProjectNormalizedName{MaintainGlowRingsIndoorsRadius}
+
+\title{\subprojectname}
+\author{Cloudyluna}
+\date{\today}
+
+\input{../../docs/base}
+
+\begin{document}
+\subprojecttitle{\subprojectname}{
+	Make glow rings emits the same outdoor's light radius, even when indoors.
+
+	\begin{quote}
+		Indoors here means within buildings or rooms, etc. The exceptions are mineshafts and volcano dungeons.
+	\end{quote}
+}
+
+\subprojectfeatures{
+	\item Make glow rings emits the same outdoor's light radius, even when indoors.
+}
+
+\subsection{Requirements}
+\begin{itemize}
+	\item \href{https://www.nexusmods.com/stardewvalley/mods/2400}{SMAPI}
+\end{itemize}
+
+\subprojectInstallInstructions{\subProjectNormalizedName}
+\subprojectBuildInstructions{\subProjectNormalizedName}
+
+\begin{verbatim}
+		git clone https://github.com/cloudyluna/StardewValleyMods
+		cd MaintainGlowRingsIndoorsRadius
+		make release
+	\end{verbatim}
+
+
+\subprojectmodpages{27331}
+
+\subprojectrepos{\subProjectNormalizedName}
+
+\thanksto
+
+\licenseNotice
+
+
+\end{document}

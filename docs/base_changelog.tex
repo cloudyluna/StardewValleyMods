@@ -1,0 +1,74 @@
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{hyperref}
+\usepackage{etoolbox}
+
+\author{Cloudyluna}
+
+\makeatletter
+
+% #1=changelog status name
+% #2=changelog items
+\newcommand{\helperCmd}[2]{
+    \subsubsection{#1}
+
+    \begin{itemize}
+        #2
+    \end{itemize}
+}
+
+\newcommand{\unreleased}[1]{
+    \helperCmd{Unreleased}{#1}
+}
+
+\newcommand{\added}[1]{
+    \helperCmd{Added}{#1}
+}
+
+\newcommand{\changed}[1]{
+    \helperCmd{Changed}{#1}
+}
+
+\newcommand{\deprecated}[1]{
+    \helperCmd{Deprecated}{#1}
+}
+
+\newcommand{\removed}[1]{
+    \helperCmd{Removed}{#1}
+}
+
+\newcommand{\fixed}[1]{
+    \helperCmd{Fixed}{#1}
+}
+
+% #1=version
+% #2=date
+% #3=helper commands
+\newcommand{\newVersion}[3]{
+    \subsection{[#1] \ifstrempty{#2}{}{- #2}
+    }
+
+    #3
+
+}
+
+\newcommand{\shortNewVersion}[3]{
+    \newVersion{#1}{#2}{
+        \begin{itemize}
+            #3
+        \end{itemize}
+    }
+}
+
+\newcommand{\changelogDoc}[1]{
+    \section{Changelog}
+
+    All notable changes to this project will be documented in this file.
+    \newline
+    \newline
+    The format is based on \href{https://keepachangelog.com/en/1.1.0/}{Keep A Changelog},
+    and this project adheres to \href{https://semver.org/spec/v2.0.0.html}{Semantic Versioning}.
+
+    #1
+}

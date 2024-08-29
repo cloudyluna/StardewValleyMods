@@ -66,5 +66,5 @@ If you cloned this project from the Github and have `nix` installed, run
 
 > Copyright (c) 2024 Cloudyluna
 
-This project is licensed under the AGPL-3.0-or-later License - see the
+This project is licensed under the AGPL-3.0-or-later license - see the
 `LICENSE` file for details.

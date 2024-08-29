@@ -1,8 +1,5 @@
 DOTNET = dotnet
 PANDOC = pandoc
-DOCS_DIR = docs
-PFLAGS = cd $(DOCS_DIR) && $(PANDOC) -t gfm
-OUT = README.md
 
 all: build
 
@@ -11,11 +8,13 @@ build:
 	make -C MaintainGlowRingsIndoorsRadius
 	make -C DropSeedsAfterEating
 
-documentation: $(DOCS_DIR)
-	$(PFLAGS) Main.tex -o ../$(OUT)
-	$(PFLAGS) SelectiveEating.tex -o \
-	   ../SelectiveEating/$(OUT)
-	$(PFLAGS) MaintainGlowRingsIndoorsRadius.tex -o \
-	   ../MaintainGlowRingsIndoorsRadius/$(OUT)
-	$(PFLAGS) DropSeedsAfterEating.tex -o \
-	   ../DropSeedsAfterEating/$(OUT)
+documentation:
+	cd docs && pandoc -t gfm Main.tex -o ../README.md
+	make documentation -C SelectiveEating
+	make documentation -C MaintainGlowRingsIndoorsRadius
+	make documentation -C DropSeedsAfterEating
+
+release:
+	make release -C SelectiveEating
+	make release -C MaintainGlowRingsIndoorsRadius
+	make release -C DropSeedsAfterEating
