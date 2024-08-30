@@ -4,9 +4,18 @@
 \usepackage{hyperref}
 \usepackage{graphicx}
 \usepackage{xstring}
+\usepackage{microtype}
+\usepackage{etoolbox}
 
 \author{Cloudyluna}
 \makeatletter
+
+\newcommand{\subProjectVersion}[1]{
+	\subsection{Version}
+	\begin{itemize}
+		\item #1
+	\end{itemize}
+}
 
 % 1 is title. 2 is longer description. %
 \newcommand{\subprojecttitle}[2]{
@@ -15,17 +24,20 @@
 }
 
 % 1 is list of \items %
-\newcommand{\subprojectfeatures}[1]{
+\newcommand{\subprojectfeatures}[2]{
 	\subsection{Features}
 	\begin{itemize}
-		#1
+		#2
 	\end{itemize}
+
+	\subProjectVersion{#1}
 }
 
 \newcommand{\subProjectDependencies}[1]{
 	\subsection{Requirements}
 	\begin{itemize}
-		\item \href{https://www.nexusmods.com/stardewvalley/mods/2400}{SMAPI}
+		\item Stardew Valley 1.6 (preferably, version 1.6.8)
+		\item \href{https://www.nexusmods.com/stardewvalley/mods/2400}{SMAPI} (minimum v4.0.0 or higher)
 		\item \href{https://www.nexusmods.com/stardewvalley/mods/5098}{Generic Mod Config Menu} - \textit{Optional} but \emph{highly recommended}.
 		      #1
 	\end{itemize}
@@ -38,7 +50,7 @@
 	\subsubsection{Installing #1}
 
 	\begin{enumerate}
-		\item This mod requires SMAPI, so please, install that first.
+		\item This mod requires SMAPI, so please, install that and other listed requirements first.
 		\item Unzip the files into the \texttt{Stardew Valley/Mods/#1} game folder.
 		\item Make sure the \texttt{#1.dll} and \texttt{manifest.json} files are inside \texttt{#1} folder, not in \texttt{Mods} folder.
 		\item Launch the game through SMAPI launcher.
@@ -53,10 +65,19 @@
 	\subsubsection{Building #1}
 
 	\begin{quote}
-		Attention: Make sure you already have set up \$\textit{GAME\_PATH} pointing to your Stardew Valley game folder first.
+		Attention: Make sure you already have set up \$\textit{GAME\_PATH}
+		pointing to your Stardew Valley game folder first.
 	\end{quote}
 
-	If you cloned this project from the Github and have \texttt{nix} installed, run \texttt{nix develop} to load the development environment. Then run \texttt{make} or \texttt{dotnet build} to build the project.
+	If you cloned this project from the Github and have
+	\texttt{nix} installed, run \texttt{nix develop} to load the
+	development environment. Then run \texttt{make} or \texttt{dotnet build}
+	to build the project.
+}
+
+\newcommand{\subProjectChangelog}{
+	\subsection{What changed?}
+	See \href{CHANGELOG.md}{CHANGELOG.md} file for details.
 }
 
 \newcommand{\subprojectrepos}[1]{
@@ -67,6 +88,8 @@
 }
 % takes the nexusmod id page %
 \newcommand{\subprojectmodpages}[1]{
+	\subProjectChangelog{}
+
 	\subsection{Mod page}
 	\begin{itemize}
 		\item \href{https://www.nexusmods.com/stardewvalley/mods/#1}{Nexusmod}

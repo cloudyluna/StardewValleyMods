@@ -4,6 +4,7 @@
 \geometry{margin=1in}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{microtype}
 
 \title{StardewValleyMods}
 \author{Cloudyluna}
@@ -12,31 +13,31 @@
 \input{base}
 
 \begin{document}
-	
-	\section{StardewValleyMods by Cloudyluna}
-	
-	My personal collection of Stardew Valley mods that I wrote (and ongoing) for fun. Nothing serious here.
-	
-	
-	\subsection{Building}
-	
-	If you have \texttt{nix} installed, run \texttt{nix develop} to load the development environment.
-	In a nutshell, \texttt{cd} into any \textit{subproject} and run \texttt{make} to build the project.
-	
-	\begin{quote}
-		Attention: Make sure you have setup \$\textit{GAME\_PATH} pointing to your Stardew Valley game folder first.
-	\end{quote}
-	
-	\begin{verbatim}
+
+\section{StardewValleyMods by Cloudyluna}
+
+My personal collection of Stardew Valley mods that I wrote (and ongoing) for fun. Nothing serious here.
+
+
+\subsection{Building}
+
+If you have \texttt{nix} installed, run \texttt{nix develop} to load the development environment.
+In a nutshell, \texttt{cd} into any \textit{subproject} and run \texttt{make} to build the project.
+
+\begin{quote}
+	Attention: Make sure you have setup \$\textit{GAME\_PATH} pointing to your Stardew Valley game folder first.
+\end{quote}
+
+\begin{verbatim}
 		# Example to build SelectiveEating
 		git clone https://github.com/cloudyluna/StardewValleyMods
 		cd SelectiveEating
 		make
-	\end{verbatim}
-	
-	\thanksto
-	
-	\licensenotice
-	
-	
+\end{verbatim}
+
+\thanksto
+
+\licenseNotice
+
+
 \end{document}

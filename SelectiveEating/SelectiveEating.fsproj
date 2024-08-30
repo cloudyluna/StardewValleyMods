@@ -7,11 +7,13 @@
     <!-- We enable this because FSharp.Core.dll doesn't come by default with SDV! -->
     <BundleExtraAssemblies>ThirdParty</BundleExtraAssemblies>
     <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+    <OtherFlags>$(OtherFlags) --warnon:1182</OtherFlags>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="src/Config.fs" />
+    <Compile Include="src/ConfigMenu.fs" />
     <Compile Include="src/FoodPriorityPicker.fs" />
-    <Compile Include="src/Mod.fs" />
+    <Compile Include="src/ModEntry.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CloudyCore\CloudyCore.fsproj" />

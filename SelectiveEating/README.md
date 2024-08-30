@@ -27,9 +27,16 @@ with configurable settings.
   Menu](https://www.nexusmods.com/stardewvalley/mods/5098) or
   `config.json` file within `SelectiveEating` mod directory.
 
+## Version
+
+- 0.5.0
+
 ## Requirements
 
-- [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400)
+- Stardew Valley 1.6 (preferably, version 1.6.8)
+
+- [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400) (minimum
+  v4.0.0 or higher)
 
 - [Generic Mod Config
   Menu](https://www.nexusmods.com/stardewvalley/mods/5098) - *Optional*
@@ -39,7 +46,8 @@ with configurable settings.
 
 ### Installing SelectiveEating
 
-1.  This mod requires SMAPI, so please, install that first.
+1.  This mod requires SMAPI, so please, install that and other listed
+    requirements first.
 
 2.  Unzip the files into the `Stardew Valley/Mods/SelectiveEating` game
     folder.
@@ -63,6 +71,10 @@ If you cloned this project from the Github and have `nix` installed, run
             git clone https://github.com/cloudyluna/StardewValleyMods
             cd SelectiveEating
             make release
+
+## What changed?
+
+See [CHANGELOG.md](CHANGELOG.md) file for details.
 
 ## Mod page
 

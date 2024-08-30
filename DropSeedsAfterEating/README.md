@@ -10,6 +10,10 @@ A small chance to drop seeds after eating fruits, vegetables or flowers.
 - A small chance to drop seeds after eating fruits, vegetables or
   flowers.
 
+## Version
+
+- 0.1.0
+
 ## Requirements
 
 - [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400)
@@ -18,7 +22,8 @@ A small chance to drop seeds after eating fruits, vegetables or flowers.
 
 ### Installing DropSeedsAfterEating
 
-1.  This mod requires SMAPI, so please, install that first.
+1.  This mod requires SMAPI, so please, install that and other listed
+    requirements first.
 
 2.  Unzip the files into the `Stardew Valley/Mods/DropSeedsAfterEating`
     game folder.
@@ -42,6 +47,10 @@ If you cloned this project from the Github and have `nix` installed, run
             git clone https://github.com/cloudyluna/StardewValleyMods
             cd DropSeedsAfterEating
             make release
+
+## What changed?
+
+See [CHANGELOG.md](CHANGELOG.md) file for details.
 
 ## Mod page
 

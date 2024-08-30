@@ -4,17 +4,17 @@ PANDOC = pandoc
 all: build
 
 build:
-	make -C SelectiveEating
-	make -C MaintainGlowRingsIndoorsRadius
-	make -C DropSeedsAfterEating
+	$(MAKE) -C SelectiveEating
+	$(MAKE) -C MaintainGlowRingsIndoorsRadius
+	$(MAKE) -C DropSeedsAfterEating
 
 documentation:
 	cd docs && pandoc -t gfm Main.tex -o ../README.md
-	make documentation -C SelectiveEating
-	make documentation -C MaintainGlowRingsIndoorsRadius
-	make documentation -C DropSeedsAfterEating
+	$(MAKE) documentation -C SelectiveEating
+	$(MAKE) documentation -C MaintainGlowRingsIndoorsRadius
+	$(MAKE) documentation -C DropSeedsAfterEating
 
 release:
-	make release -C SelectiveEating
-	make release -C MaintainGlowRingsIndoorsRadius
-	make release -C DropSeedsAfterEating
+	$(MAKE) release -C SelectiveEating
+	$(MAKE) release -C MaintainGlowRingsIndoorsRadius
+	$(MAKE) release -C DropSeedsAfterEating

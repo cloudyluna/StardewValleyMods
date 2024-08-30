@@ -1,9 +1,4 @@
 \documentclass[a4paper,12pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage{geometry}
-\geometry{margin=1in}
-\usepackage{hyperref}
-
 
 \def\subprojectname{Maintain Glow Rings Indoors Radius}
 \def\subProjectNormalizedName{MaintainGlowRingsIndoorsRadius}
@@ -11,6 +6,7 @@
 \title{\subprojectname}
 \author{Cloudyluna}
 \date{\today}
+\def\projectVersion{0.1.0}
 
 \input{../../docs/base}
 
@@ -23,7 +19,7 @@
 	\end{quote}
 }
 
-\subprojectfeatures{
+\subprojectfeatures{\projectVersion}{
 	\item Make glow rings emits the same outdoor's light radius, even when indoors.
 }
 
@@ -39,7 +35,7 @@
 		git clone https://github.com/cloudyluna/StardewValleyMods
 		cd MaintainGlowRingsIndoorsRadius
 		make release
-	\end{verbatim}
+\end{verbatim}
 
 
 \subprojectmodpages{27331}

@@ -5,8 +5,21 @@
 \begin{document}
 
 \changelogDoc{
+    \unreleasedNewVersion{
+        \changed {
+            \item Default for condition check threshold interval, back to 1 second.
+        }
+
+        \fixed {
+            \item Keybind toggle to turn mod on/off not saving things on toggle switch.
+            \item Wonky stamina priority food selection.
+        }
+    }
+
     \newVersion{0.4.1}{}{
-        \added { \item Provide a minimal translated string for keybind HUD message. }
+        \added {
+            \item Provide a minimal translated string for keybind HUD message.
+        }
 
         \fixed {
             \item Properly use food ID instead of their qualified version (which may start with something like (O)91 for banana). Now, we use just number 91 to block from eating bananas,
@@ -14,7 +27,7 @@
         }
     }
 
-    \newVersion{0.4.0}{\today}{
+    \newVersion{0.4.0}{}{
         \added {
             \item Show HUD message when mod's is toggled on/off with the keybind while playing.
             \item Player condition interval check now has an option to check every 1/3 of a second. Set this to 0 to make this check occuring far more often.

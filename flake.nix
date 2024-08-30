@@ -21,6 +21,8 @@
             dotnetCorePackages.sdk_8_0_3xx
             ilspycmd # decompile SDV because there are so many things that
                      # aren't simply present in public documentation.
+            jq
+            moreutils
             zip
             unzip
             gnumake

@@ -11,6 +11,10 @@ indoors.
 - Make glow rings emits the same outdoor’s light radius, even when
   indoors.
 
+## Version
+
+- 0.1.0
+
 ## Requirements
 
 - [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400)
@@ -19,7 +23,8 @@ indoors.
 
 ### Installing MaintainGlowRingsIndoorsRadius
 
-1.  This mod requires SMAPI, so please, install that first.
+1.  This mod requires SMAPI, so please, install that and other listed
+    requirements first.
 
 2.  Unzip the files into the
     `Stardew Valley/Mods/MaintainGlowRingsIndoorsRadius` game folder.
@@ -44,6 +49,10 @@ If you cloned this project from the Github and have `nix` installed, run
             git clone https://github.com/cloudyluna/StardewValleyMods
             cd MaintainGlowRingsIndoorsRadius
             make release
+
+## What changed?
+
+See [CHANGELOG.md](CHANGELOG.md) file for details.
 
 ## Mod page
 

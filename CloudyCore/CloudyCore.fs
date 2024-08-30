@@ -43,7 +43,7 @@ module Movement =
         | Left = 3
 
 [<AutoOpen>]
-module Functors =
+module Combinator =
     /// <summary>
     /// Executes a side-effect function and returns the original input value.
     /// </summary>
@@ -52,6 +52,15 @@ module Functors =
         f x
         x
 
+    let flip (f : 'a -> 'b -> 'c) (a : 'b) (b : 'a) : 'c = f b a
+
+    /// Synonym of `<|` or Haskell `$`.
+    let (^) = (<|)
+
+[<RequireQualifiedAccess>]
+module Option =
+    /// Flipped version of `iter`.
+    let exec (a : 'a option) (b : 'a -> unit) : unit = flip Option.iter a b
 
 module Math =
     type Percentage = | Percentage of int
@@ -61,3 +70,26 @@ module Math =
 
     let makePercentage current max = Percentage <| ofPercentage current max
     let fromPercentage (Percentage percentage) = percentage
+
+// Ignore translation warnings.
+#nowarn "3391"
+
+[<RequireQualifiedAccess>]
+module Translation =
+    open System
+
+    let stringKey
+        (translationHelper : ITranslationHelper)
+        (keyName : string)
+        : Func<string>
+        =
+        Func<string> (fun _ -> translationHelper.Get keyName)
+
+    /// `recordParam` could be anonnymous object, dictionary or class.
+    let genericKey
+        (translationHelper : ITranslationHelper)
+        (keyName : string)
+        (recordParam : 'a)
+        : Translation
+        =
+        translationHelper.Get (keyName, recordParam)

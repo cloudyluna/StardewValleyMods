@@ -1,11 +1,18 @@
 # Changelog
 
-All notable changes to this project will be documented in this file. The
-format is based on [Keep A
-Changelog](https://keepachangelog.com/en/1.1.0/), and this project
-adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+## \[Unreleased\]
 
-## \[0.4.1\] 
+### Changed
+
+- Default for condition check threshold interval, back to 1 second.
+
+### Fixed
+
+- Keybind toggle to turn mod on/off not saving things on toggle switch.
+
+- Wonky stamina priority food selection.
+
+## \[0.4.1\]
 
 ### Added
 
@@ -18,7 +25,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   91 to block from eating bananas, which doesn’t contradict the given
   example in the config menu.
 
-## \[0.4.0\] 
+## \[0.4.0\]
 
 ### Added
 
@@ -40,7 +47,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   silly self has fixed and added a bit more code to prevent this from
   happening again.
 
-## \[0.3.0\] 
+## \[0.3.0\]
 
 ### Added
 
@@ -53,13 +60,13 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Stay in the last facing direction option. I forgot to handle this
   internally..
 
-## \[0.2.1\] 
+## \[0.2.1\]
 
 ### Fixed
 
 - Forbidden list name when spaces are in use.
 
-## \[0.2.0\] 
+## \[0.2.0\]
 
 ### Added
 
@@ -82,6 +89,6 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   (left to right, depending on your configured "eating priority"
   setting).
 
-## \[0.1.0\] 
+## \[0.1.0\]
 
 - Initial release.
