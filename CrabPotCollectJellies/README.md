@@ -19,9 +19,16 @@ randomly. The spawn type and in which area are as follow:
 - An option to replace all trash that will be collected by crab pots
   with jellies. Configurable with Generic Mod Config Menu.
 
+## Version
+
+- 0.2.0
+
 ## Requirements
 
-- [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400)
+- Stardew Valley 1.6 (preferably, version 1.6.8)
+
+- [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400) (minimum
+  v4.0.0 or higher)
 
 - [Generic Mod Config
   Menu](https://www.nexusmods.com/stardewvalley/mods/5098) - *Optional*
@@ -31,8 +38,8 @@ randomly. The spawn type and in which area are as follow:
 
 ### Installing CrabPotCollectJellies
 
-1.  This mod requires SMAPI and other dependencies listed above, so
-    please, install those first.
+1.  This mod requires SMAPI, so please, install that and other listed
+    requirements first.
 
 2.  Unzip the files into the `Stardew Valley/Mods/CrabPotCollectJellies`
     game folder.
@@ -41,6 +48,10 @@ randomly. The spawn type and in which area are as follow:
     are inside `CrabPotCollectJellies` folder, not in `Mods` folder.
 
 4.  Launch the game through SMAPI launcher.
+
+## What changed?
+
+See [CHANGELOG.md](CHANGELOG.md) file for details.
 
 ## Mod page
 
