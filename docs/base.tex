@@ -33,14 +33,20 @@
 	\subProjectVersion{#1}
 }
 
-\newcommand{\subProjectDependencies}[1]{
+\newcommand{\subProjectHardDependencies}[1]{
 	\subsection{Requirements}
 	\begin{itemize}
 		\item Stardew Valley 1.6 (preferably, version 1.6.8)
 		\item \href{https://www.nexusmods.com/stardewvalley/mods/2400}{SMAPI} (minimum v4.0.0 or higher)
-		\item \href{https://www.nexusmods.com/stardewvalley/mods/5098}{Generic Mod Config Menu} - \textit{Optional} but \emph{highly recommended}.
 		      #1
 	\end{itemize}
+}
+
+\newcommand{\subProjectDependencies}[1]{
+	\subProjectHardDependencies{
+		\item \href{https://www.nexusmods.com/stardewvalley/mods/5098}{Generic Mod Config Menu} - \textit{Optional} but \emph{highly recommended}.
+		#1
+	}
 }
 
 % 1: Project name.

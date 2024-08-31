@@ -17,7 +17,10 @@ indoors.
 
 ## Requirements
 
-- [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400)
+- Stardew Valley 1.6 (preferably, version 1.6.8)
+
+- [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400) (minimum
+  v4.0.0 or higher)
 
 ## For users
 
