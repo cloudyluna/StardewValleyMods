@@ -8,6 +8,9 @@
 
 ### Fixed
 
+- Default priority strategy selection key name not matching with the new
+  one.
+
 - Keybind toggle to turn mod on/off not saving things on toggle switch.
 
 - Wonky stamina priority food selection.

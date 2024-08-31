@@ -4,11 +4,6 @@ open StardewModdingAPI
 open CloudyCore.IGenericConfigMenuApi
 open CloudyCore.Prelude
 
-type FoodPriorityStrategy =
-    | HealthOrStamina
-    | CheapestFood
-    | Off
-    | Invalid of string
 
 module private Aux =
     let priorityStrategyFromString s =
