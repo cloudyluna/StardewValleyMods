@@ -176,12 +176,7 @@ module InventoryFood =
         else // Off. Just start eating from the active inventory row, left to right.
             Array.head food
 
-    let tryGetOne
-        (config : ModConfig)
-        (player : Farmer)
-        (vitalsPriority : VitalsPriority)
-        : FoodItem option
-        =
+    let tryGetOne (config : ModConfig) (player : Farmer) : FoodItem option =
         let items = lazy (makeEdibles config player)
 
         let getFor replenisher vital =
@@ -197,7 +192,7 @@ module InventoryFood =
                 |> Some
 
 
-        match vitalsPriority with
+        match getVitalsPriority config player with
         | DoingOK -> None
         | Health health -> getFor replenishHealth health
         | Stamina stamina -> getFor replenishStamina stamina

@@ -1,19 +1,22 @@
 # Changelog
 
-## \[Unreleased\]
+## \[0.4.2\]2024-09-01
 
 ### Changed
 
-- Default for condition check threshold interval, back to 1 second.
+- Default condition check interval to 1/3 second.
 
 ### Fixed
+
+- A rather major performance issue whenever eating with animation is
+  switched on.
 
 - Default priority strategy selection key name not matching with the new
   one.
 
 - Keybind toggle to turn mod on/off not saving things on toggle switch.
 
-- Wonky stamina priority food selection.
+- Wonky stamina first food, priority selection.
 
 ## \[0.4.1\]
 

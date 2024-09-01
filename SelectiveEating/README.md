@@ -29,7 +29,7 @@ with configurable settings.
 
 ## Version
 
-- 0.5.0
+- 0.4.2
 
 ## Requirements
 

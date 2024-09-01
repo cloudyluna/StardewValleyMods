@@ -19,6 +19,6 @@ type ModConfig() =
         HealthOrStamina.ToString () with get, set
 
     member val IsSkipEatingAnimationEnabled = false with get, set
-    member val ThresholdCheckPerSecond = 1u with get, set
+    member val ThresholdCheckPerSecond = 0u with get, set
     member val ForbiddenFoods = "" with get, set
     member val IsStayInLastDirectionEnabled = true with get, set

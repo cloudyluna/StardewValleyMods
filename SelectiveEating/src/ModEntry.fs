@@ -83,15 +83,30 @@ type internal Mod() =
                 if isTimeToProcess then
                     let player = Game1.player
 
-                    let priority =
-                        VitalsSelector.getVitalsPriority config player
+                    // player.eatObject() doesn't block! We gotta
+                    // check if player is trully "free" first to eat
+                    // again before actually attempt to proceed
+                    // with this.TryEatFood.
+                    // Not doing this will cause the player to
+                    // this.TryEatFood more than once
+                    // and can get real expensive at the lowest
+                    // condition checking interval.
+                    //
+                    // This can be ignored for skipped eating animation
+                    // because all it does is just updating the actual
+                    // stats behind the scene.
+                    let isDoingEatingAnimation =
+                        not config.IsSkipEatingAnimationEnabled
+                        && not Context.CanPlayerMove
+                        || player.isEating
 
-                    this.TryEatFood (config, player, priority)
+                    if isDoingEatingAnimation then
+                        ()
+                    else
+                        this.TryEatFood (config, player)
 
-    member private this.TryEatFood
-        (config : ModConfig, player : Farmer, vitalsPriority : VitalsPriority)
-        =
-        Option.exec (InventoryFood.tryGetOne config player vitalsPriority)
+    member private this.TryEatFood (config : ModConfig, player : Farmer) =
+        Option.exec (InventoryFood.tryGetOne config player)
         ^ fun item -> this.EatFood (config, player, item.Food)
 
     member private this.EatFood
