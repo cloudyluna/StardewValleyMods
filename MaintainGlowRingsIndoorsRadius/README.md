@@ -1,5 +1,7 @@
 # Maintain Glow Rings Indoors Radius
 
+------------------------------------------------------------------------
+
 Make glow rings emits the same outdoor’s light radius, even when
 indoors.
 
@@ -13,7 +15,26 @@ indoors.
 
 ## Version
 
-- 0.1.0
+0.1.0
+
+## Compatibility
+
+If you found this mod behaving weirdly or being incompatible with other
+mods, please report it in the `Bug` or `Discussion` page on Nexusmods
+site so other users will be aware of such potential issues in the
+future.
+
+### Compatible with
+
+- Should work with most mods.
+
+### Incompatible with
+
+- No known incompatibility.
+
+## Known issues
+
+- No known issue.
 
 ## Requirements
 

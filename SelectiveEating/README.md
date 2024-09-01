@@ -1,5 +1,7 @@
 # Selective Eating
 
+------------------------------------------------------------------------
+
 A simple quality of life mod to make eating easier and automatically
 with configurable settings.
 
@@ -29,7 +31,26 @@ with configurable settings.
 
 ## Version
 
-- 0.4.2
+0.4.2
+
+## Compatibility
+
+If you found this mod behaving weirdly or being incompatible with other
+mods, please report it in the `Bug` or `Discussion` page on Nexusmods
+site so other users will be aware of such potential issues in the
+future.
+
+### Compatible with
+
+- Should work with most mods.
+
+### Incompatible with
+
+- No known incompatibility.
+
+## Known issues
+
+- No known issue.
 
 ## Requirements
 

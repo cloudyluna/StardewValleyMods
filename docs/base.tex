@@ -10,16 +10,17 @@
 \author{Cloudyluna}
 \makeatletter
 
+\newcommand{\makeruler}{\noindent\rule{\textwidth}{1pt}}
+
 \newcommand{\subProjectVersion}[1]{
 	\subsection{Version}
-	\begin{itemize}
-		\item #1
-	\end{itemize}
+	#1
 }
 
 % 1 is title. 2 is longer description. %
 \newcommand{\subprojecttitle}[2]{
 	\section{#1}
+	\makeruler
 	#2
 }
 
@@ -47,6 +48,35 @@
 		\item \href{https://www.nexusmods.com/stardewvalley/mods/5098}{Generic Mod Config Menu} - \textit{Optional} but \emph{highly recommended}.
 		#1
 	}
+}
+
+\newcommand{\subProjectCompatibility}[2]{
+	\subsection{Compatibility}
+	If you found this mod behaving weirdly or being incompatible with other mods, please report it in the \texttt{Bug} or \texttt{Discussion}
+	page on Nexusmods site so other users will be aware of such potential issues in the future.
+
+	\subsubsection{Compatible with}
+	\begin{itemize}
+		#1
+	\end{itemize}
+
+	\subsubsection{Incompatible with}
+	\begin{itemize}
+		#2
+	\end{itemize}
+}
+
+\newcommand{\subProjectKnownIssues}[1]{
+	\subsection{Known issues}
+	\begin{itemize}
+		#1
+	\end{itemize}
+}
+
+\newcommand{\subProjectCompatIssues}[3]{
+	\subProjectCompatibility{#1}{#2}
+
+	\subProjectKnownIssues{#3}
 }
 
 % 1: Project name.
@@ -83,11 +113,13 @@
 
 \newcommand{\subProjectChangelog}{
 	\subsection{What changed?}
+
 	See \href{CHANGELOG.md}{CHANGELOG.md} file for details.
 }
 
 \newcommand{\subprojectrepos}[1]{
 	\subsection{Source code}
+
 	\begin{itemize}
 		\item \href{https://github.com/cloudyluna/StardewValleyMods/tree/main/#1}{Github}
 	\end{itemize}
@@ -97,6 +129,7 @@
 	\subProjectChangelog{}
 
 	\subsection{Mod page}
+
 	\begin{itemize}
 		\item \href{https://www.nexusmods.com/stardewvalley/mods/#1}{Nexusmod}
 	\end{itemize}
@@ -120,7 +153,6 @@
 
 \newcommand{\licenseNotice}{
 	\subsection{License}
-
 	\myCopyright
 
 	This project is licensed under the AGPL-3.0-or-later license -

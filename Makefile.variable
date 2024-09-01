@@ -40,6 +40,9 @@ documentation_plain:
 	cd docs && pandoc -t plain README.tex -o ../README.txt
 	cd docs && pandoc -t plain CHANGELOG.tex -o ../CHANGELOG.txt
 
+documentation_bbcode:
+	cd docs && pandoc -t ../../docs/bbcode_nexusmods.lua README.tex -o ../README.bbcode
+
 release:
 	rm -rf bin/ obj/
 	$(DOTNET) clean

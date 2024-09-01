@@ -1,5 +1,7 @@
 # Drop Seeds After Eating
 
+------------------------------------------------------------------------
+
 A small chance to drop seeds after eating fruits, vegetables or flowers.
 
 > Limitation: Doesn’t work for fruits that gives saplings and any
@@ -12,7 +14,26 @@ A small chance to drop seeds after eating fruits, vegetables or flowers.
 
 ## Version
 
-- 0.1.0
+0.1.0
+
+## Compatibility
+
+If you found this mod behaving weirdly or being incompatible with other
+mods, please report it in the `Bug` or `Discussion` page on Nexusmods
+site so other users will be aware of such potential issues in the
+future.
+
+### Compatible with
+
+- Should work with most mods.
+
+### Incompatible with
+
+- No known incompatibility.
+
+## Known issues
+
+- No known issue.
 
 ## Requirements
 
