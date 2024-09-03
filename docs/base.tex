@@ -50,19 +50,26 @@
 	}
 }
 
-\newcommand{\subProjectCompatibility}[2]{
+% #1=multiplayer compatibility
+% #2=compatibility with other mods
+% #3=incompatibility with other mods
+\newcommand{\subProjectCompatibility}[3]{
 	\subsection{Compatibility}
-	If you found this mod behaving weirdly or being incompatible with other mods, please report it in the \texttt{Bug} or \texttt{Discussion}
-	page on Nexusmods site so other users will be aware of such potential issues in the future.
+	If you found this mod behaving weirdly or being incompatible with other mods, please report it in the \texttt{Bug} or \texttt{Posts}
+	page on this mode page site (Nexusmods) so other users will be aware of such potential issues in the future.
+
+	% Untested, yes, no.
+	\subsubsection{Compatible with multiplayer?}
+	#1
 
 	\subsubsection{Compatible with}
 	\begin{itemize}
-		#1
+		#2
 	\end{itemize}
 
 	\subsubsection{Incompatible with}
 	\begin{itemize}
-		#2
+		#3
 	\end{itemize}
 }
 
@@ -73,10 +80,10 @@
 	\end{itemize}
 }
 
-\newcommand{\subProjectCompatIssues}[3]{
-	\subProjectCompatibility{#1}{#2}
+\newcommand{\subProjectCompatIssues}[4]{
+	\subProjectCompatibility{#1}{#2}{#3}
 
-	\subProjectKnownIssues{#3}
+	\subProjectKnownIssues{#4}
 }
 
 % 1: Project name.

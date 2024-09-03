@@ -36,9 +36,13 @@ with configurable settings.
 ## Compatibility
 
 If you found this mod behaving weirdly or being incompatible with other
-mods, please report it in the `Bug` or `Discussion` page on Nexusmods
-site so other users will be aware of such potential issues in the
-future.
+mods, please report it in the `Bug` or `Posts` page on this mode page
+site (Nexusmods) so other users will be aware of such potential issues
+in the future.
+
+### Compatible with multiplayer?
+
+Untested.
 
 ### Compatible with
 
@@ -46,7 +50,9 @@ future.
 
 ### Incompatible with
 
-- No known incompatibility.
+- Fluent Eating
+
+- Auto-eat (including the 1.6 updated version)
 
 ## Known issues
 
