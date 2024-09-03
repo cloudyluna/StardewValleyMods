@@ -23,8 +23,10 @@ mods, please report it in the
 [`bugs`](https://www.nexusmods.com/stardewvalley/mods/27353?tab=bugs) or
 [`posts`](https://www.nexusmods.com/stardewvalley/mods/27353?tab=posts)
 page so I can update this documentation with that information and to let
-other users know about such potential issues in the future. This mod
-should with most other mods unless specified otherwise below.
+other users know about such potential issues in the future.
+
+> This mod should work with most other mods unless specified otherwise
+> below.
 
 ### Compatible with multiplayer?
 
