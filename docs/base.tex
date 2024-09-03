@@ -56,22 +56,24 @@
 
 % #1=mod id
 % #2=multiplayer compatibility
-% #3=compatibility with other mods
-% #4=incompatibility with other mods
-\newcommand{\subProjectCompatibility}[4]{
+% #3=incompatibility with other mods
+\newcommand{\subProjectCompatibility}[3]{
 	\subsection{Compatibility}
 	If you found this mod behaving weirdly or being incompatible with other mods, please report it in the \modUrl{#1}{bugs} or \modUrl{#1}{posts} page
 	so I can update this documentation with that information and to let other users know about such potential issues in the future.
+	\newline
+	\newline
 
-	\subsubsection{Compatible with}
-	\begin{itemize}
-		\item \texttt{Multiplayer}: #2
-		      #3
-	\end{itemize}
+	\begin{quote}
+		This mod should work with most other mods unless specified otherwise below.
+	\end{quote}
+
+	\subsubsection{Compatible with multiplayer?}
+	#2
 
 	\subsubsection{Incompatible with}
 	\begin{itemize}
-		#4
+		#3
 	\end{itemize}
 }
 
@@ -82,10 +84,12 @@
 	\end{itemize}
 }
 
-\newcommand{\subProjectCompatIssues}[5]{
-	\subProjectCompatibility{#1}{#2}{#3}{#4}
+\newcommand{\subProjectCompatIssues}[4]{
+	\subProjectCompatibility{#1}{#2}{#3}
 
-	\subProjectKnownIssues{#5}
+	\subProjectKnownIssues{#4}
+
+	\subProjectChangelog{}
 }
 
 % 1: Project name.
@@ -135,8 +139,6 @@
 }
 % takes the nexusmod id page %
 \newcommand{\subprojectmodpages}[1]{
-	\subProjectChangelog{}
-
 	\subsection{Mod page}
 
 	\begin{itemize}
@@ -153,6 +155,11 @@
 	\end{itemize}
 }
 
+\newcommand{\subProjectAcknowledge}[2]{
+	\thanksto
+	\subprojectmodpages{#1}
+	\subprojectrepos{#2}
+}
 
 \newcommand{\myCopyright}{
 	\begin{quote}

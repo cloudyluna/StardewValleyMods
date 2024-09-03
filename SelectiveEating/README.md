@@ -40,13 +40,12 @@ mods, please report it in the
 [`bugs`](https://www.nexusmods.com/stardewvalley/mods/26831?tab=bugs) or
 [`posts`](https://www.nexusmods.com/stardewvalley/mods/26831?tab=posts)
 page so I can update this documentation with that information and to let
-other users know about such potential issues in the future.
+other users know about such potential issues in the future. This mod
+should with most other mods unless specified otherwise below.
 
-### Compatible with
+### Compatible with multiplayer?
 
-- `Multiplayer`: Untested.
-
-- Should work with most mods.
+Untested.
 
 ### Incompatible with
 
@@ -57,6 +56,10 @@ other users know about such potential issues in the future.
 ## Known issues
 
 - No known issue.
+
+## What changed?
+
+See [CHANGELOG.md](CHANGELOG.md) file for details.
 
 ## Requirements
 
@@ -99,18 +102,6 @@ If you cloned this project from the Github and have `nix` installed, run
             cd SelectiveEating
             make release
 
-## What changed?
-
-See [CHANGELOG.md](CHANGELOG.md) file for details.
-
-## Mod page
-
-- [Nexusmods](https://www.nexusmods.com/stardewvalley/mods/26831)
-
-## Source code
-
-- [Github](https://github.com/cloudyluna/StardewValleyMods/tree/main/SelectiveEating)
-
 ## Thanks to
 
 - [SMAPI dev and contributors](https://github.com/Pathoschild/SMAPI) for
@@ -119,6 +110,14 @@ See [CHANGELOG.md](CHANGELOG.md) file for details.
 - [Generic Config Menu dev and
   contributors](https://www.nexusmods.com/stardewvalley/mods/5098) for
   making mod configuration through GUI, simple and easy.
+
+## Mod page
+
+- [Nexusmods](https://www.nexusmods.com/stardewvalley/mods/26831)
+
+## Source code
+
+- [Github](https://github.com/cloudyluna/StardewValleyMods/tree/main/SelectiveEating)
 
 ## License
 
