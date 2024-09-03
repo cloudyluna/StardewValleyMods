@@ -119,7 +119,7 @@ internal class CrabPotPatcher
                 else
                 {
                     var trashId = random.Next(168, 173).ToString();
-                    TryCollectJellies(random, crabPotFishForTile, trashId, out List<string> resultIds);
+                    TryCollectJellies(random, location, crabPotFishForTile, trashId, out List<string> resultIds);
                     string chosenId = (resultIds.Count > 0) ? random.ChooseFrom(resultIds) : trashId;
                     crabPot.heldObject.Value = ItemRegistry.Create<Object>("(O)" + chosenId);
                 }
@@ -141,6 +141,7 @@ internal class CrabPotPatcher
 
     static private void TryCollectJellies(
         Random random,
+        GameLocation location,
         IList<string> crabPotFishForTile,
         string trashId,
         out List<string> resultIds
@@ -151,13 +152,14 @@ internal class CrabPotPatcher
         {
             if (!Config.IsReplaceAllTrashSelected)
                 resultIds.Add(trashId);
-            CollectJellies(random, crabPotFishForTile, ref resultIds);
+            CollectJellies(random, location, crabPotFishForTile, ref resultIds);
 
         }
     }
 
     static private void CollectJellies(
         Random random,
+        GameLocation location,
         IList<string> crabPotFishForTile,
         ref List<string> ids)
     {
@@ -169,17 +171,30 @@ internal class CrabPotPatcher
             }
             else
             {
-                ids.Add("RiverJelly");
-
                 // Make this rarer because:
-                // 1. We cannot put pots in caves, so we gotta put
-                // them wherever valid freshwater location is and
-                // that would mean..rivers.
+                // Cave jellies are expensive and they give luck bonus.
                 // To see cave jelly appear as often as river's
                 // doesn't make a lot of sense,
                 // so hence why we randomize this addition a bit further.
-                if (random.NextBool()) ids.Add("CaveJelly");
+                var riverJelly = "RiverJelly";
+                var caveJelly = "CaveJelly";
+                var chanceBase = 0.6;
+                if (location.NameOrUniqueName == "WitchSwamp")
+                {
+                    if (random.NextBool(chanceBase - 0.2)) ids.Add(riverJelly);
+                    if (random.NextBool(chanceBase + 0.2)) ids.Add(caveJelly);
+                }
+                else if (location.NameOrUniqueName == "FarmCave")
+                {
 
+                    if (random.NextBool(chanceBase - 0.3)) ids.Add(riverJelly);
+                    if (random.NextBool(chanceBase + 0.3)) ids.Add(caveJelly);
+                }
+                else
+                {
+                    ids.Add(riverJelly);
+                    if (random.NextBool()) ids.Add(caveJelly);
+                }
             }
 
             break;

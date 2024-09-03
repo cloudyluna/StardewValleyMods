@@ -1,17 +1,12 @@
 \documentclass[a4paper,12pt]{article}
-\usepackage[utf8]{inputenc}
-\usepackage{geometry}
-\geometry{margin=1in}
-\usepackage{hyperref}
 
 
 \def\subprojectname{Crab Pot Collect Jellies}
 \def\subProjectNormalizedName{CrabPotCollectJellies}
 
 \title{\subprojectname}
-\author{Cloudyluna}
-\date{\today}
-\def\projectVersion{0.2.0}
+\def\projectVersion{0.3.0}
+\def\modId{27358}
 
 \input{../../docs/base}
 
@@ -22,9 +17,9 @@
 	This mod uses the same trash spawn chance value to collect jellies randomly. The spawn type and in which area are as follow:
 
 	\begin{itemize}
-		\item Sea Jelly $\longrightarrow$ Ocean tiles; by Willy's shop or the beach, etc.
-		\item River Jelly $\longrightarrow$ Rivers, lakes, sewers, etc.
-		\item Cave Jelly $\longrightarrow$ The same as river jelly, but a bit rarer.
+		\item Sea Jelly --> Ocean tiles; by Willy's shop or the beach, etc.
+		\item River Jelly --> Rivers, lakes, sewers, etc.
+		\item Cave Jelly --> The same as river jelly, but a bit rarer.
 	\end{itemize}
 }
 
@@ -33,14 +28,20 @@
 	\item An option to replace all trash that will be collected by crab pots with jellies. Configurable with Generic Mod Config Menu.
 }
 
+\subProjectCompatIssues{\modId}{
+	Untested.
+}{
+	\item Any mods that changes trash spawn chance values or drastically changes crab pots mechanism.
+}{
+	\item No known issues.
+}
+
 \subProjectDependencies{}
 
 \subprojectInstallInstructions{\subProjectNormalizedName}
 
 
-\subprojectmodpages{27358}
-
-\thanksto
+\subProjectAcknowledge{\modId}{\subProjectNormalizedName}
 
 \myCopyright
 

@@ -1,7 +1,6 @@
 ﻿namespace CrabPotCollectJellies;
 
 using HarmonyLib;
-using StardewValley;
 using StardewModdingAPI;
 using StardewValley.Objects;
 using StardewModdingAPI.Events;
