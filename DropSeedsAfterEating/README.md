@@ -19,9 +19,11 @@ A small chance to drop seeds after eating fruits, vegetables or flowers.
 ## Compatibility
 
 If you found this mod behaving weirdly or being incompatible with other
-mods, please report it in the `Bug` or `Posts` page on this mode page
-site (Nexusmods) so other users will be aware of such potential issues
-in the future.
+mods, please report it in the
+[`bugs`](https://www.nexusmods.com/stardewvalley/mods/27353?tab=bugs) or
+[`posts`](https://www.nexusmods.com/stardewvalley/mods/27353?tab=posts)
+page so I can update this documentation with that information and to let
+other users know about such potential issues in the future.
 
 ### Compatible with multiplayer?
 
@@ -82,7 +84,7 @@ See [CHANGELOG.md](CHANGELOG.md) file for details.
 
 ## Mod page
 
-- [Nexusmod](https://www.nexusmods.com/stardewvalley/mods/27353)
+- [Nexusmods](https://www.nexusmods.com/stardewvalley/mods/27353)
 
 ## Source code
 

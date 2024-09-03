@@ -50,26 +50,31 @@
 	}
 }
 
-% #1=multiplayer compatibility
-% #2=compatibility with other mods
-% #3=incompatibility with other mods
-\newcommand{\subProjectCompatibility}[3]{
+\newcommand{\modUrl}[2]{
+	\texttt{\href{https://www.nexusmods.com/stardewvalley/mods/#1?tab=#2}{#2}}
+}
+
+% #1=mod id
+% #2=multiplayer compatibility
+% #3=compatibility with other mods
+% #4=incompatibility with other mods
+\newcommand{\subProjectCompatibility}[4]{
 	\subsection{Compatibility}
-	If you found this mod behaving weirdly or being incompatible with other mods, please report it in the \texttt{Bug} or \texttt{Posts}
-	page on this mode page site (Nexusmods) so other users will be aware of such potential issues in the future.
+	If you found this mod behaving weirdly or being incompatible with other mods, please report it in the \modUrl{#1}{bugs} or \modUrl{#1}{posts} page
+	so I can update this documentation with that information and to let other users know about such potential issues in the future.
 
 	% Untested, yes, no.
 	\subsubsection{Compatible with multiplayer?}
-	#1
+	#2
 
 	\subsubsection{Compatible with}
 	\begin{itemize}
-		#2
+		#3
 	\end{itemize}
 
 	\subsubsection{Incompatible with}
 	\begin{itemize}
-		#3
+		#4
 	\end{itemize}
 }
 
@@ -80,10 +85,10 @@
 	\end{itemize}
 }
 
-\newcommand{\subProjectCompatIssues}[4]{
-	\subProjectCompatibility{#1}{#2}{#3}
+\newcommand{\subProjectCompatIssues}[5]{
+	\subProjectCompatibility{#1}{#2}{#3}{#4}
 
-	\subProjectKnownIssues{#4}
+	\subProjectKnownIssues{#5}
 }
 
 % 1: Project name.
@@ -138,7 +143,7 @@
 	\subsection{Mod page}
 
 	\begin{itemize}
-		\item \href{https://www.nexusmods.com/stardewvalley/mods/#1}{Nexusmod}
+		\item \href{https://www.nexusmods.com/stardewvalley/mods/#1}{Nexusmods}
 	\end{itemize}
 }
 
