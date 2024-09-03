@@ -25,11 +25,9 @@ mods, please report it in the
 page so I can update this documentation with that information and to let
 other users know about such potential issues in the future.
 
-### Compatible with multiplayer?
-
-Untested.
-
 ### Compatible with
+
+- `Multiplayer`: Untested.
 
 - Should work with most mods.
 
