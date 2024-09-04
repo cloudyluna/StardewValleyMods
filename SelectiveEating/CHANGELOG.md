@@ -1,6 +1,6 @@
 # Changelog
 
-## \[0.4.2\]- 2024-09-01
+## \[0.4.2\] - 2024-09-01 
 
 ### Changed
 
@@ -18,7 +18,7 @@
 
 - Wonky stamina first food, priority selection.
 
-## \[0.4.1\]
+## \[0.4.1\] 
 
 ### Added
 
@@ -31,7 +31,7 @@
   91 to block from eating bananas, which doesn’t contradict the given
   example in the config menu.
 
-## \[0.4.0\]
+## \[0.4.0\] 
 
 ### Added
 
@@ -53,7 +53,7 @@
   silly self has fixed and added a bit more code to prevent this from
   happening again.
 
-## \[0.3.0\]
+## \[0.3.0\] 
 
 ### Added
 
@@ -66,13 +66,13 @@
 - Stay in the last facing direction option. I forgot to handle this
   internally..
 
-## \[0.2.1\]
+## \[0.2.1\] 
 
 ### Fixed
 
 - Forbidden list name when spaces are in use.
 
-## \[0.2.0\]
+## \[0.2.0\] 
 
 ### Added
 
@@ -95,6 +95,6 @@
   (left to right, depending on your configured "eating priority"
   setting).
 
-## \[0.1.0\]
+## \[0.1.0\] 
 
 - Initial release.

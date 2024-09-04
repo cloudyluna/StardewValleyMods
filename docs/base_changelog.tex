@@ -38,12 +38,18 @@
     \helperCmd{Fixed}{#1}
 }
 
+% pandoc only understand *some* macros from etoolbox, including ifstrequal.
+% See https://github.com/jgm/pandoc/blob/f048d8110e672148619094642f411d7ea223a17f/src/Text/Pandoc/Readers/LaTeX.hs#L1009-L1051
+\newcommand{\myIfStrEmpty}[3]{
+    \ifstrequal{#1}{}{#2}{#3}
+}
+
 % #1=version
 % #2=date
 % #3=helper commands
 \newcommand{\newVersion}[3]{
 
-    \subsection{[#1]#2}
+    \subsection{[#1]\space\myIfStrEmpty{#2}{}{- #2}}
 
     #3
 
