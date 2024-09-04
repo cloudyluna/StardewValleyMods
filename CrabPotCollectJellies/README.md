@@ -5,7 +5,8 @@ Allow crab pots to collect aquatic jellies.
 This mod uses the same trash spawn chance value to collect jellies
 randomly. The spawn type and in which area are as follow:
 
-- Sea Jelly $\longrightarrow$ Ocean tiles i.e by Willy’s shop.
+- Sea Jelly $\longrightarrow$ Ocean tiles; by Willy’s shop or the beach,
+  etc.
 
 - River Jelly $\longrightarrow$ Rivers, lakes, sewers, etc.
 

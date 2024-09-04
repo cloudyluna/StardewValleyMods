@@ -6,6 +6,7 @@ RELEASE_DIR = $(DIST_DIR)/Release/$(DOTNET_VERSION)
 FOLDER_NAME = CrabPotCollectJellies
 FOLDER_DIST_DIR = $(DIST_DIR)/$(FOLDER_NAME)
 TRANSLATION_DIR = data/i18n
+DOCS_COMPILE = cd docs && pandoc -t gfm
 
 all: translation
 	dotnet tool restore
@@ -23,7 +24,11 @@ q:  translation
 	$(DOTNET) build --no-restore
 
 documentation:
-	make documentation -C ..
+	$(DOCS_COMPILE) README.tex -o ../README.md
+	$(DOCS_COMPILE) CHANGELOG.tex -o ../CHANGELOG.md
+
+documentation_plain:
+	cd docs && pandoc -t plain README.tex -o ../README.txt
 
 release:
 	rm -rf bin/ obj/
