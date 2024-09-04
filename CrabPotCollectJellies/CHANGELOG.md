@@ -13,7 +13,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
   chance to collect cave jellies.
 
 - 10% more chance for crab pots in cave farm than witch’s swamp to
-  collect jellies.
+  collect cave jellies.
 
 ## \[0.2.0\] - 2024-08-29
 
