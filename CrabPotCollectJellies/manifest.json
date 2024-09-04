@@ -1,0 +1,11 @@
+{
+  "Name": "Crab Pot Collect Jellies",
+  "Author": "Cloudyluna",
+  "Version": "0.1.0",
+  "Description": "Allow crab pots to collect aquatic jellies.",
+  "UniqueID": "Cloudyluna.CrabPotCollectJellies",
+  "EntryDll": "CrabPotCollectJellies.dll",
+  "MinimumApiVersion": "4.0.0",
+  "UpdateKeys": [
+  ]
+}
