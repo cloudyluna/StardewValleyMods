@@ -1,8 +1,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage{geometry}
 \geometry{margin=1in}
-\usepackage{hyperref}
 \usepackage{etoolbox}
+\usepackage{hyperref}
 
 \author{Cloudyluna}
 
@@ -40,18 +40,22 @@
 
 % pandoc only understand *some* macros from etoolbox, including ifstrequal.
 % See https://github.com/jgm/pandoc/blob/f048d8110e672148619094642f411d7ea223a17f/src/Text/Pandoc/Readers/LaTeX.hs#L1009-L1051
-\newcommand{\myIfStrEmpty}[3]{
-    \ifstrequal{#1}{}{#2}{#3}
-}
+\newcommand{\myIfStrEmpty}[3]{\ifstrequal{#1}{}{#2}{#3}}
 
-% #1=version
-% #2=date
+% #1=version (semantic versioning)
+% #2=date (ISO format)
 % #3=helper commands
 \newcommand{\newVersion}[3]{
+    \begingroup %
+    \def\lVersion{#1}
+    \def\lDate{#2}
+    \def\lHelperCommands{#3}
 
-    \subsection{[#1]\space\myIfStrEmpty{#2}{}{- #2}}
+    \subsection{[\lVersion]\myIfStrEmpty{\lDate}{}{ - \lDate}}
 
-    #3
+    \lHelperCommands
+
+    \endgroup %
 
 }
 
