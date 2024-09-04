@@ -56,6 +56,9 @@ See [CHANGELOG.md](CHANGELOG.md) file for details.
 
 ### Installing MaintainGlowRingsIndoorsRadius
 
+1.  This mod requires SMAPI and other dependencies listed above, so
+    please, install those first.
+
 2.  Unzip the files into the
     `Stardew Valley/Mods/MaintainGlowRingsIndoorsRadius` game folder.
 

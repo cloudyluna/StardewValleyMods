@@ -68,8 +68,8 @@ See [CHANGELOG.md](CHANGELOG.md) file for details.
 
 ### Installing CrabPotCollectJellies
 
-1.  This mod requires SMAPI, so please, install that and other listed
-    requirements first.
+1.  This mod requires SMAPI and other dependencies listed above, so
+    please, install those first.
 
 2.  Unzip the files into the `Stardew Valley/Mods/CrabPotCollectJellies`
     game folder.

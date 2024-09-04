@@ -55,7 +55,8 @@ See [CHANGELOG.md](CHANGELOG.md) file for details.
 
 ### Installing DropSeedsAfterEating
 
-
+1.  This mod requires SMAPI and other dependencies listed above, so
+    please, install those first.
 
 2.  Unzip the files into the `Stardew Valley/Mods/DropSeedsAfterEating`
     game folder.
