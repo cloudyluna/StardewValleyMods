@@ -2,29 +2,36 @@
 
 Allow crab pots to collect aquatic jellies.
 
-This mod uses the same junk item’s chance value to collect jellies
+This mod uses the same trash spawn chance value to collect jellies
 randomly. The spawn type and in which area are as follow:
 
 - Sea Jelly $\longrightarrow$ Ocean tiles i.e by Willy’s shop.
 
 - River Jelly $\longrightarrow$ Rivers, lakes, sewers, etc.
 
-- Cave jellies $\longrightarrow$ The same as river jelly, but a bit
-  rarer.
+- Cave Jelly $\longrightarrow$ The same as river jelly, but a bit rarer.
 
 ## Features
 
 - Allow crab pots to collect aquatic jellies.
 
+- An option to replace all trash that will be collected by crab pots
+  with jellies. Configurable with Generic Mod Config Menu.
+
 ## Requirements
 
 - [SMAPI](https://www.nexusmods.com/stardewvalley/mods/2400)
+
+- [Generic Mod Config
+  Menu](https://www.nexusmods.com/stardewvalley/mods/5098) - *Optional*
+  but *highly recommended*.
 
 ## For users
 
 ### Installing CrabPotCollectJellies
 
-1.  This mod requires SMAPI, so please, install that first.
+1.  This mod requires SMAPI and other dependencies listed above, so
+    please, install those first.
 
 2.  Unzip the files into the `Stardew Valley/Mods/CrabPotCollectJellies`
     game folder.

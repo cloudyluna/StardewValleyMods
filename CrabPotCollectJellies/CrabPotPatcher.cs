@@ -8,10 +8,12 @@ using StardewValley.Extensions;
 internal class CrabPotPatcher
 {
     private static IMonitor? Monitor;
+    private static ModConfig? Config;
 
-    internal static void Initialize(IMonitor monitor)
+    internal static void Initialize(IMonitor monitor, ModConfig config)
     {
         Monitor = monitor;
+        Config = config;
     }
 
     internal static bool DayUpdate_Prefix(CrabPot __instance)
@@ -116,34 +118,9 @@ internal class CrabPotPatcher
                 }
                 else
                 {
-                    var nonFishIds = new List<string> { random.Next(168, 173).ToString() };
-
-                    foreach (string jellyId in crabPotFishForTile)
-                    {
-                        if (jellyId == "ocean")
-                        {
-                            nonFishIds.Add("SeaJelly");
-                        }
-                        else
-                        {
-                            nonFishIds.Add("RiverJelly");
-
-                            // Make this rarer because:
-                            // 1. We cannot put pots in caves, so we gotta put
-                            // them wherever valid freshwater location is and
-                            // that would mean..rivers.
-                            // To see cave jelly appear as often as river's
-                            // doesn't make a lot of sense,
-                            // so hence why we randomize this addition a bit further.
-                            var chance = ((data?.CrabPotJunkChance + 0.1) ?? 0.2);
-                            if (random.NextBool(chance)) nonFishIds.Add("CaveJelly");
-
-                        }
-
-                        break;
-                    }
-
-                    var chosenId = random.ChooseFrom(nonFishIds);
+                    var trashId = random.Next(168, 173).ToString();
+                    TryCollectJellies(random, crabPotFishForTile, trashId, out List<string> resultIds);
+                    string chosenId = (resultIds.Count > 0) ? random.ChooseFrom(resultIds) : trashId;
                     crabPot.heldObject.Value = ItemRegistry.Create<Object>("(O)" + chosenId);
                 }
             }
@@ -159,6 +136,53 @@ internal class CrabPotPatcher
                 LogLevel.Error
             );
             return true;
+        }
+    }
+
+    static private void TryCollectJellies(
+        Random random,
+        IList<string> crabPotFishForTile,
+        string trashId,
+        out List<string> resultIds
+    )
+    {
+        resultIds = new List<string> { };
+        if (Config != null && Config.IsModEnabled)
+        {
+            if (!Config.IsReplaceAllTrashSelected)
+                resultIds.Add(trashId);
+            CollectJellies(random, crabPotFishForTile, ref resultIds);
+
+        }
+    }
+
+    static private void CollectJellies(
+        Random random,
+        IList<string> crabPotFishForTile,
+        ref List<string> ids)
+    {
+        foreach (string jellyId in crabPotFishForTile)
+        {
+            if (jellyId == "ocean")
+            {
+                ids.Add("SeaJelly");
+            }
+            else
+            {
+                ids.Add("RiverJelly");
+
+                // Make this rarer because:
+                // 1. We cannot put pots in caves, so we gotta put
+                // them wherever valid freshwater location is and
+                // that would mean..rivers.
+                // To see cave jelly appear as often as river's
+                // doesn't make a lot of sense,
+                // so hence why we randomize this addition a bit further.
+                if (random.NextBool()) ids.Add("CaveJelly");
+
+            }
+
+            break;
         }
     }
 }

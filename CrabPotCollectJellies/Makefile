@@ -41,8 +41,6 @@ release:
 	cp -f README.md $(RELEASE_DIR)
 	cp -f README.md $(DEBUG_DIR)
 
-	cp -f ../LICENSE $(RELEASE_DIR)
-	cp -f ../LICENSE $(DEBUG_DIR)
 
 	rm -f $(RELEASE_DIR)/$(FOLDER_NAME).deps.json
 
