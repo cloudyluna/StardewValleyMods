@@ -5,6 +5,45 @@ format is based on [Keep A
 Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## \[1.0.0\] - 2024-09-05
+
+Major overhaul.
+
+### Added
+
+- Crab pots in [mines/underground
+  caves/dungeons](https://stardewvalleywiki.com/The_Mines) (level 20,
+  60, 100) now can collect jellies and the only jelly they will catch is
+  cave jelly. Farm cave and Witch’s swamp `are not affected`.
+
+- Jellies can be of different quality than normal.
+
+- A more descriptive documentation based on frequently asked questions
+  in the posts section. (Thanks for the all the questions and friendly
+  suggestions!)
+
+### Changed
+
+- `Breaking change:` Treat jellies catch or collect chance like any
+  regular crab pot fish object (clam, mussel, crab, etc) instead of
+  trash. As it seems some players are farming jellies items and uses
+  extra skill perks mod to completely remove trash or increase other
+  crab pot fish, catch rate later in the game, I find it probably makes
+  more sense to convert jelly from a "trash" item into a crab pot fish
+  one in the long term.
+
+- Rebalanced global river and ocean jellies catch rate so they don’t
+  always completely overtake things like crabs or clams all the time as
+  these items are rarer than trash items. This is made to accomodate the
+  change made above.
+
+### Removed
+
+- The option to replace all the trash from configuration menu. Users
+  should move to use other mods that will remove trash spawn chance
+  instead as it is now considered a non-goal and won’t be much of use
+  for this project.
+
 ## \[0.3.0\] - 2024-09-04
 
 ### Added

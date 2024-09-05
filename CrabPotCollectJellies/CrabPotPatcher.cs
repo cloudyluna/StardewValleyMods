@@ -23,9 +23,11 @@ internal class CrabPotPatcher
             var crabPot = __instance;
 
             GameLocation location = crabPot.Location;
-            bool flag = Game1.getFarmer(crabPot.owner.Value) != null && Game1.getFarmer(crabPot.owner.Value).professions.Contains(11);
-            bool flag2 = Game1.getFarmer(crabPot.owner.Value) != null && Game1.getFarmer(crabPot.owner.Value).professions.Contains(10);
-            if (crabPot.owner.Value == 0L && Game1.player.professions.Contains(11))
+            var professionX = 11;
+            var professionY = 10;
+            bool flag = Game1.getFarmer(crabPot.owner.Value) != null && Game1.getFarmer(crabPot.owner.Value).professions.Contains(professionX);
+            bool flag2 = Game1.getFarmer(crabPot.owner.Value) != null && Game1.getFarmer(crabPot.owner.Value).professions.Contains(professionY);
+            if (crabPot.owner.Value == 0L && Game1.player.professions.Contains(professionX))
             {
                 flag2 = true;
             }
@@ -42,18 +44,18 @@ internal class CrabPotPatcher
             {
                 data = null;
             }
-            double num = (flag2 ? 0.0 : (((double?)data?.CrabPotJunkChance) ?? 0.2));
+            double crabPotFishCatchChance = (flag2 ? 0.0 : (((double?)data?.CrabPotJunkChance) ?? 0.2));
             int initialStack = 1;
-            int num2 = 0;
+            int crabPotFishQuality = 0;
             string text = null;
             if (crabPot.bait.Value != null && crabPot.bait.Value.QualifiedItemId == "(O)DeluxeBait")
             {
-                num2 = 1;
-                num /= 2.0;
+                crabPotFishQuality = 1;
+                crabPotFishCatchChance /= 2.0;
             }
             else if (crabPot.bait.Value != null && crabPot.bait.Value.QualifiedItemId == "(O)774")
             {
-                num /= 2.0;
+                crabPotFishCatchChance /= 2.0;
                 if (random.NextBool(0.25))
                 {
                     initialStack = 2;
@@ -62,10 +64,10 @@ internal class CrabPotPatcher
             else if (crabPot.bait.Value != null && crabPot.bait.Value.Name.Contains("Bait") && crabPot.bait.Value.preservedParentSheetIndex != null && crabPot.bait.Value.preserve.Value.HasValue)
             {
                 text = crabPot.bait.Value.preservedParentSheetIndex.Value;
-                num /= 2.0;
+                crabPotFishCatchChance /= 2.0;
             }
             IList<string> crabPotFishForTile = location.GetCrabPotFishForTile(crabPot.tileLocation.Value);
-            if (!random.NextBool(num))
+            if (!random.NextBool(crabPotFishCatchChance))
             {
                 foreach (KeyValuePair<string, string> item in dictionary)
                 {
@@ -106,7 +108,10 @@ internal class CrabPotPatcher
                     {
                         continue;
                     }
-                    crabPot.heldObject.Value = new Object(item.Key, initialStack, isRecipe: false, -1, num2);
+
+                    TryCollectJellies(random, location, crabPotFishForTile, item.Key, out List<string> resultIds);
+                    string chosenId = (resultIds.Count > 0) ? random.ChooseFrom(resultIds) : item.Key;
+                    crabPot.heldObject.Value = new Object(chosenId, initialStack, isRecipe: false, -1, crabPotFishQuality);
                     break;
                 }
             }
@@ -118,10 +123,7 @@ internal class CrabPotPatcher
                 }
                 else
                 {
-                    var trashId = random.Next(168, 173).ToString();
-                    TryCollectJellies(random, location, crabPotFishForTile, trashId, out List<string> resultIds);
-                    string chosenId = (resultIds.Count > 0) ? random.ChooseFrom(resultIds) : trashId;
-                    crabPot.heldObject.Value = ItemRegistry.Create<Object>("(O)" + chosenId);
+                    crabPot.heldObject.Value = ItemRegistry.Create<Object>("(O)" + random.Next(168, 173));
                 }
             }
 
@@ -143,17 +145,15 @@ internal class CrabPotPatcher
         Random random,
         GameLocation location,
         IList<string> crabPotFishForTile,
-        string trashId,
+        string originalId,
         out List<string> resultIds
     )
     {
         resultIds = new List<string> { };
         if (Config != null && Config.IsModEnabled)
         {
-            if (!Config.IsReplaceAllTrashSelected)
-                resultIds.Add(trashId);
+            resultIds.Add(originalId);
             CollectJellies(random, location, crabPotFishForTile, ref resultIds);
-
         }
     }
 
@@ -165,9 +165,10 @@ internal class CrabPotPatcher
     {
         foreach (string jellyId in crabPotFishForTile)
         {
-            if (jellyId == "ocean")
+            var baseChance = 0.6;
+            if (jellyId == "ocean" && !(location.NameOrUniqueName == "UndergroundMine"))
             {
-                ids.Add("SeaJelly");
+                if (random.NextBool(baseChance + 0.1)) ids.Add("SeaJelly");
             }
             else
             {
@@ -178,22 +179,33 @@ internal class CrabPotPatcher
                 // so hence why we randomize this addition a bit further.
                 var riverJelly = "RiverJelly";
                 var caveJelly = "CaveJelly";
-                var chanceBase = 0.6;
+                var _ids = ids;
+
+                void weightedCaveJellyChance(double chance)
+                {
+                    if (random.NextBool(baseChance - chance)) _ids.Add(riverJelly);
+                    if (random.NextBool(baseChance + chance)) _ids.Add(caveJelly);
+                }
+
                 if (location.NameOrUniqueName == "WitchSwamp")
                 {
-                    if (random.NextBool(chanceBase - 0.2)) ids.Add(riverJelly);
-                    if (random.NextBool(chanceBase + 0.2)) ids.Add(caveJelly);
+                    weightedCaveJellyChance(0.1);
+                    ids = _ids;
                 }
                 else if (location.NameOrUniqueName == "FarmCave")
                 {
 
-                    if (random.NextBool(chanceBase - 0.3)) ids.Add(riverJelly);
-                    if (random.NextBool(chanceBase + 0.3)) ids.Add(caveJelly);
+                    weightedCaveJellyChance(0.2);
+                    ids = _ids;
+                }
+                else if (location.NameOrUniqueName == "UndergroundMine")
+                {
+                    if (random.NextBool(baseChance + 0.2)) ids.Add(caveJelly);
                 }
                 else
                 {
-                    ids.Add(riverJelly);
-                    if (random.NextBool()) ids.Add(caveJelly);
+                    if (random.NextBool(baseChance + 0.1)) ids.Add(riverJelly);
+                    if (random.NextBool(baseChance - 0.3)) ids.Add(caveJelly);
                 }
             }
 

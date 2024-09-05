@@ -2,27 +2,62 @@
 
 ------------------------------------------------------------------------
 
-Allow crab pots to collect aquatic jellies.
-
-This mod uses the same trash spawn chance value to collect jellies
+Allow crab pots to collect aquatic jellies. This mod uses the same crab
+pot’s fish (like crabs and clams) catch chance value to collect jellies
 randomly. The spawn type and in which area are as follow:
 
-- Sea Jelly –\> Ocean tiles; by Willy’s shop or the beach, etc.
+- Sea Jelly – Ocean tiles; by Willy’s shop or the beach, etc.
 
-- River Jelly –\> Rivers, lakes, sewers, etc.
+- River Jelly – Rivers, lakes, sewers, etc.
 
-- Cave Jelly –\> The same as river jelly, but a bit rarer.
-
-## Features
-
-- Allow crab pots to collect aquatic jellies.
-
-- An option to replace all trash that will be collected by crab pots
-  with jellies. Configurable with Generic Mod Config Menu.
+- Cave Jelly – Witch’s swamp and cave farm (if you have cave farm +
+  water map mod installed). You also can trap cave jellies from rivers,
+  lakes, sewers, etc. but they are much rarer there.
 
 ## Version
 
-0.3.0
+1.0.0
+
+## Questions that might come up as you use this mod
+
+### How does this work?
+
+This mod only intercepts [crab pot’s
+fish](https://stardewvalleywiki.com/Fish#Crab_Pot_Fish) catch rate and
+adds jellies to them. Skills, perks, luck and anything else that affects
+this rate will also affect how often (or not) you’ll catch aquatic
+jellies with the crab pots.
+
+### What’s the best place to trap more cave jellies?
+
+> Reminder: This mod does not allow you to put crab pots in the mines.
+> You have to install other mods for that.
+
+- In the vanilla game, your best luck to get more cave jellies will in
+  the [Witch’s swamp](https://stardewvalleywiki.com/Witch%27s_Swamp)
+  location. The chance is about 10% to 20% higher for cave jellies here.
+
+- In a modded game, if your [cave
+  farm](https://stardewvalleywiki.com/The_Cave) have water tiles of
+  which you could place crab pots in, then you should get 10% higher
+  chance to get jellies compared to the one in Witch’s swamp.
+  Recommended cave farm mod to use: [More Lively Farm
+  Cave](https://www.nexusmods.com/stardewvalley/mods/23190)
+
+- [Mines](https://stardewvalleywiki.com/Mines) (level 20, 60, 100) if
+  it’s possible to put crab pots in those water tiles. The chance is the
+  same as cave farm one above except that no river or sea jelly will
+  spawn here.
+
+### How to get better quality jelly?
+
+The exact same as you would do to get any other high quality, crab pot’s
+fish item. Use better bait.
+
+### Does this mod change the actual jelly item?
+
+Not at all. It only alters the catch rate, specifically to be collected
+from crab pots.
 
 ## Compatibility
 
@@ -42,8 +77,7 @@ Untested.
 
 ### Incompatible with
 
-- Any mods that changes trash spawn chance values or drastically changes
-  crab pots mechanism.
+- Any mod that drastically changes crab pot’s fish catch rate.
 
 ## Known issues
 
@@ -71,13 +105,18 @@ See [CHANGELOG.md](CHANGELOG.md) file for details.
 1.  This mod requires SMAPI and other dependencies listed above, so
     please, install those first.
 
-2.  Unzip the files into the `Stardew Valley/Mods/CrabPotCollectJellies`
-    game folder.
+2.  Unzip the files into the
+    *`Stardew Valley/Mods/CrabPotCollectJellies`* game folder.
 
-3.  Make sure the `CrabPotCollectJellies.dll` and `manifest.json` files
-    are inside `CrabPotCollectJellies` folder, not in `Mods` folder.
+3.  Make sure the *`CrabPotCollectJellies.dll`* and *`manifest.json`*
+    files are inside *`CrabPotCollectJellies`* folder, not in *`Mods`*
+    folder.
 
 4.  Launch the game through SMAPI launcher.
+
+## Mod page
+
+- [Nexusmods](https://www.nexusmods.com/stardewvalley/mods/27358)
 
 ## Thanks to
 
@@ -87,13 +126,5 @@ See [CHANGELOG.md](CHANGELOG.md) file for details.
 - [Generic Config Menu dev and
   contributors](https://www.nexusmods.com/stardewvalley/mods/5098) for
   making mod configuration through GUI, simple and easy.
-
-## Mod page
-
-- [Nexusmods](https://www.nexusmods.com/stardewvalley/mods/27358)
-
-## Source code
-
-- [Github](https://github.com/cloudyluna/StardewValleyMods/tree/main/CrabPotCollectJellies)
 
 > Copyright (c) 2024 Cloudyluna

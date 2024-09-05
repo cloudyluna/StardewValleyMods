@@ -5,33 +5,68 @@
 \def\subProjectNormalizedName{CrabPotCollectJellies}
 
 \title{\subprojectname}
-\def\projectVersion{0.3.0}
+\def\projectVersion{1.0.0}
 \def\modId{27358}
 
 \input{../../docs/base}
 
 \begin{document}
+\tableofcontents
+
 \subprojecttitle{\subprojectname}{
 	Allow crab pots to collect aquatic jellies.
-
-	This mod uses the same trash spawn chance value to collect jellies randomly. The spawn type and in which area are as follow:
-
+	\newline
+	\newline
+	This mod uses the same crab pot's fish (like crabs and clams) catch chance value to collect jellies randomly. The spawn type and in which area are as follow:
+	\newline
 	\begin{itemize}
-		\item Sea Jelly --> Ocean tiles; by Willy's shop or the beach, etc.
-		\item River Jelly --> Rivers, lakes, sewers, etc.
-		\item Cave Jelly --> The same as river jelly, but a bit rarer.
+		\item Sea Jelly -- Ocean tiles; by Willy's shop or the beach, etc.
+		\item River Jelly -- Rivers, lakes, sewers, etc.
+		\item Cave Jelly -- Witch's swamp and cave farm (if you have cave farm + water map mod installed). You also can trap cave jellies from rivers,
+		      lakes, sewers, etc. but they are much rarer there.
 	\end{itemize}
 }
 
-\subprojectfeatures{\projectVersion}{
-	\item Allow crab pots to collect aquatic jellies.
-	\item An option to replace all trash that will be collected by crab pots with jellies. Configurable with Generic Mod Config Menu.
-}
+\subProjectVersion{\projectVersion}
+
+\subsection{Questions that might come up as you use this mod}
+
+\subsubsection{How does this work?}
+This mod only intercepts \href{https://stardewvalleywiki.com/Fish#Crab_Pot_Fish}{crab pot's fish}
+catch rate and adds jellies to them.
+Skills, perks, luck and anything else that affects this rate will also affect how often (or not)
+you'll catch aquatic jellies with the crab pots.
+
+\subsubsection{What's the best place to trap more cave jellies?}
+\begin{quote}
+	Reminder: This mod does not allow you to put crab pots in the mines. You have to install other mods for that.
+\end{quote}
+
+\begin{itemize}
+	\item In the vanilla game, your best luck to get more cave jellies will in the \href{https://stardewvalleywiki.com/Witch%27s_Swamp}{Witch's swamp} location.
+	      The chance is about 10\% to 20\% higher for cave jellies here.
+	\item In a modded game, if your \href{https://stardewvalleywiki.com/The_Cave}{cave farm} have water tiles of which you could place crab pots in,
+	      then you should get 10\% higher chance to get jellies compared to the one in Witch's swamp.
+	      \newline
+	      \newline
+	      Recommended cave farm mod to use: \href{https://www.nexusmods.com/stardewvalley/mods/23190}{More Lively Farm Cave}
+	\item \href{https://stardewvalleywiki.com/Mines}{Mines} (level 20, 60, 100) if it's possible to put crab pots in those water tiles.
+	      The chance is the same as cave farm one above except that no river or sea jelly will spawn here.
+\end{itemize}
+
+\subsubsection{How to get better quality jelly?}
+The exact same as you would do to get any other high quality, crab pot's fish item.
+Use better bait.
+
+
+\subsubsection{Does this mod change the actual jelly item?}
+Not at all. It only alters the catch rate, specifically to be collected from crab pots.
+
 
 \subProjectCompatIssues{\modId}{
 	Untested.
 }{
-	\item Any mods that changes trash spawn chance values or drastically changes crab pots mechanism.
+	\item Any mod that drastically changes crab pot's fish catch rate.
 }{
 	\item No known issues.
 }
@@ -40,8 +75,9 @@
 
 \subprojectInstallInstructions{\subProjectNormalizedName}
 
+\subprojectmodpages{\modId}
+\thanksto
 
-\subProjectAcknowledge{\modId}{\subProjectNormalizedName}
 
 \myCopyright
 

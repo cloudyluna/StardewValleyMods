@@ -1,6 +1,4 @@
 {
     "menu.basics.enable-mod": "Enable mod?",
-    "menu.basics.enable-mod.tooltip": "Changes can be seen in the next day after you enable or disabled this setting.",
-    "menu.basics.enable-trash-replacer": "Replace all trash with jellies?",
-    "menu.basics.enable-trash-replacer.tooltip": "Completely replace all trash that will be collected by the crab pots with jellies. The effects can be seen in the next day after you enabled or disabled this setting."
+    "menu.basics.enable-mod.tooltip": "Changes can be seen in the next day after you enable or disabled this setting."
 }
