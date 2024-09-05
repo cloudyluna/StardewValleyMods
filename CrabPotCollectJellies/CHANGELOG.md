@@ -18,9 +18,7 @@ Major overhaul.
 
 - Jellies can be of different quality than normal.
 
-- A more descriptive documentation based on frequently asked questions
-  in the posts section. (Thanks for the all the questions and friendly
-  suggestions!)
+- 
 
 ### Changed
 
@@ -34,8 +32,8 @@ Major overhaul.
 
 - Rebalanced global river and ocean jellies catch rate so they don’t
   always completely overtake things like crabs or clams all the time as
-  these items are rarer than trash items. This is made to accomodate the
-  change made above.
+  these items are rarer than trash items. This is made to accommodate
+  the change made above.
 
 ### Removed
 

@@ -33,8 +33,8 @@ jellies with the crab pots.
 > Reminder: This mod does not allow you to put crab pots in the mines.
 > You have to install other mods for that.
 
-- In the vanilla game, your best luck to get more cave jellies will in
-  the [Witch’s swamp](https://stardewvalleywiki.com/Witch%27s_Swamp)
+- In the vanilla game, your best luck to get more cave jellies will be
+  in the [Witch’s swamp](https://stardewvalleywiki.com/Witch%27s_Swamp)
   location. The chance is about 10% to 20% higher for cave jellies here.
 
 - In a modded game, if your [cave
@@ -54,10 +54,16 @@ jellies with the crab pots.
 The exact same as you would do to get any other high quality, crab pot’s
 fish item. Use better bait.
 
-### Does this mod change the actual jelly item?
+### Does this mod changes the actual jelly item?
 
 Not at all. It only alters the catch rate, specifically to be collected
 from crab pots.
+
+### Does this mod works in location X?
+
+If your crab pots can collect things like crabs, mussels, lobsters and
+similar items in said location, then they definitely can collect aquatic
+jellies there too.
 
 ## Compatibility
 
@@ -77,7 +83,8 @@ Untested.
 
 ### Incompatible with
 
-- Any mod that drastically changes crab pot’s fish catch rate.
+- Any mod that drastically changes crab pot’s fish catch rate or
+  behavior.
 
 ## Known issues
 
