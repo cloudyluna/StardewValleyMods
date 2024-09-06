@@ -10,7 +10,7 @@ randomly. The spawn type and in which area are as follows:
 
 - River Jelly – Rivers, lakes, sewers, etc.
 
-- Cave Jelly – Witch’s swamp and cave farm (if you have cave farm +
+- Cave Jelly – Witch’s swamp and farm cave (if you have farm cave +
   water map mod installed). You also can trap cave jellies from rivers,
   lakes, sewers, etc. but they are much rarer there.
 
@@ -37,16 +37,16 @@ jellies with the crab pots.
   in the [Witch’s swamp](https://stardewvalleywiki.com/Witch%27s_Swamp)
   location. The chance is about 10% to 20% higher for cave jellies here.
 
-- In a modded game, if your [cave
-  farm](https://stardewvalleywiki.com/The_Cave) have water tiles of
+- In a modded game, if your [Farm
+  Cave](https://stardewvalleywiki.com/The_Cave) have water tiles of
   which you could place crab pots in, then you should get 10% higher
   chance to get jellies compared to the one in Witch’s swamp.
-  Recommended cave farm mod to use: [More Lively Farm
+  Recommended farm mod to use: [More Lively Farm
   Cave](https://www.nexusmods.com/stardewvalley/mods/23190)
 
 - [Mines](https://stardewvalleywiki.com/Mines) (level 20, 60, 100) if
   it’s possible to put crab pots in those water tiles. The chance is the
-  same as cave farm one above except that no river or sea jelly will
+  same as farm cave one above, except that no river or sea jelly will
   spawn here.
 
 ### How to get better quality jelly?
@@ -59,7 +59,7 @@ fish item. Use better bait.
 Not at all. It only alters the catch rate, specifically to be collected
 from crab pots.
 
-### Does this mod works in location X?
+### Does this mod work in location X?
 
 If your crab pots can collect things like crabs, mussels, lobsters and
 similar items in said location, then they definitely can collect aquatic
