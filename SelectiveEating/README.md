@@ -81,11 +81,11 @@ See [CHANGELOG.md](CHANGELOG.md) file for details.
 1.  This mod requires SMAPI and other dependencies listed above, so
     please, install those first.
 
-2.  Unzip the files into the `Stardew Valley/Mods/SelectiveEating` game
-    folder.
+2.  Unzip the files into the **Stardew Valley/Mods/SelectiveEating**
+    game folder.
 
-3.  Make sure the `SelectiveEating.dll` and `manifest.json` files are
-    inside `SelectiveEating` folder, not in `Mods` folder.
+3.  Make sure the **SelectiveEating.dll** and **manifest.json** files
+    are inside **SelectiveEating** folder, not in **Mods** folder.
 
 4.  Launch the game through SMAPI launcher.
 
