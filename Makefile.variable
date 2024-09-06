@@ -42,6 +42,7 @@ documentation_plain:
 
 documentation_bbcode:
 	cd docs && pandoc -t ../../docs/bbcode_nexusmods.lua README.tex -o ../README.bbcode
+	cd docs && pandoc -t ../../docs/bbcode_nexusmods.lua CHANGELOG.tex -o ../CHANGELOG.bbcode
 
 release:
 	rm -rf bin/ obj/
