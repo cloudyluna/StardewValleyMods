@@ -16,7 +16,7 @@ randomly. The spawn type and in which area are as follows:
 
 ## Version
 
-1.0.0
+1.0.1
 
 ## Questions that might come up as you use this mod
 

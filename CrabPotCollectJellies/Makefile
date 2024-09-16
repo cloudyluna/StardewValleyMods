@@ -1,7 +1,7 @@
 include ../Makefile.variable
 
 PROJECT_NAME:=CrabPotCollectJellies
-VERSION:=1.0.0
+VERSION:=1.0.1
 
 .PHONY: release
 

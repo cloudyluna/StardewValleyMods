@@ -23,31 +23,32 @@ internal class CrabPotPatcher
             var crabPot = __instance;
 
             GameLocation location = crabPot.Location;
-            var professionX = 11;
-            var professionY = 10;
-            bool flag = Game1.getFarmer(crabPot.owner.Value) != null && Game1.getFarmer(crabPot.owner.Value).professions.Contains(professionX);
-            bool flag2 = Game1.getFarmer(crabPot.owner.Value) != null && Game1.getFarmer(crabPot.owner.Value).professions.Contains(professionY);
-            if (crabPot.owner.Value == 0L && Game1.player.professions.Contains(professionX))
+            var lureMaster = 11;
+            var mariner = 10;
+            bool isALureMaster = Game1.getFarmer(crabPot.owner.Value) != null && Game1.getFarmer(crabPot.owner.Value).professions.Contains(lureMaster);
+            bool isAMariner = Game1.getFarmer(crabPot.owner.Value) != null && Game1.getFarmer(crabPot.owner.Value).professions.Contains(mariner);
+
+            if (crabPot.owner.Value == 0L && Game1.player.professions.Contains(lureMaster))
             {
-                flag2 = true;
+                isAMariner = true;
             }
-            if (!(crabPot.bait.Value != null || flag) || crabPot.heldObject.Value != null)
+            if (!(crabPot.bait.Value != null || isALureMaster) || crabPot.heldObject.Value != null)
             {
                 return false;
             }
+
             crabPot.tileIndexToShow = 714;
             crabPot.readyForHarvest.Value = true;
             Random random = Utility.CreateDaySaveRandom(crabPot.tileLocation.X * 1000f, crabPot.tileLocation.Y * 255f, crabPot.directionOffset.X * 1000f + crabPot.directionOffset.Y);
-            Dictionary<string, string> dictionary = DataLoader.Fish(Game1.content);
-            List<string> list = new List<string>();
+            Dictionary<string, string> fishIds = DataLoader.Fish(Game1.content);
             if (!location.TryGetFishAreaForTile(crabPot.tileLocation.Value, out var _, out var data))
             {
                 data = null;
             }
-            double crabPotFishCatchChance = (flag2 ? 0.0 : (((double?)data?.CrabPotJunkChance) ?? 0.2));
+            double crabPotFishCatchChance = (isAMariner ? 0.0 : (((double?)data?.CrabPotJunkChance) ?? 0.2));
             int initialStack = 1;
             int crabPotFishQuality = 0;
-            string text = null;
+            string targetedBaitId = null;
             if (crabPot.bait.Value != null && crabPot.bait.Value.QualifiedItemId == "(O)DeluxeBait")
             {
                 crabPotFishQuality = 1;
@@ -63,13 +64,15 @@ internal class CrabPotPatcher
             }
             else if (crabPot.bait.Value != null && crabPot.bait.Value.Name.Contains("Bait") && crabPot.bait.Value.preservedParentSheetIndex != null && crabPot.bait.Value.preserve.Value.HasValue)
             {
-                text = crabPot.bait.Value.preservedParentSheetIndex.Value;
+                targetedBaitId = crabPot.bait.Value.preservedParentSheetIndex.Value;
                 crabPotFishCatchChance /= 2.0;
             }
+
+            List<string> collectedFishIdsForMariner = new List<string>();
             IList<string> crabPotFishForTile = location.GetCrabPotFishForTile(crabPot.tileLocation.Value);
             if (!random.NextBool(crabPotFishCatchChance))
             {
-                foreach (KeyValuePair<string, string> item in dictionary)
+                foreach (KeyValuePair<string, string> item in fishIds)
                 {
                     if (!item.Value.Contains("trap"))
                     {
@@ -94,13 +97,13 @@ internal class CrabPotPatcher
                     {
                         continue;
                     }
-                    if (flag2)
+                    if (isAMariner)
                     {
-                        list.Add(item.Key);
+                        collectedFishIdsForMariner.Add(item.Key);
                         continue;
                     }
                     double num3 = Convert.ToDouble(array[2]);
-                    if (text != null && text == item.Key)
+                    if (targetedBaitId != null && targetedBaitId == item.Key)
                     {
                         num3 *= (double)((num3 < 0.1) ? 4 : ((num3 < 0.2) ? 3 : 2));
                     }
@@ -110,18 +113,47 @@ internal class CrabPotPatcher
                     }
 
                     TryCollectJellies(random, location, crabPotFishForTile, item.Key, out List<string> resultIds);
-                    string chosenId = (resultIds.Count > 0) ? random.ChooseFrom(resultIds) : item.Key;
+                    string chosenId = random.ChooseFrom(resultIds);
                     crabPot.heldObject.Value = new Object(chosenId, initialStack, isRecipe: false, -1, crabPotFishQuality);
                     break;
                 }
             }
+
             if (crabPot.heldObject.Value == null)
             {
-                if (flag2 && list.Count > 0)
+                if (isAMariner && collectedFishIdsForMariner.Count > 0)
                 {
-                    crabPot.heldObject.Value = ItemRegistry.Create<Object>("(O)" + random.ChooseFrom(list));
+                    var randomFishId = random.ChooseFrom(collectedFishIdsForMariner);
+                    TryCollectJellies(random, location, crabPotFishForTile, randomFishId, out List<string> resultIds);
+                    var chosenId = random.ChooseFrom(resultIds);
+
+                    if (chosenId == randomFishId)
+                    {
+                        crabPot.heldObject.Value = ItemRegistry.Create<Object>("(O)" + chosenId);
+                    }
+                    else
+                    {
+                        // We only alter our jellies type to follow the same
+                        // collection chance that is when player doesn't have 
+                        // the mariner skill.
+                        //
+                        // Why not alter the vanilla version too? 
+                        //
+                        // We are trying to be conservative with addition here
+                        // and to keep things simple as possible.
+                        // It will also probably breaks existing crab pot
+                        // fixes that wered added by more thoroughly changed
+                        // crab pot mods.
+                        // Though, we certainly can introduce this addition
+                        // if there is demand, of course.
+                        crabPot.heldObject.Value = ItemRegistry.Create<Object>(
+                            "(O)" + chosenId,
+                            amount: initialStack,
+                            quality: crabPotFishQuality
+                        );
+                    }
                 }
-                else
+                else // trash only
                 {
                     crabPot.heldObject.Value = ItemRegistry.Create<Object>("(O)" + random.Next(168, 173));
                 }

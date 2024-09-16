@@ -5,6 +5,13 @@ format is based on [Keep A
 Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## \[1.0.1\] - 2024-09-16
+
+### Fixed
+
+- Crab pots unable to collect jelly when **mariner** skill is chosen
+  (fishing level 10).
+
 ## \[1.0.0\] - 2024-09-05
 
 Major overhaul.
@@ -17,8 +24,6 @@ Major overhaul.
   cave jelly. Farm cave and Witch’s swamp `are not affected`.
 
 - Jellies can be of different quality than normal.
-
-- 
 
 ### Changed
 
