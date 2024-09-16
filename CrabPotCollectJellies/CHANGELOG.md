@@ -9,7 +9,7 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ### Fixed
 
-- Crab pots unable to collect jelly when **mariner** skill is chosen
+- Crab pots unable to collect jelly when player picks **mariner** skill
   (fishing level 10).
 
 ## \[1.0.0\] - 2024-09-05
