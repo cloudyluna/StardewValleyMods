@@ -181,10 +181,9 @@ internal class CrabPotPatcher
         out List<string> resultIds
     )
     {
-        resultIds = new List<string> { };
+        resultIds = new List<string> { originalId };
         if (Config != null && Config.IsModEnabled)
         {
-            resultIds.Add(originalId);
             CollectJellies(random, location, crabPotFishForTile, ref resultIds);
         }
     }
