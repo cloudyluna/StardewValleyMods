@@ -27,6 +27,7 @@
             unzip
             gnumake
             pandoc
+            texliveBasic
             git
             
           ];
