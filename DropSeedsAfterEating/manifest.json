@@ -1,7 +1,7 @@
 {
   "Name": "Drop Seeds After Eating",
   "Author": "Cloudyluna",
-  "Version": "0.1.0",
+  "Version": "0.1.1",
   "Description": "A small chance to drop seeds after eating fruits, vegetables or flowers.",
   "UniqueID": "Cloudyluna.DropSeedsAfterEating",
   "EntryDll": "DropSeedsAfterEating.dll",

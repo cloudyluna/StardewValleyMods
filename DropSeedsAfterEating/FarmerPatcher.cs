@@ -62,12 +62,9 @@ internal class FarmerPatcher
                     || eatenFood.Category == Object.VegetableCategory
                     || eatenFood.Category == Object.flowersCategory;
 
-                // TODO: Add config key.
-                double chanceModifier = 1.0;
                 var canDropSeed = CanDropSeedIfLucky(
                     eatenFood,
                     farmer,
-                    chanceModifier,
                     out int howManyToDrop
                 );
 
@@ -112,7 +109,6 @@ internal class FarmerPatcher
     private static bool CanDropSeedIfLucky(
         Item food,
         Farmer farmer,
-        double chanceModifier,
         out int howManyToDrop
     )
     {
@@ -121,10 +117,16 @@ internal class FarmerPatcher
             var minLuck = -0.12;
             var maxLuck = 0.12;
 
-            if (luck < minLuck || luck > maxLuck)
+            // Instead of restricting luck min-max, we just normalize the value
+            // for our mod because this range is the only part that
+            // is relevant to our mod anyways.
+            if (luck < minLuck)
             {
-                Monitor?.Log("Other mods that overrides the default vanilla luck value is not supported and considered incompatible!", LogLevel.Error);
-                throw new InvalidOperationException($"The luck value {luck} is out of range");
+                luck = minLuck;
+            }
+            else if (luck > maxLuck)
+            {
+                luck = maxLuck;
             }
 
             var range = maxLuck - minLuck;
