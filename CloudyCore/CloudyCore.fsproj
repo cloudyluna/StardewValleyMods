@@ -1,21 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-    <!-- Don't bundle absolute paths into generated assemblies-->
-    <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
-
-    
-    <GamePath>$(STARDEW_VALLEY)</GamePath>
-    
     <EnableGameDebugging>false</EnableGameDebugging>
     <EnableModDeploy>false</EnableModDeploy>
-    <EnableModZip>false</EnableModZip>
     
     <!-- We enable this because FSharp.Core.dll doesn't come by default with SDV! -->
     <BundleExtraAssemblies>ThirdParty</BundleExtraAssemblies>
-
-    <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
     <OtherFlags>$(OtherFlags) --warnon:1182</OtherFlags>
   </PropertyGroup>
   <ItemGroup>
