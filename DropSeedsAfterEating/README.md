@@ -14,7 +14,7 @@ A small chance to drop seeds after eating fruits, vegetables or flowers.
 
 ## Version
 
-0.1.0
+0.1.1
 
 ## Compatibility
 
