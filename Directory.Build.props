@@ -1,0 +1,18 @@
+<Project>
+ <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+
+    <!-- Don't bundle absolute paths into generated assemblies-->
+    <Deterministic>true</Deterministic>
+    <DeterministicSourcePaths>true</DeterministicSourcePaths>
+    <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
+
+    <GamePath>$(STARDEW_VALLEY)</GamePath>
+    <EnableModZip>false</EnableModZip>
+
+    <SatelliteResourceLanguages>en-US</SatelliteResourceLanguages>
+ </PropertyGroup>
+</Project>
