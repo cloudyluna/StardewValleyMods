@@ -35,7 +35,7 @@
           LD_LIBRARY_PATH = "${lib.makeLibraryPath buildInputs}";
 
           shellHook = ''
-            export STARDEW_VALLEY="$HOME/.sdv_dev/drive_c/GOG Games/Stardew Valley"
+            export STARDEW_VALLEY="$HOME/.game_prefixes/sdv_development/drive_c/GOG Games/Stardew Valley"
           '';
         };
       }
