@@ -1,4 +1,4 @@
 include ../Makefile.variable
 
-PROJECT_NAME+=DropSeedsAfterEating
-VERSION+=0.1.0
+PROJECT_NAME:=MaintainGlowRingsIndoorsRadius
+VERSION:=0.1.0
