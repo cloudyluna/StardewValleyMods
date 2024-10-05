@@ -16,12 +16,16 @@ internal class CrabPotPatcher
         Config = config;
     }
 
+    // Most of this code was taken from Stardew's code, which is not subjected to AGPL-3.0 license.
+    // The only changes I made here are some of the variable names so I can understand what the heck is going on.
+    //
     internal static bool DayUpdate_Prefix(CrabPot __instance)
     {
         try
         {
             var crabPot = __instance;
 
+            // ************************************* Stardew Code ************************************************
             GameLocation location = crabPot.Location;
             var lureMaster = 11;
             var mariner = 10;
@@ -142,7 +146,7 @@ internal class CrabPotPatcher
                         // We are trying to be conservative with addition here
                         // and to keep things simple as possible.
                         // It will also probably breaks existing crab pot
-                        // fixes that wered added by more thoroughly changed
+                        // fixes that were added by more thoroughly changed
                         // crab pot mods.
                         // Though, we certainly can introduce this addition
                         // if there is demand, of course.
@@ -158,6 +162,8 @@ internal class CrabPotPatcher
                     crabPot.heldObject.Value = ItemRegistry.Create<Object>("(O)" + random.Next(168, 173));
                 }
             }
+
+            // ************************************* Stardew Code ************************************************
 
             return false;
 
