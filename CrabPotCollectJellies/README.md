@@ -123,10 +123,6 @@ file for details.
 
 4.  Launch the game through SMAPI launcher.
 
-## Mod page
-
-- [Nexusmods](https://www.nexusmods.com/stardewvalley/mods/27358)
-
 ## Thanks to
 
 - [SMAPI dev and contributors](https://github.com/Pathoschild/SMAPI) for
@@ -135,6 +131,14 @@ file for details.
 - [Generic Config Menu dev and
   contributors](https://www.nexusmods.com/stardewvalley/mods/5098) for
   making mod configuration through GUI, simple and easy.
+
+## Mod page
+
+- [Nexusmods](https://www.nexusmods.com/stardewvalley/mods/27358)
+
+## Source code
+
+- [Github](https://github.com/cloudyluna/StardewValleyMods/tree/main/CrabPotCollectJellies)
 
 ## License
 
