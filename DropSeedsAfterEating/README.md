@@ -42,7 +42,9 @@ Untested.
 
 ## What changed?
 
-See [CHANGELOG.md](CHANGELOG.md) file for details.
+See
+[CHANGELOG.md](https://github.com/cloudyluna/StardewValleyMods/tree/main/DropSeedsAfterEating/CHANGELOG.md)
+file for details.
 
 ## Requirements
 
