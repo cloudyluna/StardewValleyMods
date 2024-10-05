@@ -82,12 +82,17 @@
 	\end{itemize}
 }
 
-\newcommand{\subProjectCompatIssues}[4]{
+% #1=mod id
+% #2=multiplayer compatibility
+% #3=incompatibility with other mods
+% #4=Known issue list
+% #5=Normalized sub-project name
+\newcommand{\subProjectCompatIssues}[5]{
 	\subProjectCompatibility{#1}{#2}{#3}
 
 	\subProjectKnownIssues{#4}
 
-	\subProjectChangelog{}
+	\subProjectChangelog{#5}
 }
 
 % 1: Project name.
@@ -122,10 +127,10 @@
 	to build the project.
 }
 
-\newcommand{\subProjectChangelog}{
+\newcommand{\subProjectChangelog}[1]{
 	\subsection{What changed?}
 
-	See \href{CHANGELOG.md}{CHANGELOG.md} file for details.
+	See \href{https://github.com/cloudyluna/StardewValleyMods/tree/main/#1/CHANGELOG.md}{CHANGELOG.md} file for details.
 }
 
 \newcommand{\subprojectrepos}[1]{
