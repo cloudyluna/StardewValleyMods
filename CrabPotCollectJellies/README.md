@@ -136,4 +136,11 @@ file for details.
   contributors](https://www.nexusmods.com/stardewvalley/mods/5098) for
   making mod configuration through GUI, simple and easy.
 
+## License
+
 > Copyright (c) 2024 Cloudyluna
+
+This project is licensed under the AGPL-3.0-or-later license - see the
+`LICENSE` file for details.
+
+> This license does not include the copied Stardew’s own code.
