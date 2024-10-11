@@ -68,10 +68,10 @@ jellies there too.
 ## Compatibility
 
 If you found this mod behaving weirdly or being incompatible with other
-mods, please report it in the
+mods, please report it on the
 [`bugs`](https://www.nexusmods.com/stardewvalley/mods/27358?tab=bugs) or
 [`posts`](https://www.nexusmods.com/stardewvalley/mods/27358?tab=posts)
-page so I can update this documentation with that information and to let
+page so I can update this documentation with that information and let
 other users know about such potential issues in the future.
 
 > This mod should work with most other mods unless specified otherwise
