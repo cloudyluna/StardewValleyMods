@@ -34,10 +34,14 @@ module VitalsSelector =
         }
 
     let getVitalsPriority (config : ModConfig) (player : Farmer) =
-        if makePlayerHealth player <= config.MinimumHealthToStartAutoEat then
+        if
+            not (config.MinimumHealthToStartAutoEat <= 0)
+            && makePlayerHealth player <= config.MinimumHealthToStartAutoEat
+        then
             Health ^ makeVitalStatus player.health player.maxHealth
         elif
-            makePlayerStamina player <= config.MinimumStaminaToStartAutoEat
+            not (config.MinimumStaminaToStartAutoEat <= 0)
+            && makePlayerStamina player <= config.MinimumStaminaToStartAutoEat
         then
             Stamina ^ makeVitalStatus (int player.stamina) player.MaxStamina
         else

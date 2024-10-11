@@ -31,7 +31,7 @@ with configurable settings.
 
 ## Version
 
-0.4.2
+0.4.3
 
 ## Compatibility
 
@@ -86,8 +86,9 @@ file for details.
 2.  Unzip the files into the **Stardew Valley/Mods/SelectiveEating**
     game folder.
 
-3.  Make sure the **SelectiveEating.dll** and **manifest.json** files
-    are inside **SelectiveEating** folder, not in **Mods** folder.
+3.  Make sure the **SelectiveEating.dll**, **CloudyCore.dll**,
+    **FSharp.Core.dll**, and **manifest.json** files are inside
+    **SelectiveEating** folder, not in **Mods** folder.
 
 4.  Launch the game through SMAPI launcher.
 
