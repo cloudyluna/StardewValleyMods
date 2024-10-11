@@ -2,18 +2,18 @@
 
 ------------------------------------------------------------------------
 
-A simple quality of life mod to make eating easier and automatically
-with configurable settings.
+A simple quality-of-life mod to make eating easier and automatic with
+configurable settings.
 
 ## Features
 
-- Automatically eats food when you lost some health or energy. You can
-  configure this eating priority strategy in the configure menu to
-  either prioritizing on replenishing the most health or energy as much
-  as possible, the lowest priced food to save money or simply turn this
-  extra strategy off at any time.
+- Automatically eat food when you lose some health or energy. You can
+  configure this eating priority strategy in the menu to either
+  prioritize replenishing the most health or energy as much as possible,
+  the lowest priced food to save money, or turn this extra strategy off
+  at any time.
 
-- Entirely skip eating animation (and the world pauses that comes with
+- Entirely skip eating animation (and the world pauses that come with
   it) for you to eat food on the go, automatically. Configurable.
 
 - Forbid certain food from being eaten. Configurable.
@@ -22,24 +22,24 @@ with configurable settings.
 
 - An option to stay in the same facing direction even after eating.
 
-- Increase or decrease eating time interval for role playing/challenge
+- Increase or decrease eating time intervals for role-playing/challenge
   or performance reasons.
 
-- Options can be configured through [Generic Config
+- Options can be configured through the [Generic Config
   Menu](https://www.nexusmods.com/stardewvalley/mods/5098) or
-  `config.json` file within `SelectiveEating` mod directory.
+  `config.json` file within the `SelectiveEating` mod directory.
 
 ## Version
 
-0.4.2
+0.4.3
 
 ## Compatibility
 
 If you found this mod behaving weirdly or being incompatible with other
-mods, please report it in the
+mods, please report it on the
 [`bugs`](https://www.nexusmods.com/stardewvalley/mods/26831?tab=bugs) or
 [`posts`](https://www.nexusmods.com/stardewvalley/mods/26831?tab=posts)
-page so I can update this documentation with that information and to let
+page so I can update this documentation with that information and let
 other users know about such potential issues in the future.
 
 > This mod should work with most other mods unless specified otherwise
@@ -86,8 +86,9 @@ file for details.
 2.  Unzip the files into the **Stardew Valley/Mods/SelectiveEating**
     game folder.
 
-3.  Make sure the **SelectiveEating.dll** and **manifest.json** files
-    are inside **SelectiveEating** folder, not in **Mods** folder.
+3.  Make sure the **SelectiveEating.dll**, **CloudyCore.dll**,
+    **FSharp.Core.dll**, and **manifest.json** files are inside
+    **SelectiveEating** folder, not in **Mods** folder.
 
 4.  Launch the game through SMAPI launcher.
 

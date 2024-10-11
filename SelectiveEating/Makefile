@@ -1,4 +1,4 @@
 include ../Makefile.variable
 
 PROJECT_NAME+=SelectiveEating
-VERSION+=0.4.2
+VERSION+=0.4.3

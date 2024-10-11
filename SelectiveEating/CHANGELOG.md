@@ -5,6 +5,13 @@ format is based on [Keep A
 Changelog](https://keepachangelog.com/en/1.1.0/), and this project
 adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## \[0.4.3\] - 2024-10-11
+
+### Fixed
+
+- Player still eating when either health and stamina value slider is set
+  to 0%.
+
 ## \[0.4.2\] - 2024-09-01
 
 ### Changed
