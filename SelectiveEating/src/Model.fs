@@ -16,7 +16,12 @@ type Food =
     }
 
 [<Struct>]
-type FoodItem = { Food : Food ; IsPriority : bool }
+type FoodItem =
+    {
+        Food : Food
+        Item : StardewValley.Object
+        IsPriority : bool
+    }
 
 [<Struct>]
 type VitalStatus = { Current : int ; Max : int }
@@ -123,6 +128,7 @@ module VitalsSelector =
             unprocessedFood
             forbiddenFood
             isPartOfActiveInventoryRow
+            item
             =
             seq {
                 if
@@ -132,6 +138,7 @@ module VitalsSelector =
                 then
                     {
                         Food = unprocessedFood
+                        Item = item
                         IsPriority = isPartOfActiveInventoryRow
                     }
             }
