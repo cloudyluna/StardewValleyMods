@@ -18,8 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropSeedsAfterEating", "Dro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrabPotCollectJellies", "CrabPotCollectJellies\CrabPotCollectJellies.csproj", "{254D599B-FE33-4B62-971F-0D3298577632}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SelectiveEating.Tests", "SelectiveEating.Tests\SelectiveEating.Tests.fsproj", "{A04F624F-D88A-42DF-BD32-BFF411D80602}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

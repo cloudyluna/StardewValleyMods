@@ -1,7 +1,6 @@
 source https://www.nuget.org/api/v2
 
 nuget FSharp.Core
-nuget FSharp.SystemTextJson
 nuget Pathoschild.Stardew.ModBuildConfig
 
 group Tests
@@ -13,4 +12,3 @@ nuget Microsoft.NET.Test.Sdk
 nuget NUnit
 nuget NUnit.Analyzers
 nuget NUnit3TestAdapter
-nuget FsUnit
