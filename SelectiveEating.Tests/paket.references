@@ -6,3 +6,7 @@ group Tests
     NUnit
     NUnit.Analyzers
     NUnit3TestAdapter
+
+group BatteryTests
+    Expecto
+    Expecto.FsCheck

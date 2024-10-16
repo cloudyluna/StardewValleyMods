@@ -12,3 +12,11 @@ nuget Microsoft.NET.Test.Sdk
 nuget NUnit
 nuget NUnit.Analyzers
 nuget NUnit3TestAdapter
+
+group BatteryTests
+
+source https://nuget.org/api/v2
+
+nuget Expecto
+nuget Expecto.FSCheck
+
