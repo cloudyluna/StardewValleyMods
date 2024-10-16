@@ -1,15 +1,14 @@
 module SelectiveEating.Tests
 
 open Expecto
-open FsCheck
 open SelectiveEating.API
 
-let equal (r : 'a) (e : 'a) : unit = Expect.equal r e ""
+let (==) (r : 'a) (e : 'a) : unit = Expect.equal r e ""
+let (/=) (r : 'a) (e : 'a) : unit = Expect.notEqual r e ""
 
-[<Tests>]
-let tests : Test =
+let getVitalsPriorityTests =
     testList
-        "model tests"
+        "VitalsSelector.getVitalsPriority"
         [
             test "getVitalsPriority minimum vitals set to 0 should be DoingOk" {
                 let config = ModConfig ()
@@ -25,7 +24,7 @@ let tests : Test =
                         playerStamina
 
                 let expected = DoingOK
-                equal result expected
+                result == expected
             }
 
             test
@@ -42,6 +41,9 @@ let tests : Test =
                         { playerHealth with Current = 80 }
                         playerStamina
 
-                equal result (Health { Current = 80 ; Max = 100 })
+                result == Health { Current = 80 ; Max = 100 }
             }
         ]
+
+[<Tests>]
+let tests : Test = testList "API tests" [ getVitalsPriorityTests ]
