@@ -87,12 +87,12 @@ module VitalsSelector =
         )
 
     let replenishStamina
-        (vital : VitalStatus)
+        (vitalStat : VitalStatus)
         (edibles : FoodItem array)
         : FoodItem
         =
-        let stamina = vital.Current
-        let maxStamina = vital.Max
+        let stamina = vitalStat.Current
+        let maxStamina = vitalStat.Max
         let amountToRefill = maxStamina - stamina
 
         edibles
