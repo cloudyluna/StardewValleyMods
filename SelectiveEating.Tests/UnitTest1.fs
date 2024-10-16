@@ -1,29 +1,47 @@
 module SelectiveEating.Tests
 
 open Expecto
+open FsCheck
 open SelectiveEating.API
 
-module ModelTest =
-    let equal (r : 'a) (e : 'a) : unit = Expect.equal r e ""
+let equal (r : 'a) (e : 'a) : unit = Expect.equal r e ""
 
-    [<Tests>]
-    let tests : Test =
-        testList
-            "model test"
-            [
-                testCase
-                    "getVitalsPriority minimum vitals set to 0 should be DoingOk"
-                <| fun () ->
-                    let config = ModConfig ()
-                    config.MinimumHealthToStartAutoEat <- 0
-                    config.MinimumStaminaToStartAutoEat <- 0
+[<Tests>]
+let tests : Test =
+    testList
+        "model tests"
+        [
+            test "getVitalsPriority minimum vitals set to 0 should be DoingOk" {
+                let config = ModConfig ()
+                let playerHealth = { Current = 50 ; Max = 100 }
+                let playerStamina = { Current = 20 ; Max = 128 }
+                config.MinimumHealthToStartAutoEat <- 0
+                config.MinimumStaminaToStartAutoEat <- 0
 
-                    let health = { Current = 50 ; Max = 100 }
-                    let stamina = { Current = 20 ; Max = 128 }
+                let result =
+                    VitalsSelector.getVitalsPriority
+                        config
+                        playerHealth
+                        playerStamina
 
-                    let result =
-                        VitalsSelector.getVitalsPriority config health stamina
+                let expected = DoingOK
+                equal result expected
+            }
 
-                    let expected = DoingOK
-                    equal result expected
-            ]
+            test
+                "even when current stamina is below player's health and if health is < auto eat condition and > 0, we still will get Health value" {
+                let config = ModConfig ()
+                let playerHealth = { Current = 50 ; Max = 100 }
+                let playerStamina = { Current = 20 ; Max = 128 }
+                config.MinimumHealthToStartAutoEat <- 80
+                config.MinimumStaminaToStartAutoEat <- 80
+
+                let result =
+                    VitalsSelector.getVitalsPriority
+                        config
+                        { playerHealth with Current = 80 }
+                        playerStamina
+
+                equal result (Health { Current = 80 ; Max = 100 })
+            }
+        ]
