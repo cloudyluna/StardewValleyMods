@@ -1,4 +1,4 @@
-namespace SelectiveEating.Model
+namespace SelectiveEating.API
 
 open CloudyCore.Prelude
 open CloudyCore.Prelude.Math

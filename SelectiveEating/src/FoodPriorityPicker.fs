@@ -3,7 +3,7 @@ namespace SelectiveEating
 open StardewValley
 open CloudyCore.Prelude.Math
 open CloudyCore.Prelude
-open SelectiveEating.Model
+open SelectiveEating.API
 
 type Food = Object
 

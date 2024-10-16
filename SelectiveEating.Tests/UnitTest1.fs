@@ -1,7 +1,7 @@
 module SelectiveEating.Tests
 
 open Expecto
-open SelectiveEating.Model
+open SelectiveEating.API
 
 module ModelTest =
     let equal (r : 'a) (e : 'a) : unit = Expect.equal r e ""
