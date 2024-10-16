@@ -4,6 +4,7 @@ open StardewValley
 open StardewModdingAPI
 open CloudyCore.Prelude
 open CloudyCore.IGenericConfigMenuApi
+open SelectiveEating.API
 
 type internal Mod() =
     inherit StardewModdingAPI.Mod()
@@ -107,7 +108,7 @@ type internal Mod() =
 
     member private this.TryEatFood (config : ModConfig, player : Farmer) =
         Option.exec (InventoryFood.tryGetOne config player)
-        ^ fun item -> this.EatFood (config, player, item.Food)
+        ^ fun food -> this.EatFood (config, player, food)
 
     member private this.EatFood
         (config : ModConfig, player : Farmer, food : Food)
@@ -115,13 +116,15 @@ type internal Mod() =
         let shouldEatWithAnimation =
             not config.IsSkipEatingAnimationEnabled && Context.CanPlayerMove
 
+        let foodObj = player.Items.GetById food.Id |> Seq.head :?> FoodObject
+
         if config.IsSkipEatingAnimationEnabled then
-            this.EatWithoutAnimation (player, food)
+            this.EatWithoutAnimation (player, foodObj)
         elif shouldEatWithAnimation then
-            this.EatWithAnimation (config, player, food)
+            this.EatWithAnimation (config, player, foodObj)
 
     member private this.EatWithAnimation
-        (config : ModConfig, player : Farmer, food : Food)
+        (config : ModConfig, player : Farmer, food : FoodObject)
         =
         let lastPlayerDirectionBeforeEating = player.FacingDirection
 
@@ -132,7 +135,10 @@ type internal Mod() =
 
         this.DecreaseFood (player, food)
 
-    member private this.EatWithoutAnimation (player : Farmer, food : Food) =
+    member private this.EatWithoutAnimation
+        (player : Farmer, food : FoodObject)
+        =
+
         player.health <-
             min
                 player.maxHealth
@@ -146,7 +152,7 @@ type internal Mod() =
 
         this.DecreaseFood (player, food)
 
-    member private this.DecreaseFood (player : Farmer, food : Food) =
+    member private this.DecreaseFood (player : Farmer, food : FoodObject) =
         food.Stack <- food.Stack - 1
 
         if food.Stack = 0 then

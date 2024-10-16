@@ -7,23 +7,13 @@ open SelectiveEating
 type Food =
     {
         Id : string
-        Name : string
-        Stack : int
         Edibility : int
         HealthRecoveredOnConsumption : int
         StaminaRecoveredOnConsumption : int
         SellToStorePrice : int
-    }
-
-[<Struct>]
-type FoodItem =
-    {
-        Food : Food
-        Item : StardewValley.Object
         IsPriority : bool
     }
 
-[<Struct>]
 type VitalStatus = { Current : int ; Max : int }
 
 type VitalsPriority =
@@ -66,40 +56,46 @@ module VitalsSelector =
         else
             DoingOK
 
-    let closestNeededToReplenish recoveredAmount amountToRefill maxStat =
-        abs (ofPercentage recoveredAmount (maxStat - amountToRefill))
+    /// Percentage lost that is needed to be replenished.
+    let closestPercentToReplenish foodRecoveryPoints statMax percentToRefill =
+        abs <| ofPercentage foodRecoveryPoints (statMax - percentToRefill)
 
-    module Edibles =
-        let private parsedForbiddenFood (str : string) : string array =
-            str.Trim().Split (',', System.StringSplitOptions.RemoveEmptyEntries)
-            |> Array.map (fun i -> i.Trim ())
+    let private replenishVitalStatus
+        (stat : VitalStatus)
+        (edibles : Food array)
+        (foodRecoveryGetter : Food -> int)
+        : Food
+        =
+        let percentToRefill = stat.Max - stat.Current
 
-        let private isNotForbidden
-            (food : Food)
-            (forbiddenFood : string array)
-            : bool
-            =
-            not <| Array.exists (fun id -> food.Id = id) forbiddenFood
+        edibles
+        |> Array.minBy (fun fi ->
+            closestPercentToReplenish
+                (foodRecoveryGetter fi)
+                stat.Current
+                percentToRefill
+        )
 
-            // We don't care about food that gives negative health/stamina or nothing
-            // positive of value at all.
-            && food.Edibility > 0
+    let replenishHealth (health : VitalStatus) (edibles : Food array) : Food =
 
-        let makeFoodItem
-            unprocessedFood
-            forbiddenFood
-            isPartOfActiveInventoryRow
-            item
-            =
-            seq {
-                if
-                    isNotForbidden
-                        unprocessedFood
-                        (parsedForbiddenFood forbiddenFood)
-                then
-                    {
-                        Food = unprocessedFood
-                        Item = item
-                        IsPriority = isPartOfActiveInventoryRow
-                    }
-            }
+        _.HealthRecoveredOnConsumption |> replenishVitalStatus health edibles
+
+
+    let replenishStamina (stamina : VitalStatus) (edibles : Food array) : Food =
+        _.StaminaRecoveredOnConsumption |> replenishVitalStatus stamina edibles
+
+module CheapestSelector =
+    let get (edibles : Food array) : Food =
+        edibles |> Array.minBy _.SellToStorePrice
+
+module Edibles =
+    let parseForbiddenFood (str : string) : string array =
+        str.Trim().Split (',', System.StringSplitOptions.RemoveEmptyEntries)
+        |> Array.map (fun i -> i.Trim ())
+
+    let isNotForbidden (food : Food) (forbiddenFood : string array) : bool =
+        not <| Array.exists (fun id -> food.Id = id) forbiddenFood
+
+        // We don't care about food that gives negative health/stamina or nothing
+        // positive of value at all.
+        && food.Edibility > 0

@@ -1,117 +1,42 @@
 namespace SelectiveEating
 
 open StardewValley
-open CloudyCore.Prelude.Math
 open CloudyCore.Prelude
 open SelectiveEating.API
 
-type Food = Object
-
-[<Struct>]
-type FoodItem = { Food : Food ; IsPriority : bool }
-
-module VitalsSelector =
-    let getVitalsPriority (config : ModConfig) (player : Farmer) =
-        VitalsSelector.getVitalsPriority
-            config
-            {
-                Current = player.health
-                Max = player.maxHealth
-            }
-            {
-                Current = int player.stamina
-                Max = player.MaxStamina
-            }
-
-
-    let private closestNeededToReplenish
-        recoveredAmount
-        amountToRefill
-        maxStat
-        =
-        abs (ofPercentage (recoveredAmount ()) maxStat - amountToRefill)
-
-    let replenishHealth
-        (vitalStat : VitalStatus)
-        (edibles : FoodItem array)
-        : FoodItem
-        =
-
-        let health = vitalStat.Current
-        let maxHealth = vitalStat.Max
-        let amountToRefill = maxHealth - health
-
-        edibles
-        |> Array.minBy (fun item ->
-            closestNeededToReplenish
-                item.Food.healthRecoveredOnConsumption
-                amountToRefill
-                maxHealth
-        )
-
-    let replenishStamina
-        (vital : VitalStatus)
-        (edibles : FoodItem array)
-        : FoodItem
-        =
-        let stamina = vital.Current
-        let maxStamina = vital.Max
-        let amountToRefill = maxStamina - stamina
-
-        edibles
-        |> Array.minBy (fun item ->
-            closestNeededToReplenish
-                item.Food.staminaRecoveredOnConsumption
-                amountToRefill
-                maxStamina
-        )
-
-
-module private CheapestSelector =
-    let get (player : Farmer) (edibles : FoodItem array) : FoodItem =
-        let f (item : FoodItem) =
-            item.Food.sellToStorePrice player.UniqueMultiplayerID
-
-        edibles |> Array.minBy f
+type FoodObject = Object
 
 module private Edibles =
-    let private parsedForbiddenFood (str : string) : string array =
-        str.Trim().Split (',', System.StringSplitOptions.RemoveEmptyEntries)
-        |> Array.map (fun i -> i.Trim ())
+    open SelectiveEating.API.Edibles
 
-    let private isNotForbidden
-        (food : Food)
-        (forbiddenFood : string array)
-        : bool
-        =
-        not <| Array.exists (fun id -> food.ItemId = id) forbiddenFood
-
-        // We don't care about food that gives negative health/stamina or nothing
-        // positive of value at all.
-        && food.Edibility > 0
-
-    let private makeFoodItem
-        unprocessedFood
+    let makeFoodItem
+        (unprocessedFood : FoodObject)
         forbiddenFood
         isPartOfActiveInventoryRow
         =
         seq {
-            if
-                isNotForbidden
-                    unprocessedFood
-                    (parsedForbiddenFood forbiddenFood)
-            then
+            let food =
                 {
-                    Food = unprocessedFood
                     IsPriority = isPartOfActiveInventoryRow
+                    Id = unprocessedFood.ItemId
+                    Edibility = unprocessedFood.Edibility
+                    HealthRecoveredOnConsumption =
+                        unprocessedFood.healthRecoveredOnConsumption ()
+                    StaminaRecoveredOnConsumption =
+                        unprocessedFood.staminaRecoveredOnConsumption ()
+                    SellToStorePrice =
+                        unprocessedFood.sellToStorePrice
+                            Game1.player.UniqueMultiplayerID
                 }
-        }
 
+            if isNotForbidden food (parseForbiddenFood forbiddenFood) then
+                food
+        }
 
     let makeEdibles
         (playerInventory : Inventories.Inventory)
         (forbiddenFood : string)
-        : FoodItem seq
+        : Food seq
         =
         seq {
             let activeInventoryRowSize = 12
@@ -133,30 +58,43 @@ module private Edibles =
         }
 
 module InventoryFood =
-    open VitalsSelector
+    open SelectiveEating.API.VitalsSelector
 
     let private makeEdibles (config : ModConfig) (player : Farmer) =
         Edibles.makeEdibles player.Items config.ForbiddenFoods
 
-    let private byHighestPriority (originFood : FoodItem array) =
-        let priorities = originFood |> Array.filter _.IsPriority
+    let private byHighestPriority (originFood : Food array) =
+        let priorities = originFood |> Array.filter (fun fi -> fi.IsPriority)
+
         if Array.isEmpty priorities then originFood else priorities
 
     let private byEatingPriority
         getVital
         (config : ModConfig)
-        player
-        vitalStat
-        food
+        (vitalStat : VitalStatus)
+        (food : Food array)
+        : Food
         =
         if config.PriorityStrategySelection = HealthOrStamina.ToString () then
             getVital vitalStat food
         elif config.PriorityStrategySelection = CheapestFood.ToString () then
-            CheapestSelector.get player food
+            CheapestSelector.get food
         else // Off. Just start eating from the active inventory row, left to right.
             Array.head food
 
-    let tryGetOne (config : ModConfig) (player : Farmer) : FoodItem option =
+    let private getPriority config (player : Farmer) =
+        getVitalsPriority
+            config
+            {
+                Current = player.health
+                Max = player.maxHealth
+            }
+            {
+                Current = int player.stamina
+                Max = player.MaxStamina
+            }
+
+    let tryGetOne (config : ModConfig) (player : Farmer) : Food option =
         let items = lazy (makeEdibles config player)
 
         let getFor replenisher vital =
@@ -168,11 +106,11 @@ module InventoryFood =
                 foodItems
                 |> Seq.toArray
                 |> byHighestPriority
-                |> byEatingPriority replenisher config player vital
+                |> byEatingPriority replenisher config vital
                 |> Some
 
 
-        match getVitalsPriority config player with
+        match getPriority config player with
         | DoingOK -> None
         | Health health -> getFor replenishHealth health
         | Stamina stamina -> getFor replenishStamina stamina
