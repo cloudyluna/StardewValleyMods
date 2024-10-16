@@ -18,7 +18,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropSeedsAfterEating", "Dro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrabPotCollectJellies", "CrabPotCollectJellies\CrabPotCollectJellies.csproj", "{254D599B-FE33-4B62-971F-0D3298577632}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SelectiveEating.Tests", "SelectiveEating.Tests\SelectiveEating.Tests.fsproj", "{9D9D9772-1ABF-446E-BCBF-2F80BA7FE901}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9FD37B9A-4575-43A6-9E18-3C76E9876F6D}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "SelectiveEating.Tests", "tests\SelectiveEating.Tests\SelectiveEating.Tests.fsproj", "{9A1E6C6C-65A8-47FA-9FBF-FB41929B51FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -57,9 +59,12 @@ Global
 		{3ADD2FC8-B899-4260-8387-1C3A80F7CD30}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3ADD2FC8-B899-4260-8387-1C3A80F7CD30}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3ADD2FC8-B899-4260-8387-1C3A80F7CD30}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9D9D9772-1ABF-446E-BCBF-2F80BA7FE901}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9D9D9772-1ABF-446E-BCBF-2F80BA7FE901}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9D9D9772-1ABF-446E-BCBF-2F80BA7FE901}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9D9D9772-1ABF-446E-BCBF-2F80BA7FE901}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9A1E6C6C-65A8-47FA-9FBF-FB41929B51FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9A1E6C6C-65A8-47FA-9FBF-FB41929B51FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9A1E6C6C-65A8-47FA-9FBF-FB41929B51FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9A1E6C6C-65A8-47FA-9FBF-FB41929B51FD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{9A1E6C6C-65A8-47FA-9FBF-FB41929B51FD} = {9FD37B9A-4575-43A6-9E18-3C76E9876F6D}
 	EndGlobalSection
 EndGlobal
