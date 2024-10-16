@@ -6,28 +6,25 @@ open SelectiveEating
 
 type Food =
     {
-        id : string
-        name : string
-        stack : int
-        edibility : int
-        healthRecoveredOnConsumption : int
-        staminaRecoveredOnConsumption : int
-        sellToStorePrice : int
+        Id : string
+        Name : string
+        Stack : int
+        Edibility : int
+        HealthRecoveredOnConsumption : int
+        StaminaRecoveredOnConsumption : int
+        SellToStorePrice : int
     }
 
 [<Struct>]
 type FoodItem = { Food : Food ; IsPriority : bool }
 
 [<Struct>]
-type VitalStatus = { Current : Percentage ; Max : int }
+type VitalStatus = { Current : int ; Max : int }
 
 type VitalsPriority =
     | Health of VitalStatus
     | Stamina of VitalStatus
     | DoingOK
-
-type Health = { current : int ; max : int }
-type Stamina = { current : int ; max : int }
 
 module VitalsSelector =
 
@@ -39,32 +36,28 @@ module VitalsSelector =
     let private makePlayerStamina (stamina : int) (maxStamina : int) =
         ofPercentage stamina maxStamina
 
-    let private makeVitalStatus current max =
-        {
-            Current = makePercentage current max
-            Max = max
-        }
+    let private makeVitalStatus current max = { Current = current ; Max = max }
 
     let getVitalsPriority
         (config : ModConfig)
-        (playerHealth : Health)
-        (playerStamina : Stamina)
+        (playerHealth : VitalStatus)
+        (playerStamina : VitalStatus)
         =
         let minimumActive p = not (p <= 0)
 
         if
             minimumActive config.MinimumHealthToStartAutoEat
-            && makePlayerHealth playerHealth.current playerHealth.max
+            && makePlayerHealth playerHealth.Current playerHealth.Max
                <= config.MinimumHealthToStartAutoEat
         then
-            Health ^ makeVitalStatus playerHealth.current playerHealth.max
+            Health ^ makeVitalStatus playerHealth.Current playerHealth.Max
         elif
             minimumActive config.MinimumStaminaToStartAutoEat
-            && makePlayerStamina playerStamina.current playerStamina.max
+            && makePlayerStamina playerStamina.Current playerStamina.Max
                <= config.MinimumStaminaToStartAutoEat
         then
             Stamina
-            ^ makeVitalStatus (int playerStamina.current) playerStamina.max
+            ^ makeVitalStatus (int playerStamina.Current) playerStamina.Max
         else
             DoingOK
 
@@ -81,14 +74,14 @@ module VitalsSelector =
         : FoodItem
         =
 
-        let health = fromPercentage vitalStat.Current
+        let health = vitalStat.Current
         let maxHealth = vitalStat.Max
         let amountToRefill = maxHealth - health
 
         edibles
         |> Array.minBy (fun item ->
             closestNeededToReplenish
-                item.Food.healthRecoveredOnConsumption
+                item.Food.HealthRecoveredOnConsumption
                 amountToRefill
                 maxHealth
         )
@@ -98,14 +91,14 @@ module VitalsSelector =
         (edibles : FoodItem array)
         : FoodItem
         =
-        let stamina = fromPercentage vital.Current
+        let stamina = vital.Current
         let maxStamina = vital.Max
         let amountToRefill = maxStamina - stamina
 
         edibles
         |> Array.minBy (fun item ->
             closestNeededToReplenish
-                item.Food.staminaRecoveredOnConsumption
+                item.Food.StaminaRecoveredOnConsumption
                 amountToRefill
                 maxStamina
         )
@@ -120,11 +113,11 @@ module VitalsSelector =
             (forbiddenFood : string array)
             : bool
             =
-            not <| Array.exists (fun id -> food.id = id) forbiddenFood
+            not <| Array.exists (fun id -> food.Id = id) forbiddenFood
 
             // We don't care about food that gives negative health/stamina or nothing
             // positive of value at all.
-            && food.edibility > 0
+            && food.Edibility > 0
 
         let makeFoodItem
             unprocessedFood
