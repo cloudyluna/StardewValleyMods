@@ -1,4 +1,3 @@
-DOTNET = dotnet
 PANDOC = pandoc
 
 all: build
@@ -9,6 +8,9 @@ build:
 	$(MAKE) -C DropSeedsAfterEating
 	$(MAKE) -C CrabPotCollectJellies
 
+test:
+	$(MAKE) test -C SelectiveEating
+
 documentation:
 	cd docs && pandoc -t gfm Main.tex -o ../README.md
 	$(MAKE) documentation -C SelectiveEating
@@ -16,7 +18,7 @@ documentation:
 	$(MAKE) documentation -C DropSeedsAfterEating
 	$(MAKE) documentation -C CrabPotCollectJellies
 
-release:
+release: test
 	$(MAKE) release -C SelectiveEating
 	$(MAKE) release -C MaintainGlowRingsIndoorsRadius
 	$(MAKE) release -C DropSeedsAfterEating

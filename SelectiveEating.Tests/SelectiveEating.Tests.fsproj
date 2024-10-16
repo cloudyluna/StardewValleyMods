@@ -13,10 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Using Include="NUnit.Framework" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Compile Include="UnitTest1.fs"/>
     <Compile Include="Program.fs"/>
   </ItemGroup>

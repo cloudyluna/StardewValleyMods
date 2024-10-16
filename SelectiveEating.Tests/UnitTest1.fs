@@ -1,11 +1,15 @@
 module SelectiveEating.Tests
 
-open NUnit.Framework
+open Expecto
 
-[<SetUp>]
-let Setup () =
-    ()
 
-[<Test>]
-let Test1 () =
-    Assert.Pass()
+[<Tests>]
+let tests =
+    testList
+        "model test"
+        [
+            testCase "A simple test"
+            <| fun () ->
+                let expected = 4
+                Expect.equal (2 + 2) expected "2+2 = 4"
+        ]
