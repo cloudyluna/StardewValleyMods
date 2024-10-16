@@ -66,47 +66,8 @@ module VitalsSelector =
         else
             DoingOK
 
-    let private closestNeededToReplenish
-        recoveredAmount
-        amountToRefill
-        maxStat
-        =
+    let closestNeededToReplenish recoveredAmount amountToRefill maxStat =
         abs (ofPercentage recoveredAmount (maxStat - amountToRefill))
-
-    let replenishHealth
-        (vitalStat : VitalStatus)
-        (edibles : FoodItem array)
-        : FoodItem
-        =
-
-        let health = vitalStat.Current
-        let maxHealth = vitalStat.Max
-        let amountToRefill = maxHealth - health
-
-        edibles
-        |> Array.minBy (fun item ->
-            closestNeededToReplenish
-                item.Food.HealthRecoveredOnConsumption
-                amountToRefill
-                maxHealth
-        )
-
-    let replenishStamina
-        (vitalStat : VitalStatus)
-        (edibles : FoodItem array)
-        : FoodItem
-        =
-        let stamina = vitalStat.Current
-        let maxStamina = vitalStat.Max
-        let amountToRefill = maxStamina - stamina
-
-        edibles
-        |> Array.minBy (fun item ->
-            closestNeededToReplenish
-                item.Food.StaminaRecoveredOnConsumption
-                amountToRefill
-                maxStamina
-        )
 
     module Edibles =
         let private parsedForbiddenFood (str : string) : string array =

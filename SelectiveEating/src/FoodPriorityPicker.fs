@@ -3,49 +3,25 @@ namespace SelectiveEating
 open StardewValley
 open CloudyCore.Prelude.Math
 open CloudyCore.Prelude
+open SelectiveEating.Model
 
 type Food = Object
 
 [<Struct>]
 type FoodItem = { Food : Food ; IsPriority : bool }
 
-[<Struct>]
-type VitalStatus = { Current : Percentage ; Max : int }
-
-type VitalsPriority =
-    | Health of VitalStatus
-    | Stamina of VitalStatus
-    | DoingOK
-
 module VitalsSelector =
-
-    /// Make percentage of current player's health.
-    let private makePlayerHealth (player : Farmer) =
-        ofPercentage player.health player.maxHealth
-
-    /// Make percentage of current player's stamina.
-    let private makePlayerStamina (player : Farmer) =
-        ofPercentage (int player.stamina) player.MaxStamina
-
-    let private makeVitalStatus current max =
-        {
-            Current = makePercentage current max
-            Max = max
-        }
-
     let getVitalsPriority (config : ModConfig) (player : Farmer) =
-        if
-            not (config.MinimumHealthToStartAutoEat <= 0)
-            && makePlayerHealth player <= config.MinimumHealthToStartAutoEat
-        then
-            Health ^ makeVitalStatus player.health player.maxHealth
-        elif
-            not (config.MinimumStaminaToStartAutoEat <= 0)
-            && makePlayerStamina player <= config.MinimumStaminaToStartAutoEat
-        then
-            Stamina ^ makeVitalStatus (int player.stamina) player.MaxStamina
-        else
-            DoingOK
+        VitalsSelector.getVitalsPriority
+            config
+            {
+                Current = player.health
+                Max = player.maxHealth
+            }
+            {
+                Current = int player.stamina
+                Max = player.MaxStamina
+            }
 
 
     let private closestNeededToReplenish
@@ -61,7 +37,7 @@ module VitalsSelector =
         : FoodItem
         =
 
-        let health = fromPercentage vitalStat.Current
+        let health = vitalStat.Current
         let maxHealth = vitalStat.Max
         let amountToRefill = maxHealth - health
 
@@ -78,7 +54,7 @@ module VitalsSelector =
         (edibles : FoodItem array)
         : FoodItem
         =
-        let stamina = fromPercentage vital.Current
+        let stamina = vital.Current
         let maxStamina = vital.Max
         let amountToRefill = maxStamina - stamina
 
