@@ -1,4 +1,4 @@
-namespace SelectiveEating
+namespace SelectiveEating.View
 
 open StardewValley
 open CloudyCore.Prelude
@@ -9,34 +9,22 @@ type FoodObject = Object
 module private Edibles =
     open SelectiveEating.API.Edibles
 
-    let makeFoodItem
-        (unprocessedFood : FoodObject)
+
+    let private makeFoodItem
+        (food : Food)
+        (foodObj : FoodObject)
         forbiddenFood
-        isPartOfActiveInventoryRow
         =
         seq {
-            let food =
-                {
-                    IsPriority = isPartOfActiveInventoryRow
-                    Id = unprocessedFood.ItemId
-                    Edibility = unprocessedFood.Edibility
-                    HealthRecoveredOnConsumption =
-                        unprocessedFood.healthRecoveredOnConsumption ()
-                    StaminaRecoveredOnConsumption =
-                        unprocessedFood.staminaRecoveredOnConsumption ()
-                    SellToStorePrice =
-                        unprocessedFood.sellToStorePrice
-                            Game1.player.UniqueMultiplayerID
-                }
-
             if isNotForbidden food (parseForbiddenFood forbiddenFood) then
-                food
+                yield food, foodObj
         }
 
     let makeEdibles
-        (playerInventory : Inventories.Inventory)
         (forbiddenFood : string)
-        : Food seq
+        (playerInventory : Inventories.Inventory)
+        (uniqueMultiplayerId : int64)
+        : (Food * FoodObject) seq
         =
         seq {
             let activeInventoryRowSize = 12
@@ -48,20 +36,34 @@ module private Edibles =
                 let object = Option.ofObj item |> Option.bind TryCast.toObject
 
                 match object with
-                | Some unprocessedFood ->
-                    yield!
-                        makeFoodItem
-                            unprocessedFood
-                            forbiddenFood
-                            isPartOfCurrentActiveInventoryRow
+                | Some foodObj ->
+                    let food =
+                        {
+                            IsPriority = isPartOfCurrentActiveInventoryRow
+                            Id = foodObj.ItemId
+                            Edibility = foodObj.Edibility
+                            HealthRecoveredOnConsumption =
+                                foodObj.healthRecoveredOnConsumption ()
+                            StaminaRecoveredOnConsumption =
+                                foodObj.staminaRecoveredOnConsumption ()
+                            SellToStorePrice =
+                                foodObj.sellToStorePrice uniqueMultiplayerId
+                        }
+
+                    yield! makeFoodItem food foodObj forbiddenFood
+
                 | None -> yield! Seq.empty
         }
 
 module InventoryFood =
     open SelectiveEating.API.VitalsSelector
+    open SelectiveEating.Config
 
     let private makeEdibles (config : ModConfig) (player : Farmer) =
-        Edibles.makeEdibles player.Items config.ForbiddenFoods
+        Edibles.makeEdibles
+            config.ForbiddenFoods
+            player.Items
+            player.UniqueMultiplayerID
 
     let private byHighestPriority (originFood : Food array) =
         let priorities = originFood |> Array.filter (fun fi -> fi.IsPriority)
@@ -94,23 +96,33 @@ module InventoryFood =
                 Max = player.MaxStamina
             }
 
-    let tryGetOne (config : ModConfig) (player : Farmer) : Food option =
-        let items = lazy (makeEdibles config player)
+    let private getFor
+        config
+        (items : Lazy<seq<Food * FoodObject>>)
+        replenisher
+        vital
+        =
+        let foodItems = items.Force ()
 
-        let getFor replenisher vital =
-            let foodItems = items.Force ()
+        if Seq.isEmpty foodItems then
+            None
+        else
+            let foods = foodItems |> Seq.rev |> Map.ofSeq
 
-            if Seq.isEmpty foodItems then
-                None
-            else
-                foodItems
+            let chosenFood =
+                foods.Keys
                 |> Seq.toArray
                 |> byHighestPriority
                 |> byEatingPriority replenisher config vital
-                |> Some
 
+            Some <| Map.find chosenFood foods
+
+
+    let tryGetOne (config : ModConfig) (player : Farmer) : FoodObject option =
+        let items = lazy (makeEdibles config player)
+        let getOne = getFor config items
 
         match getPriority config player with
         | DoingOK -> None
-        | Health health -> getFor replenishHealth health
-        | Stamina stamina -> getFor replenishStamina stamina
+        | Health health -> getOne replenishHealth health
+        | Stamina stamina -> getOne replenishStamina stamina

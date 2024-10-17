@@ -2,6 +2,7 @@ module SelectiveEating.Tests
 
 open Expecto
 open SelectiveEating.API
+open SelectiveEating.Config
 
 let (==) (r : 'a) (e : 'a) : unit = Expect.equal r e ""
 let (/=) (r : 'a) (e : 'a) : unit = Expect.notEqual r e ""

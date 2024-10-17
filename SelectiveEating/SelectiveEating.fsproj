@@ -9,7 +9,7 @@
     <Compile Include="src/Config.fs" />
     <Compile Include="src/API.fs" />
     <Compile Include="src/ConfigMenu.fs" />
-    <Compile Include="src/FoodPriorityPicker.fs" />
+    <Compile Include="src/FoodPicker.fs" />
     <Compile Include="src/ModEntry.fs" />
   </ItemGroup>
   <ItemGroup>

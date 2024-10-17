@@ -2,7 +2,7 @@ namespace SelectiveEating.API
 
 open CloudyCore.Prelude
 open CloudyCore.Prelude.Math
-open SelectiveEating
+open SelectiveEating.Config
 
 type Food =
     {
@@ -22,17 +22,6 @@ type VitalsPriority =
     | DoingOK
 
 module VitalsSelector =
-
-    /// Make percentage of current player's health.
-    let private makePlayerHealth (health : int) (maxHealth : int) =
-        ofPercentage health maxHealth
-
-    /// Make percentage of current player's stamina.
-    let private makePlayerStamina (stamina : int) (maxStamina : int) =
-        ofPercentage stamina maxStamina
-
-    let private makeVitalStatus current max = { Current = current ; Max = max }
-
     let getVitalsPriority
         (config : ModConfig)
         (playerHealth : VitalStatus)
@@ -42,17 +31,24 @@ module VitalsSelector =
 
         if
             minimumActive config.MinimumHealthToStartAutoEat
-            && makePlayerHealth playerHealth.Current playerHealth.Max
+            && ofPercentage playerHealth.Current playerHealth.Max
                <= config.MinimumHealthToStartAutoEat
         then
-            Health ^ makeVitalStatus playerHealth.Current playerHealth.Max
+            Health
+            ^ {
+                  Current = playerHealth.Current
+                  Max = playerHealth.Max
+              }
         elif
             minimumActive config.MinimumStaminaToStartAutoEat
-            && makePlayerStamina playerStamina.Current playerStamina.Max
+            && ofPercentage playerStamina.Current playerStamina.Max
                <= config.MinimumStaminaToStartAutoEat
         then
             Stamina
-            ^ makeVitalStatus (int playerStamina.Current) playerStamina.Max
+            ^ {
+                  Current = int playerStamina.Current
+                  Max = playerStamina.Max
+              }
         else
             DoingOK
 

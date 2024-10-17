@@ -4,7 +4,8 @@ open StardewValley
 open StardewModdingAPI
 open CloudyCore.Prelude
 open CloudyCore.IGenericConfigMenuApi
-open SelectiveEating.API
+open SelectiveEating.Config
+open SelectiveEating.View
 
 type internal Mod() =
     inherit StardewModdingAPI.Mod()
@@ -111,17 +112,15 @@ type internal Mod() =
         ^ fun food -> this.EatFood (config, player, food)
 
     member private this.EatFood
-        (config : ModConfig, player : Farmer, food : Food)
+        (config : ModConfig, player : Farmer, food : FoodObject)
         =
         let shouldEatWithAnimation =
             not config.IsSkipEatingAnimationEnabled && Context.CanPlayerMove
 
-        let foodObj = player.Items.GetById food.Id |> Seq.head :?> FoodObject
-
         if config.IsSkipEatingAnimationEnabled then
-            this.EatWithoutAnimation (player, foodObj)
+            this.EatWithoutAnimation (player, food)
         elif shouldEatWithAnimation then
-            this.EatWithAnimation (config, player, foodObj)
+            this.EatWithAnimation (config, player, food)
 
     member private this.EatWithAnimation
         (config : ModConfig, player : Farmer, food : FoodObject)

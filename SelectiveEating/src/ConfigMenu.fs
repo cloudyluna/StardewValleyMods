@@ -1,4 +1,4 @@
-namespace SelectiveEating
+namespace SelectiveEating.Config
 
 open StardewModdingAPI
 open CloudyCore.IGenericConfigMenuApi
