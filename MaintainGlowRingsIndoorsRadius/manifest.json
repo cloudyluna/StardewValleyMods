@@ -1,7 +1,7 @@
 {
   "Name": "Maintain Glow Rings Indoors Radius",
   "Author": "Cloudyluna",
-  "Version": "0.1.0",
+  "Version": "0.2.0",
   "Description": "Make glow rings emits the same outdoor's light radius, even when indoors.",
   "UniqueID": "Cloudyluna.MaintainGlowRingsIndoorsRadius",
   "EntryDll": "MaintainGlowRingsIndoorsRadius.dll",

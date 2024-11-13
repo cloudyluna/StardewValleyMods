@@ -14,11 +14,11 @@ internal class RingPatcher
         Monitor = monitor;
     }
 
-    internal static bool Update_Prefix(Ring __instance, int? ____lightSourceID, GameTime time, GameLocation environment, Farmer who)
+    internal static bool Update_Prefix(Ring __instance, string? ___lightSourceId, GameTime time, GameLocation environment, Farmer who)
     {
         try
         {
-            if (!____lightSourceID.HasValue)
+            if (___lightSourceId == null)
             {
                 return false;
             }
@@ -28,7 +28,7 @@ internal class RingPatcher
                 zero += who.drawOffset;
             }
 
-            environment.repositionLightSource(____lightSourceID.Value, new Vector2(who.Position.X + 21f, who.Position.Y) + zero);
+            environment.repositionLightSource(___lightSourceId, new Vector2(who.Position.X + 21f, who.Position.Y) + zero);
 
             return false;
 
