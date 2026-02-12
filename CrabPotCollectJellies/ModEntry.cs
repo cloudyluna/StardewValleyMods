@@ -53,5 +53,21 @@ internal class ModEntry : Mod
             getValue: () => this.Config.IsModEnabled,
             setValue: value => this.Config.IsModEnabled = value
         );
+
+        configMenu.AddBoolOption(
+            mod: this.ModManifest,
+            name: () => i18n.Get("menu.basics.enable-seaweed"),
+            tooltip: () => i18n.Get("menu.basics.enable-seaweed.tooltip"),
+            getValue: () => this.Config.IsSeaweedEnabled,
+            setValue: value => this.Config.IsSeaweedEnabled = value
+        );
+
+        configMenu.AddBoolOption(
+            mod: this.ModManifest,
+            name: () => i18n.Get("menu.basics.enable-algae"),
+            tooltip: () => i18n.Get("menu.basics.enable-algae.tooltip"),
+            getValue: () => this.Config.IsAlgaeEnabled,
+            setValue: value => this.Config.IsAlgaeEnabled = value
+        );
     }
 }

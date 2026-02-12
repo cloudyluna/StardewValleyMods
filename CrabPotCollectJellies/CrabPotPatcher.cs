@@ -188,24 +188,27 @@ internal class CrabPotPatcher
     )
     {
         resultIds = new List<string> { originalId };
-        if (Config != null && Config.IsModEnabled)
+        if (Config != null)
         {
-            CollectJellies(random, location, crabPotFishForTile, ref resultIds);
+            if (Config.IsModEnabled)
+            {
+                CollectJelly(random, location, crabPotFishForTile, ref resultIds);
+            }
         }
     }
 
-    static private void CollectJellies(
+    static private void CollectJelly(
         Random random,
         GameLocation location,
         IList<string> crabPotFishForTile,
-        ref List<string> ids)
+        ref List<string> itemIds)
     {
         foreach (string jellyId in crabPotFishForTile)
         {
             var baseChance = 0.6;
             if (jellyId == "ocean" && !(location.NameOrUniqueName == "UndergroundMine"))
             {
-                if (random.NextBool(baseChance + 0.1)) ids.Add("SeaJelly");
+                if (random.NextBool(baseChance + 0.1)) itemIds.Add("SeaJelly");
             }
             else
             {
@@ -216,7 +219,9 @@ internal class CrabPotPatcher
                 // so hence why we randomize this addition a bit further.
                 var riverJelly = "RiverJelly";
                 var caveJelly = "CaveJelly";
-                var _ids = ids;
+                var seaweed = "152";
+                var greenAlgae = "153";
+                var _ids = itemIds;
 
                 void weightedCaveJellyChance(double chance)
                 {
@@ -227,26 +232,33 @@ internal class CrabPotPatcher
                 if (location.NameOrUniqueName == "WitchSwamp")
                 {
                     weightedCaveJellyChance(0.1);
-                    ids = _ids;
+                    itemIds = _ids;
                 }
                 else if (location.NameOrUniqueName == "FarmCave")
                 {
 
                     weightedCaveJellyChance(0.2);
-                    ids = _ids;
+                    itemIds = _ids;
                 }
                 else if (location.NameOrUniqueName == "UndergroundMine")
                 {
-                    if (random.NextBool(baseChance + 0.2)) ids.Add(caveJelly);
+                    if (random.NextBool(baseChance + 0.2)) itemIds.Add(caveJelly);
                 }
                 else
                 {
-                    if (random.NextBool(baseChance + 0.1)) ids.Add(riverJelly);
-                    if (random.NextBool(baseChance - 0.3)) ids.Add(caveJelly);
+                    if (Config != null)
+                    {
+                        if (Config.IsSeaweedEnabled) itemIds.Add(seaweed);
+                        if (Config.IsAlgaeEnabled) itemIds.Add(greenAlgae);
+                    }
+
+                    if (random.NextBool(baseChance + 0.1)) itemIds.Add(riverJelly);
+                    if (random.NextBool(baseChance - 0.3)) itemIds.Add(caveJelly);
                 }
             }
 
             break;
         }
     }
+
 }
