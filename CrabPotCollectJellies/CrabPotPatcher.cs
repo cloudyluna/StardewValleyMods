@@ -256,6 +256,13 @@ internal class CrabPotPatcher
                     weightedCaveJellyChance(0.2);
                     itemIds = _ids;
                 }
+                else if (location.NameOrUniqueName == "Sewer" || location.NameOrUniqueName == "BugLand")
+                {
+                    if (Config != null && Config.IsWhiteAlgaeEnabled && random.NextBool(baseChance + 0.1))
+                    {
+                        itemIds.Add(whiteAlgae);
+                    }
+                }
                 else if (location.NameOrUniqueName == "UndergroundMine")
                 {
                     if (Config != null && Config.IsWhiteAlgaeEnabled && random.NextBool(baseChance + 0.1))

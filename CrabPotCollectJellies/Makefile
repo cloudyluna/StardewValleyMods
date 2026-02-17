@@ -1,4 +1,4 @@
 include ../Makefile.variable
 
 PROJECT_NAME:=CrabPotCollectJellies
-VERSION:=1.2.0
+VERSION:=1.2.1
