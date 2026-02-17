@@ -2,7 +2,9 @@
     "menu.basics.enable-mod": "Enable Mod?",
     "menu.basics.enable-mod.tooltip": "Changes can be seen in the next day after you enable or disable this setting.",
     "menu.basics.enable-seaweed": "Enable Seaweed?",
-    "menu.basics.enable-seaweed.tooltip": "Enable seaweed collection.",
-    "menu.basics.enable-algae": "Enable Algae?",
-    "menu.basics.enable-algae.tooltip": "Enable green algae collection."
+    "menu.basics.enable-seaweed.tooltip": "Enable seaweed collection in the beach area.",
+    "menu.basics.enable-green-algae": "Enable Green Algae?",
+    "menu.basics.enable-green-algae.tooltip": "Enable green algae collection.",
+    "menu.basics.enable-white-algae": "Enable White Algae?",
+    "menu.basics.enable-white-algae.tooltip": "Enable white algae collection."
 }

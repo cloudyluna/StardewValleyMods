@@ -8,6 +8,9 @@ public class ModConfig
     public bool IsSeaweedEnabled = false;
 
 
-    public bool IsAlgaeEnabled = false;
+    public bool IsGreenAlgaeEnabled = false;
+
+
+    public bool IsWhiteAlgaeEnabled = false;
 
 }

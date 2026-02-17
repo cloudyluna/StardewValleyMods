@@ -64,10 +64,18 @@ internal class ModEntry : Mod
 
         configMenu.AddBoolOption(
             mod: this.ModManifest,
-            name: () => i18n.Get("menu.basics.enable-algae"),
-            tooltip: () => i18n.Get("menu.basics.enable-algae.tooltip"),
-            getValue: () => this.Config.IsAlgaeEnabled,
-            setValue: value => this.Config.IsAlgaeEnabled = value
+            name: () => i18n.Get("menu.basics.enable-green-algae"),
+            tooltip: () => i18n.Get("menu.basics.enable-green-algae.tooltip"),
+            getValue: () => this.Config.IsGreenAlgaeEnabled,
+            setValue: value => this.Config.IsGreenAlgaeEnabled = value
+        );
+
+        configMenu.AddBoolOption(
+            mod: this.ModManifest,
+            name: () => i18n.Get("menu.basics.enable-white-algae"),
+            tooltip: () => i18n.Get("menu.basics.enable-white-algae.tooltip"),
+            getValue: () => this.Config.IsWhiteAlgaeEnabled,
+            setValue: value => this.Config.IsWhiteAlgaeEnabled = value
         );
     }
 }

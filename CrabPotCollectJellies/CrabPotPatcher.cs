@@ -203,24 +203,32 @@ internal class CrabPotPatcher
         IList<string> crabPotFishForTile,
         ref List<string> itemIds)
     {
+        // Make this rarer because:
+        // Cave jellies are expensive and they give luck bonus.
+        // To see cave jelly appear as often as river's
+        // doesn't make a lot of sense,
+        // so hence why we randomize this addition a bit further.
+        var seaJelly = "SeaJelly";
+        var riverJelly = "RiverJelly";
+        var caveJelly = "CaveJelly";
+        var seaweed = "152";
+        var greenAlgae = "153";
+        var whiteAlgae = "157";
+
         foreach (string jellyId in crabPotFishForTile)
         {
             var baseChance = 0.6;
             if (jellyId == "ocean" && !(location.NameOrUniqueName == "UndergroundMine"))
             {
-                if (random.NextBool(baseChance + 0.1)) itemIds.Add("SeaJelly");
+                if (Config != null && Config.IsSeaweedEnabled && random.NextBool(baseChance + 0.1))
+                {
+                    itemIds.Add(seaweed);
+                }
+
+                if (random.NextBool(baseChance + 0.1)) itemIds.Add(seaJelly);
             }
             else
             {
-                // Make this rarer because:
-                // Cave jellies are expensive and they give luck bonus.
-                // To see cave jelly appear as often as river's
-                // doesn't make a lot of sense,
-                // so hence why we randomize this addition a bit further.
-                var riverJelly = "RiverJelly";
-                var caveJelly = "CaveJelly";
-                var seaweed = "152";
-                var greenAlgae = "153";
                 var _ids = itemIds;
 
                 void weightedCaveJellyChance(double chance)
@@ -231,25 +239,40 @@ internal class CrabPotPatcher
 
                 if (location.NameOrUniqueName == "WitchSwamp")
                 {
+                    if (Config != null && Config.IsWhiteAlgaeEnabled && random.NextBool(baseChance + 0.2))
+                    {
+                        itemIds.Add(whiteAlgae);
+                    }
+
                     weightedCaveJellyChance(0.1);
                     itemIds = _ids;
                 }
                 else if (location.NameOrUniqueName == "FarmCave")
                 {
-
+                    if (Config != null && Config.IsWhiteAlgaeEnabled && random.NextBool(baseChance))
+                    {
+                        itemIds.Add(whiteAlgae);
+                    }
                     weightedCaveJellyChance(0.2);
                     itemIds = _ids;
                 }
                 else if (location.NameOrUniqueName == "UndergroundMine")
                 {
+                    if (Config != null && Config.IsWhiteAlgaeEnabled && random.NextBool(baseChance + 0.1))
+                    {
+                        itemIds.Add(whiteAlgae);
+                    }
                     if (random.NextBool(baseChance + 0.2)) itemIds.Add(caveJelly);
                 }
                 else
                 {
-                    if (Config != null)
+
+                    if (Config != null
+                        && Config.IsGreenAlgaeEnabled
+                        && location.NameOrUniqueName != "Beach"
+                        && random.NextBool(baseChance + 0.1))
                     {
-                        if (Config.IsSeaweedEnabled) itemIds.Add(seaweed);
-                        if (Config.IsAlgaeEnabled) itemIds.Add(greenAlgae);
+                        itemIds.Add(greenAlgae);
                     }
 
                     if (random.NextBool(baseChance + 0.1)) itemIds.Add(riverJelly);
