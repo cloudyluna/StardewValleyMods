@@ -26,10 +26,8 @@
             zip
             unzip
             gnumake
-            pandoc
-            texliveMedium
             git
-            
+            typst
           ];
 
           LD_LIBRARY_PATH = "${lib.makeLibraryPath buildInputs}";
