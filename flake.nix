@@ -27,6 +27,8 @@
             unzip
             gnumake
             git
+
+            pandoc
             typst
           ];
 
