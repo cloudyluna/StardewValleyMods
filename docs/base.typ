@@ -1,4 +1,6 @@
-#show link: underline
+#let style = {
+  show link: underline
+}
 
 #let author = "Momo"
 

@@ -1,5 +1,3 @@
-#show link: underline
-
 #let mk-section(title, items) = {
   [=== #title
     #list(..items.map(item => [#item]))
@@ -31,14 +29,14 @@
 }
 
 
-#let header(description: "") = {
+#let mk-changelog(items) = {
   [= Changelog
     #line(length: 100%)
     All notable changes to this project will be documented in this file.
     \ \
     The format is based on #link("https://keepachangelog.com/en/1.1.0/")[Keep A Changelog], and this project adheres to #link("https://semver.org/spec/v2.0.0.html")[Semantic Versioning].
 
-    #description
+    #items
   ]
 }
 
@@ -56,23 +54,3 @@
 #let unreleased(items) = {
   new-version("Unreleased", none, items)
 }
-
-// example use case
-/*
-#header()
-
-#unreleased((
-  added(("new cool thing", "whatever that is")),
-  fixed(("mewp new", "blah")),
-  deprecated(("Deprecate abc",)),
-))
-
-#new-version("0.1.0", (year: 2026, month: 10, day: 17), (
-  added(("Added a new cool code",)),
-  removed(("Removed new", "blah")),
-))
-
-#new-version("0.2.0", (year: 2021, month: 11, day: 14), (
-  fixed(("ahah",)),
-))
-*/
