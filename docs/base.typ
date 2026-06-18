@@ -99,7 +99,7 @@
     #mk-changelog-notice(mod-name)]
 }
 
-#let mk-copyright(year: none) = {
+#let mk-copyright(year) = {
   let year = if year == none [#(
     datetime.today().year()
   )] else [#year]
@@ -111,7 +111,7 @@
   [== License
     #line(length: 100%)
 
-    #mk-copyright(year: year) \ \
+    #mk-copyright(year) \ \
     This project is licensed under the AGPL-3.0-or-later license - see the *#emph[LICENSE]* for details.]
 }
 
