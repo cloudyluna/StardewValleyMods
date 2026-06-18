@@ -78,7 +78,7 @@
   [== What changed?
     #line(length: 100%)
 
-    See #link("https://github.com/cloudyluna/StardewValleyMods/tree/main/" + mod-name + "/CHANGELOG.md") file for details.]
+    See #link("https://codeberg.org/mistymomo/StardewValleyMods/src/branch/main/" + mod-name + "/CHANGELOG.md") file for details.]
 }
 
 #let mk-compat-group(
