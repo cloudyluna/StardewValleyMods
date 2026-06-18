@@ -4,7 +4,7 @@
 
 // Functions.
 
-#let mk-project-title(title, description) = {
+#let mk-title(title, description) = {
   [= #title
     #line(length: 100%)
 
@@ -13,7 +13,7 @@
   ]
 }
 
-#let mk-project-version(version) = {
+#let mk-version(version) = {
   [== Version
     #line(length: 100%)
 
@@ -21,10 +21,29 @@
   ]
 }
 
+#let mk-features(version, features) = {
+  [== Features
+    #line(100%)
+
+    #(for i in features [#i])
+
+    #mk-version(version)
+  ]
+}
+
+#let mk-deps(additional-deps) = {
+  [== Requirements
+    #line(length: 100%)
+
+    - Stardew Valley 1.6 (preferably, version 1.6.15)
+    - #link("https://www.nexusmods.com/stardewvalley/mods/2400", "SMAPI") (minimum v4.0.0 and higher)
+    #(for i in additional-deps [])
+  ]
+}
+
 #let mk-mod-link(mod-uid, name, tab: "description") = {
   let url = str(
-    "https://www.nexusmods.com/stardewvalley/mods/"
-      + str(mod-uid),
+    "https://www.nexusmods.com/stardewvalley/mods/" + str(mod-uid),
   )
   let name = if name == none [#url] else [#name]
 
@@ -74,11 +93,11 @@
   ]
 }
 
-#let mk-changelog-notice(mod-name) = {
-  [== What changed?
+#let mk-changelog(mod-name) = {
+  [== What has changed?
     #line(length: 100%)
 
-    See #link("https://codeberg.org/mistymomo/StardewValleyMods/src/branch/main/" + mod-name + "/CHANGELOG.md") file for details.]
+    See the #link("https://codeberg.org/mistymomo/StardewValleyMods/src/branch/main/" + mod-name + "/CHANGELOG.md", "CHANGELOG.md") file for details.]
 }
 
 #let mk-compat-group(
@@ -96,7 +115,7 @@
       )]
     )
 
-    #mk-changelog-notice(mod-name)]
+    #mk-changelog(mod-name)]
 }
 
 #let mk-copyright(year) = {
@@ -118,8 +137,7 @@
 #let mk-repo-links(mod-name, sites: (github: false)) = {
   let github = if sites.github [
     - #link(
-        "https://github.com/cloudyluna/StardewValleyMods/tree/main/"
-          + mod-name,
+        "https://github.com/cloudyluna/StardewValleyMods/tree/main/" + mod-name,
         "Github",
       )
   ] else []
@@ -127,13 +145,12 @@
   [== Source code
     #line(length: 100%)
 
-    #github
-
     - #link(
-        "https://codeberg.org/mistymomo/StardewValleyMods/src/branch/main/"
-          + mod-name,
+        "https://codeberg.org/mistymomo/StardewValleyMods/src/branch/main/" + mod-name,
         "Codeberg",
       )
+
+    #github
   ]
 }
 
@@ -142,7 +159,7 @@
   [== Mod page
     #line(length: 100%)
 
-    #mk-mod-link(mod-uid, "Description")
+    #mk-mod-link(mod-uid, "Nexusmods")
   ]
 }
 
@@ -155,3 +172,13 @@
 
   - #link("https://www.nexusmods.com/stardewvalley/mods/5098", "Generic Config Menu dev and contributors") for making mod configuration through GUI, simple and easy.
 ]
+
+#let mk-acknowledge(mod-uid, mod-name, repo-sites) = {
+  [
+    #thanks-to
+
+    #mk-mod-page-link(mod-uid)
+
+    #mk-repo-links(mod-name, sites: repo-sites)
+  ]
+}
