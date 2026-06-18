@@ -33,16 +33,16 @@ q:  translation
 	$(DOTNET) build --no-restore
 
 documentation: update_versions
-	$(DOCS_COMPILE) README.tex -o ../README.md
-	$(DOCS_COMPILE) CHANGELOG.tex -o ../CHANGELOG.md
+	$(DOCS_COMPILE) README.typ -o ../README.md
+	$(DOCS_COMPILE) CHANGELOG.typ -o ../CHANGELOG.md
 
 documentation_plain:
-	cd docs && pandoc -t plain README.tex -o ../README.txt
-	cd docs && pandoc -t plain CHANGELOG.tex -o ../CHANGELOG.txt
+	cd docs && pandoc -t plain README.typ -o ../README.txt
+	cd docs && pandoc -t plain CHANGELOG.typ -o ../CHANGELOG.txt
 
 documentation_bbcode:
-	cd docs && pandoc -t ../../docs/bbcode_nexusmods.lua README.tex -o ../README.bbcode
-	cd docs && pandoc -t ../../docs/bbcode_nexusmods.lua CHANGELOG.tex -o ../CHANGELOG.bbcode
+	cd docs && pandoc -t ../../docs/bbcode_nexusmods.lua README.typ -o ../README.bbcode
+	cd docs && pandoc -t ../../docs/bbcode_nexusmods.lua CHANGELOG.typ -o ../CHANGELOG.bbcode
 
 release:
 	rm -rf bin/ obj/
@@ -60,8 +60,8 @@ release:
 	cp -r $(TRANSLATION_DIR) $(RELEASE_DIR)
 	cp -r $(TRANSLATION_DIR) $(DEBUG_DIR)
 
-	$(DOCS_COMPILE) README.tex -o ../README.md
-	$(DOCS_COMPILE) CHANGELOG.tex -o ../CHANGELOG.md
+	$(DOCS_COMPILE) README.typ -o ../README.md
+	$(DOCS_COMPILE) CHANGELOG.typ -o ../CHANGELOG.md
 	cp -f README.md $(RELEASE_DIR)
 	cp -f CHANGELOG.md $(RELEASE_DIR)
 	cp -f README.md $(DEBUG_DIR)

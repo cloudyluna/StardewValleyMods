@@ -72,6 +72,4 @@ then they definitely can collect aquatic jellies there too.
 
 #base.mk-license(year: 2026)
 
-#emph[
-  This license does not include the copied Stardew's own code.
-]
+_This license does not include the copied Stardew's own code._

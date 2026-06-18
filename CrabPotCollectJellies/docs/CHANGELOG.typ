@@ -21,7 +21,7 @@
   ))
 
   #bc.new-version("1.0.1", (year: 2026, month: 9, day: 16), (
-    bc.fixed(([Crab pots unable to collect jelly when player picks \textbf{mariner} skill (fishing level 10).],)),
+    bc.fixed(([Crab pots unable to collect jelly when player picks _mariner_ skill (fishing level 10).],)),
   ))
 
   #bc.new-version("1.0.1", (year: 2026, month: 9, day: 16), (

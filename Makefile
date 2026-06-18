@@ -12,10 +12,6 @@ test:
 	$(MAKE) test -C SelectiveEating
 
 documentation:
-	cd docs && pandoc -t gfm Main.tex -o ../README.md
-	$(MAKE) documentation -C SelectiveEating
-	$(MAKE) documentation -C MaintainGlowRingsIndoorsRadius
-	$(MAKE) documentation -C DropSeedsAfterEating
 	$(MAKE) documentation -C CrabPotCollectJellies
 
 release: test
