@@ -4,10 +4,10 @@
 
 All notable changes to this project will be documented in this file.  
   
-The format is based on <u><u>[Keep A
-Changelog](https://keepachangelog.com/en/1.1.0/)</u></u>, and this
-project adheres to <u><u>[Semantic
-Versioning](https://semver.org/spec/v2.0.0.html)</u></u>.
+The format is based on <u>[Keep A
+Changelog](https://keepachangelog.com/en/1.1.0/)</u>, and this project
+adheres to <u>[Semantic
+Versioning](https://semver.org/spec/v2.0.0.html)</u>.
 
 ## \[1.2.1\] - 2026-02-18
 
@@ -62,10 +62,10 @@ Versioning](https://semver.org/spec/v2.0.0.html)</u></u>.
 
 ### Added
 
-- Crab pots in <u><u><u><u><u><u><u>[mines/underground
-  caves/dungeons](https://stardewvalleywiki.com/The_Mines)</u></u></u></u></u></u></u>
-  (level 20, 60, 100) now can collect jellies and the only jelly they
-  will catch is cave jelly. Farm cave and Witch’s swamp ***are not
+- Crab pots in <u>[mines/underground
+  caves/dungeons](https://stardewvalleywiki.com/The_Mines)</u> (level
+  20, 60, 100) now can collect jellies and the only jelly they will
+  catch is cave jelly. Farm cave and Witch’s swamp ***are not
   affected***.
 
 - Jellies can be of different quality than normal.
