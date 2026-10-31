@@ -18,7 +18,7 @@
       {
         devShells.default = with pkgs; mkShell rec {
           buildInputs = [
-            dotnetCorePackages.sdk_8_0_3xx
+            dotnetCorePackages.sdk_8_0_4xx
             ilspycmd # decompile SDV because there are so many things that
                      # aren't simply present in public documentation.
             jq
@@ -35,7 +35,8 @@
           LD_LIBRARY_PATH = "${lib.makeLibraryPath buildInputs}";
 
           shellHook = ''          
-            export STARDEW_VALLEY="$HOME/Games/sdv-dev/drive_c/GOG Games/Stardew Valley"
+            export STARDEW_VALLEY="$HOME/.steam/steam/steamapps/common/Stardew Valley"
+            export PATH="$PATH:$HOME/.dotnet/tools"
           '';
         };
       }
