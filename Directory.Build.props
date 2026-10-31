@@ -10,6 +10,9 @@
     <DeterministicSourcePaths>true</DeterministicSourcePaths>
     <PathMap>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)'))=./</PathMap>
 
+    <!-- Strictly prevent MSBuild and Paket from scanning the .direnv folder for projects/sources -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);.direnv/**/*;**/.direnv/**/*</DefaultItemExcludes>
+
     <GamePath>$(STARDEW_VALLEY)</GamePath>
     <EnableModZip>false</EnableModZip>
 
